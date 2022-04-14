@@ -1,4 +1,4 @@
-package com.expert.mark.model.method.type;
+package com.expert.mark.model.forecast.method.type;
 
 public enum MethodType {
     DELPHI_METHOD_FORECAST,

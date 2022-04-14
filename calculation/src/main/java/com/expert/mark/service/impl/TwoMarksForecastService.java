@@ -1,7 +1,7 @@
 package com.expert.mark.service.impl;
 
-import com.expert.mark.model.method.MethodData;
-import com.expert.mark.model.method.data.TwoMarksData;
+import com.expert.mark.model.forecast.method.MethodData;
+import com.expert.mark.model.forecast.method.data.TwoMarksData;
 import com.expert.mark.service.BasicExpertForecastCalculationService;
 
 public class TwoMarksForecastService implements BasicExpertForecastCalculationService {

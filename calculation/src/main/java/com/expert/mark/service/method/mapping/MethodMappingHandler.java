@@ -1,6 +1,6 @@
 package com.expert.mark.service.method.mapping;
 
-import com.expert.mark.model.method.type.MethodType;
+import com.expert.mark.model.forecast.method.type.MethodType;
 import com.expert.mark.service.BasicExpertForecastCalculationService;
 import com.expert.mark.service.impl.DelphiMethodForecastService;
 import com.expert.mark.service.impl.ThreeMarksForecastService;

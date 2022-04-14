@@ -1,6 +1,6 @@
 package com.expert.mark.util.comparator;
 
-import com.expert.mark.model.method.data.DelphiMethodData;
+import com.expert.mark.model.forecast.method.data.DelphiMethodData;
 
 import java.util.Comparator;
 

@@ -1,7 +1,7 @@
 package com.expert.mark.service.impl;
 
-import com.expert.mark.model.method.MethodData;
-import com.expert.mark.model.method.data.DelphiMethodData;
+import com.expert.mark.model.forecast.method.MethodData;
+import com.expert.mark.model.forecast.method.data.DelphiMethodData;
 import com.expert.mark.service.BasicExpertForecastCalculationService;
 import com.expert.mark.util.comparator.DelphiMarkComparator;
 import jakarta.validation.constraints.NotNull;

@@ -1,7 +1,6 @@
-package com.expert.mark.model.method.data;
+package com.expert.mark.model.forecast.method.data;
 
-import com.expert.mark.model.User;
-import com.expert.mark.model.method.MethodData;
+import com.expert.mark.model.forecast.method.MethodData;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import jakarta.validation.constraints.NotNull;
@@ -15,7 +14,7 @@ import java.util.stream.IntStream;
 @Setter
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-@Builder
+@ToString
 public class DelphiMethodData extends MethodData {
     @NotNull
     private List<DelphiMark> delphiMarkList;

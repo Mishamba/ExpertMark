@@ -21,9 +21,12 @@
         </plugins>
     </build>
     <modules>
-        <module>core</module>
         <module>calculation</module>
         <module>util</module>
+        <module>model</module>
+        <module>user</module>
+        <module>core</module>
+        <module>forecast</module>
     </modules>
 
     <dependencies>
