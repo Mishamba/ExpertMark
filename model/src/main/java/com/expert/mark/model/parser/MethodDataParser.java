@@ -1,4 +1,4 @@
-package com.expert.mark.util.parser;
+package com.expert.mark.model.parser;
 
 import com.expert.mark.model.forecast.method.MethodData;
 import com.expert.mark.model.forecast.method.data.DelphiMethodData;

@@ -1,6 +1,6 @@
 package com.expert.mark.model.account;
 
-public enum Status {
+public enum Role {
     ADMIN,
     USER
 }
