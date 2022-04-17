@@ -1,12 +1,19 @@
 package com.expert.mark.model.account;
 
 import io.vertx.core.json.JsonObject;
+import lombok.*;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
 public class User {
     private String username;
     private char[] password;

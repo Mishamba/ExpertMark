@@ -14,14 +14,15 @@ import java.util.List;
 @ToString
 @EqualsAndHashCode
 public class Profile {
-    private List<Achievement> achievementList;
+    private List<String> achievementList;
     private List<String> followingUserNames;
+    private String accountDescription;
 
     public Profile(JsonObject jsonObject) {
         this.achievementList = new ArrayList<>();
         JsonArray achievementsJsonArray = jsonObject.getJsonArray("achievementList");
-        achievementsJsonArray.forEach(achievementJsonObject -> {
-            this.achievementList.add(new Achievement((JsonObject) achievementJsonObject));
+        achievementsJsonArray.forEach(achievementName -> {
+            this.achievementList.add((String) achievementName);
         });
 
         this.followingUserNames = new ArrayList<>();
@@ -29,5 +30,7 @@ public class Profile {
         followingJsonArray.forEach(username -> {
             this.followingUserNames.add((String) username);
         });
+
+        this.accountDescription = jsonObject.getString("accountDescription");
     }
 }
