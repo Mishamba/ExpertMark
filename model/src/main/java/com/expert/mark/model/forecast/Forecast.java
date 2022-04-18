@@ -27,7 +27,7 @@ public class Forecast {
     private ForecastStatus forecastStatus;
 
     public Forecast(JsonObject jsonObject) {
-        this.id = jsonObject.getString("id");
+        this.id = jsonObject.getString("_id");
         this.methodType = MethodType.valueOf(jsonObject.getString("methodType"));
         this.methodData = MethodDataParser.
                 parseJsonToMethodData(jsonObject.getJsonObject("methodDate"), this.methodType);
@@ -36,5 +36,18 @@ public class Forecast {
         this.createDate = DateParser.parseToDate(jsonObject.getString("createDate"));
         this.targetDate = DateParser.parseToDate(jsonObject.getString("targetDate"));
         this.forecastStatus = ForecastStatus.valueOf(jsonObject.getString("forecastStatus"));
+    }
+
+    public JsonObject parseToJson() {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.put("_id", this.id);
+        jsonObject.put("methodType", this.methodType.name());
+        jsonObject.put("methodData", this.methodData.parseToJson());
+        jsonObject.put("assetName", this.assetName);
+        jsonObject.put("ownerUsername", this.ownerUsername);
+        jsonObject.put("createDate", DateParser.parseToString(this.createDate));
+        jsonObject.put("targetDate", DateParser.parseToString(this.targetDate));
+        jsonObject.put("forecastStatus", this.forecastStatus.name());
+        return jsonObject;
     }
 }
