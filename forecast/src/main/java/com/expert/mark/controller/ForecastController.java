@@ -3,6 +3,7 @@ package com.expert.mark.controller;
 import com.expert.mark.model.forecast.Forecast;
 import com.expert.mark.service.ForecastService;
 import com.expert.mark.service.impl.ForecastServiceImpl;
+import com.expert.mark.util.security.decryption.DecryptionUtil;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
@@ -13,7 +14,7 @@ import java.util.List;
 
 public class ForecastController extends AbstractVerticle {
 
-    private ForecastService forecastService = new ForecastServiceImpl();
+    private final ForecastService forecastService = new ForecastServiceImpl();
 
     @Override
     public void start() throws Exception {
@@ -75,8 +76,11 @@ public class ForecastController extends AbstractVerticle {
 
     void userFollowingBasedAssetForecast(RoutingContext ctx) {
         String assetName = ctx.pathParam("assetName");
-        //get username from jwt cookie
+        String userToken = ctx.request().getCookie("userToken").getValue();
         String username = null;
+        if (userToken != null) {
+            username = DecryptionUtil.getUsernameFromUserToken(userToken);
+        }
         List<Forecast> forecastList = forecastService.getAssetForecasts(assetName, username);
         ctx.response().putHeader("Content-Type", "application/json").
                 setStatusCode(200).send(forecastList.toString());
