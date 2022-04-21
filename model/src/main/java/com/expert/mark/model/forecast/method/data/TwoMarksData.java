@@ -19,4 +19,13 @@ public class TwoMarksData extends MethodData {
         this.pessimisticMark = jsonObject.getDouble("pessimisticMark");
         this.optimisticMark = jsonObject.getDouble("optimisticMark");
     }
+
+    @Override
+    public JsonObject parseToJson() {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.put("pessimisticMark", this.pessimisticMark);
+        jsonObject.put("optimisticMark", this.optimisticMark);
+        jsonObject.put("result", this.result);
+        return jsonObject;
+    }
 }

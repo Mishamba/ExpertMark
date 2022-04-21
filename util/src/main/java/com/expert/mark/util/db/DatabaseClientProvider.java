@@ -7,9 +7,11 @@ import io.vertx.ext.mongo.MongoClient;
 public class DatabaseClientProvider {
     public static MongoClient provide() {
         JsonObject config = new JsonObject();
-        config.put("username", "TODO");
-        config.put("password", "TODO");
+        config.put("username", "root");
+        config.put("password", "123");
         config.put("db_name", "expertMark");
+        config.put("host", "localhost");
+        config.put("port", 27017);
         return MongoClient.create(Vertx.vertx(), config);
     }
 }

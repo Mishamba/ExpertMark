@@ -27,4 +27,17 @@ public class ThreeMarksWithChancesData extends MethodData {
         this.optimisticMark = jsonObject.getDouble("optimisticMark");
         this.optimisticChance = jsonObject.getFloat("optimisticChance");
     }
+
+    @Override
+    public JsonObject parseToJson() {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.put("pessimisticMark", this.pessimisticMark);
+        jsonObject.put("pessimisticChance", this.pessimisticChance);
+        jsonObject.put("realisticMark", this.realisticMark);
+        jsonObject.put("realisticChance", this.realisticChance);
+        jsonObject.put("optimisticMark", this.optimisticMark);
+        jsonObject.put("optimisticChance", this.optimisticChance);
+        jsonObject.put("result", this.result);
+        return jsonObject;
+    }
 }

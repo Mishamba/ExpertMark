@@ -26,10 +26,16 @@
         <module>model</module>
         <module>user</module>
         <module>forecast</module>
-        <module>security</module>
     </modules>
 
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.mongodb/bson -->
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>bson</artifactId>
+            <version>4.5.1</version>
+        </dependency>
+
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-core</artifactId>

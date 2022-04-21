@@ -17,8 +17,8 @@ public class UserController extends AbstractVerticle {
         postPutRouter.route().handler(BodyHandler.create());
         postPutRouter.post("/user").handler(this::createUser);
         postPutRouter.put("/users/update/:username").handler(this::updateUser);
-        postPutRouter.put("/users/follow").handler(this::followUser);
-        postPutRouter.put("users/unfollow").handler(this::unFollowUser);
+        postPutRouter.put("/users/:username/follow").handler(this::followUser);
+        postPutRouter.put("/users/:username/unfollow").handler(this::unFollowUser);
 
         vertx.createHttpServer().requestHandler(getRouter).requestHandler(postPutRouter).listen(8086);
     }
