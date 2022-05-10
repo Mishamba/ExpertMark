@@ -1,12 +1,14 @@
 package com.expert.mark.service;
 
+import com.expert.mark.model.forecast.method.MethodData;
 import com.expert.mark.model.forecast.method.data.delphi.DelphiQuiz;
 import com.expert.mark.model.forecast.method.data.delphi.SingleMark;
 
 import java.util.List;
 
 public class DelphiQuizCalculator {
-    public DelphiQuiz process(DelphiQuiz quiz) {
+    public DelphiQuiz process(MethodData methodData) {
+        DelphiQuiz quiz = (DelphiQuiz) methodData;
         List<SingleMark> singleMarkList = quiz.getLastStep().getMarks();
         singleMarkList.sort(SingleMark::compareTo);
         double medianMark = 0;

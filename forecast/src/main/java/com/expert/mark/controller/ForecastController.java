@@ -27,7 +27,9 @@ public class ForecastController extends AbstractVerticle {
         postPutUpdateDeleteRouter.route().handler(BodyHandler.create());
         postPutUpdateDeleteRouter.post("/forecasts/create").handler(this::createForecast);
         postPutUpdateDeleteRouter.put("/forecasts/update").handler(this::updateForecast);
-        postPutUpdateDeleteRouter.delete("forecasts/delete").handler(this::deleteForecast);
+        postPutUpdateDeleteRouter.delete("/forecasts/delete").handler(this::deleteForecast);
+
+        vertx.createHttpServer().requestHandler(getRouter).requestHandler(postPutUpdateDeleteRouter).listen(8081).onFailure(Throwable::printStackTrace);
     }
 
     void getForecastById(RoutingContext ctx) {

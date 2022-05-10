@@ -22,6 +22,7 @@ public class User {
     private Date lastUpdateDate;
     private Role role;
     private Profile profile;
+    private Character character;
 
     public User(JsonObject jsonObject) {
         this.username = jsonObject.getString("username");
@@ -36,5 +37,6 @@ public class User {
         }
         this.role = Role.valueOf(jsonObject.getString("role"));
         this.profile = new Profile(jsonObject.getJsonObject("profile"));
+        this.character = Character.valueOf(jsonObject.getString("character"));
     }
 }

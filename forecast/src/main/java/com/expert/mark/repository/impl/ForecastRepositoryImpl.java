@@ -6,8 +6,6 @@ import com.expert.mark.util.db.DatabaseClientProvider;
 import io.vertx.core.Future;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.mongo.MongoClient;
-import org.bson.Document;
-
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -46,9 +44,7 @@ public class ForecastRepositoryImpl implements ForecastRepository {
         query.put("ownerUsername", username);
         query.put("assetName", assetName);
         JsonObject dateQuery = new JsonObject();
-        Document document = new Document();
-        document.put("date", new Date());
-        dateQuery.put("$lte", document.getString("date"));
+        dateQuery.put("$lte", new Date());
         query.put("targetDate", dateQuery);
         return findForecastsByQuery(query);
     }

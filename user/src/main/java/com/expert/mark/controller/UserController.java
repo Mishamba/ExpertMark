@@ -11,14 +11,14 @@ public class UserController extends AbstractVerticle {
         Router getRouter = Router.router(vertx);
         getRouter.get("/users/profile/:username").handler(this::getUserProfile);
         getRouter.get("/users/:username").handler(this::getUser);
-        getRouter.get("/following/:username").handler(this::getUserFollowings);
+        getRouter.get("/followings").handler(this::getUserFollowings);
         getRouter.get("/most_trusted_experts").handler(this::getMostTrustedExperts);
         Router postPutRouter = Router.router(vertx);
         postPutRouter.route().handler(BodyHandler.create());
         postPutRouter.post("/user").handler(this::createUser);
-        postPutRouter.put("/users/update/:username").handler(this::updateUser);
-        postPutRouter.put("/users/:username/follow").handler(this::followUser);
-        postPutRouter.put("/users/:username/unfollow").handler(this::unFollowUser);
+        postPutRouter.put("/users/update").handler(this::updateUser);
+        postPutRouter.put("/users/follow/:userToFollow").handler(this::followUser);
+        postPutRouter.put("/users/unfollow/:userToUnfollow").handler(this::unFollowUser);
 
         vertx.createHttpServer().requestHandler(getRouter).requestHandler(postPutRouter).listen(8086);
     }

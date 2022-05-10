@@ -33,26 +33,33 @@
         <dependency>
             <groupId>org.mongodb</groupId>
             <artifactId>bson</artifactId>
-            <version>4.5.1</version>
+            <version>4.6.0</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+            <version>3.12.11</version>
         </dependency>
 
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-core</artifactId>
-            <version>4.2.6</version>
+            <version>4.2.7</version>
         </dependency>
 
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-web</artifactId>
-            <version>4.2.6</version>
+            <version>4.2.7</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.22</version>
+            <version>1.18.24</version>
             <scope>provided</scope>
         </dependency>
 
@@ -60,7 +67,7 @@
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-codegen</artifactId>
-            <version>4.2.6</version>
+            <version>4.2.7</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator -->

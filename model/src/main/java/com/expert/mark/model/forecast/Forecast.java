@@ -7,7 +7,6 @@ import com.expert.mark.model.parser.MethodDataParser;
 import com.expert.mark.util.parser.DateParser;
 import io.vertx.core.json.JsonObject;
 import lombok.*;
-import org.bson.Document;
 
 import java.util.Date;
 
@@ -46,12 +45,8 @@ public class Forecast {
         jsonObject.put("methodData", this.methodData.parseToJson());
         jsonObject.put("assetName", this.assetName);
         jsonObject.put("ownerUsername", this.ownerUsername);
-        Document createDateDocument = new Document();
-        createDateDocument.put("createDate", this.createDate);
-        jsonObject.put("createDate", createDateDocument.getString("createDate"));
-        Document targetDateDocument = new Document();
-        createDateDocument.put("targetDate", this.targetDate);
-        jsonObject.put("targetDate", targetDateDocument.getString("targetDate"));
+        jsonObject.put("createDate", this.createDate.toString());
+        jsonObject.put("targetDate", this.targetDate.toString());
         jsonObject.put("forecastStatus", this.forecastStatus.name());
         return jsonObject;
     }
