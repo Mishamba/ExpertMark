@@ -3,7 +3,7 @@ package com.expert.mark.model.account;
 public enum Character {
     PSYCHIC,
     EXPERIENCED,
-    FORECASTMACHINE,
-    RAREBUTPRECISION,
-    REGULARGUY
+    FORECAST_MACHINE,
+    RARE_BUT_PRECISION,
+    NEWBIE
 }

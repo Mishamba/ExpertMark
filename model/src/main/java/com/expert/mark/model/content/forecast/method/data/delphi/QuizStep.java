@@ -1,4 +1,4 @@
-package com.expert.mark.model.forecast.method.data.delphi;
+package com.expert.mark.model.content.forecast.method.data.delphi;
 
 import com.expert.mark.util.parser.DateParser;
 import io.vertx.core.json.JsonObject;

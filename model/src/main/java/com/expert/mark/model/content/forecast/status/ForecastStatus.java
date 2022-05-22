@@ -1,4 +1,4 @@
-package com.expert.mark.model.forecast.status;
+package com.expert.mark.model.content.forecast.status;
 
 public enum ForecastStatus {
     COMING,

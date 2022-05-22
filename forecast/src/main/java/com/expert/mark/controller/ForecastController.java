@@ -1,6 +1,6 @@
 package com.expert.mark.controller;
 
-import com.expert.mark.model.forecast.Forecast;
+import com.expert.mark.model.content.forecast.Forecast;
 import com.expert.mark.service.ForecastService;
 import com.expert.mark.service.impl.ForecastServiceImpl;
 import com.expert.mark.util.security.decryption.DecryptionUtil;
@@ -18,24 +18,23 @@ public class ForecastController extends AbstractVerticle {
 
     @Override
     public void start() throws Exception {
-        Router getRouter = Router.router(vertx);
-        getRouter.route("/forecasts/:id").handler(this::getForecastById);
-        getRouter.route("/forecasts/user_following_based/:assetName").handler(this::userFollowingBasedAssetForecast);
-        getRouter.route("/forecasts/user_owned/:username").handler(this::getUsersForecasts);
-        getRouter.route("/forecasts/assets/:asset_name").handler(this::getAssetForecasts);
-        Router postPutUpdateDeleteRouter = Router.router(vertx);
-        postPutUpdateDeleteRouter.route().handler(BodyHandler.create());
-        postPutUpdateDeleteRouter.post("/forecasts/create").handler(this::createForecast);
-        postPutUpdateDeleteRouter.put("/forecasts/update").handler(this::updateForecast);
-        postPutUpdateDeleteRouter.delete("/forecasts/delete").handler(this::deleteForecast);
+        Router router = Router.router(vertx);
+        router.route().handler(BodyHandler.create());
+        router.delete("/forecasts/delete").handler(this::deleteForecast);
+        router.get("/forecasts/user_following_based/:assetName").handler(this::userFollowingBasedAssetForecast);
+        router.get("/forecasts/user_owned/:username").handler(this::getUsersForecasts);
+        router.get("/forecasts/assets/:asset_name").handler(this::getAssetForecasts);
+        router.put("/forecasts/create").handler(this::createForecast);
+        router.put("/forecasts/update").handler(this::updateForecast);
+        router.get("/forecasts/:id").handler(this::getForecastById);
 
-        vertx.createHttpServer().requestHandler(getRouter).requestHandler(postPutUpdateDeleteRouter).listen(8081).onFailure(Throwable::printStackTrace);
+        vertx.createHttpServer().requestHandler(router).listen(8081).onFailure(Throwable::printStackTrace);
     }
 
     void getForecastById(RoutingContext ctx) {
         String forecastId = ctx.pathParam("id");
         Forecast forecast = forecastService.getForecastById(forecastId);
-        ctx.response().putHeader("Content-Type", "application/json").send(forecast.toString());
+        ctx.response().putHeader("Content-Type", "application/json").send((forecast == null) ? "{}" : forecast.toString());
     }
 
     void updateForecast(RoutingContext ctx) {
@@ -43,23 +42,24 @@ public class ForecastController extends AbstractVerticle {
         Forecast forecastToUpdate = new Forecast(updatedForecast);
         boolean updatedSuccessfully = forecastService.updateForecast(forecastToUpdate);
         ctx.response().putHeader("Content-Type", "application/json").
-                setStatusCode((updatedSuccessfully) ? 200 : 500).send();
+                setStatusCode((updatedSuccessfully) ? 200 : 500).send(forecastToUpdate.toString());
     }
 
     void createForecast(RoutingContext ctx) {
         JsonObject jsonForecast = ctx.getBodyAsJson();
-        Forecast forecastToSave = new Forecast(jsonForecast);
-        Forecast savedForecast = forecastService.createForecast(forecastToSave);
+        Forecast forecast = new Forecast(jsonForecast);
+        Forecast savedForecast = forecastService.createForecast(forecast);
         ctx.response().putHeader("Content-Type", "application/json").
-                setStatusCode((savedForecast.getId() != null && !savedForecast.getId().isEmpty()) ? 200 : 500).send();
+                setStatusCode((savedForecast.get_id() != null && !savedForecast.get_id().isEmpty()) ? 200 : 500).
+                send(savedForecast.toString());
     }
 
     void deleteForecast(RoutingContext ctx) {
-        JsonObject updatedForecast = ctx.getBodyAsJson();
-        Forecast forecastToUpdate = new Forecast(updatedForecast);
-        boolean deletedSuccessfully = forecastService.deleteForecast(forecastToUpdate);
+        JsonObject body = ctx.getBodyAsJson();
+        String id = body.getString("_id");
+        boolean deletedSuccessfully = forecastService.deleteForecast(id);
         ctx.response().putHeader("Content-Type", "application/json").
-                setStatusCode((deletedSuccessfully) ? 200 : 500).send();
+                setStatusCode((deletedSuccessfully) ? 200 : 500).send((deletedSuccessfully) ? "Forecast was deleted" : "Forecast wasn't deleted");
     }
 
     void getUsersForecasts(RoutingContext ctx) {

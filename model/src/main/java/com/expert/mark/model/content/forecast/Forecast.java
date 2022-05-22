@@ -1,8 +1,7 @@
-package com.expert.mark.model.forecast;
+package com.expert.mark.model.content.forecast;
 
-import com.expert.mark.model.forecast.method.MethodData;
-import com.expert.mark.model.forecast.method.type.MethodType;
-import com.expert.mark.model.forecast.status.ForecastStatus;
+import com.expert.mark.model.content.forecast.method.MethodData;
+import com.expert.mark.model.content.forecast.method.type.MethodType;
 import com.expert.mark.model.parser.MethodDataParser;
 import com.expert.mark.util.parser.DateParser;
 import io.vertx.core.json.JsonObject;
@@ -17,37 +16,37 @@ import java.util.Date;
 @ToString
 @EqualsAndHashCode
 public class Forecast {
-    private String id;
+    private String _id;
     private MethodType methodType;
     private MethodData methodData;
     private String assetName;
     private String ownerUsername;
     private Date createDate;
     private Date targetDate;
-    private ForecastStatus forecastStatus;
+    private Float accuracy;
 
     public Forecast(JsonObject jsonObject) {
-        this.id = jsonObject.getString("_id");
+        this._id = jsonObject.getString("_id");
         this.methodType = MethodType.valueOf(jsonObject.getString("methodType"));
         this.methodData = MethodDataParser.
-                parseJsonToMethodData(jsonObject.getJsonObject("methodDate"), this.methodType);
+                parseJsonToMethodData(jsonObject.getJsonObject("methodData"), this.methodType);
         this.assetName = jsonObject.getString("assetName");
         this.ownerUsername = jsonObject.getString("ownerUsername");
         this.createDate = DateParser.parseToDate(jsonObject.getString("createDate"));
         this.targetDate = DateParser.parseToDate(jsonObject.getString("targetDate"));
-        this.forecastStatus = ForecastStatus.valueOf(jsonObject.getString("forecastStatus"));
+        this.accuracy = jsonObject.getFloat("accuracy");
     }
 
     public JsonObject parseToJson() {
         JsonObject jsonObject = new JsonObject();
-        jsonObject.put("_id", this.id);
+        jsonObject.put("_id", this._id);
         jsonObject.put("methodType", this.methodType.name());
         jsonObject.put("methodData", this.methodData.parseToJson());
         jsonObject.put("assetName", this.assetName);
         jsonObject.put("ownerUsername", this.ownerUsername);
-        jsonObject.put("createDate", this.createDate.toString());
-        jsonObject.put("targetDate", this.targetDate.toString());
-        jsonObject.put("forecastStatus", this.forecastStatus.name());
+        jsonObject.put("createDate", DateParser.parseToString(this.createDate));
+        jsonObject.put("targetDate", DateParser.parseToString(this.targetDate));
+        jsonObject.put("accuracy", this.accuracy);
         return jsonObject;
     }
 }

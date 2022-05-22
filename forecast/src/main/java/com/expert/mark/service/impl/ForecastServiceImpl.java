@@ -1,13 +1,14 @@
 package com.expert.mark.service.impl;
 
 import com.expert.mark.Calculator;
-import com.expert.mark.model.forecast.Forecast;
+import com.expert.mark.model.content.forecast.Forecast;
 import com.expert.mark.repository.ForecastRepository;
 import com.expert.mark.repository.impl.ForecastRepositoryImpl;
 import com.expert.mark.service.ForecastService;
 import io.vertx.core.Vertx;
 import io.vertx.ext.web.client.WebClient;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,12 +21,13 @@ public class ForecastServiceImpl implements ForecastService {
     @Override
     public Forecast createForecast(Forecast forecast) {
         calculator.calculateForecast(forecast);
+        forecast.setCreateDate(new Date());
         return forecastRepository.createForecast(forecast);
     }
 
     @Override
-    public boolean deleteForecast(Forecast forecast) {
-        return forecastRepository.deleteForecast(forecast.getId());
+    public boolean deleteForecast(String _id) {
+        return forecastRepository.deleteForecast(_id);
     }
 
     @Override

@@ -1,10 +1,10 @@
 package com.expert.mark.model.parser;
 
-import com.expert.mark.model.forecast.method.MethodData;
-import com.expert.mark.model.forecast.method.data.ThreeMarksData;
-import com.expert.mark.model.forecast.method.data.ThreeMarksWithChancesData;
-import com.expert.mark.model.forecast.method.data.TwoMarksData;
-import com.expert.mark.model.forecast.method.type.MethodType;
+import com.expert.mark.model.content.forecast.method.MethodData;
+import com.expert.mark.model.content.forecast.method.data.ThreeMarksData;
+import com.expert.mark.model.content.forecast.method.data.ThreeMarksWithChancesData;
+import com.expert.mark.model.content.forecast.method.data.TwoMarksData;
+import com.expert.mark.model.content.forecast.method.type.MethodType;
 import io.vertx.core.json.JsonObject;
 
 public class MethodDataParser {

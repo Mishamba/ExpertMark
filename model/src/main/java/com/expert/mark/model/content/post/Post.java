@@ -1,4 +1,4 @@
-package com.expert.mark.model.account;
+package com.expert.mark.model.content.post;
 
 import com.expert.mark.util.parser.DateParser;
 import io.vertx.core.json.JsonObject;

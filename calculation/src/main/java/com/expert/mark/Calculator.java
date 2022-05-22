@@ -1,6 +1,6 @@
 package com.expert.mark;
 
-import com.expert.mark.model.forecast.Forecast;
+import com.expert.mark.model.content.forecast.Forecast;
 import com.expert.mark.service.BasicExpertForecastCalculationService;
 import com.expert.mark.service.method.mapping.MethodMappingHandler;
 

@@ -1,8 +1,8 @@
 package com.expert.mark.service;
 
-import com.expert.mark.model.forecast.method.MethodData;
-import com.expert.mark.model.forecast.method.data.delphi.DelphiQuiz;
-import com.expert.mark.model.forecast.method.data.delphi.SingleMark;
+import com.expert.mark.model.content.forecast.method.MethodData;
+import com.expert.mark.model.content.forecast.method.data.delphi.DelphiQuiz;
+import com.expert.mark.model.content.forecast.method.data.delphi.SingleMark;
 
 import java.util.List;
 

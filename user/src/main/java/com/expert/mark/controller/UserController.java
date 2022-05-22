@@ -24,6 +24,7 @@ public class UserController extends AbstractVerticle {
     }
 
     void getUserProfile(RoutingContext ctx) {
+        String username = ctx.pathParam("username");
 
     }
 

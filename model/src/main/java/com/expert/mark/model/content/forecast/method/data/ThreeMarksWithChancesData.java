@@ -1,6 +1,6 @@
-package com.expert.mark.model.forecast.method.data;
+package com.expert.mark.model.content.forecast.method.data;
 
-import com.expert.mark.model.forecast.method.MethodData;
+import com.expert.mark.model.content.forecast.method.MethodData;
 import io.vertx.core.json.JsonObject;
 import lombok.*;
 

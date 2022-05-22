@@ -1,6 +1,6 @@
 package com.expert.mark.repository.impl;
 
-import com.expert.mark.model.forecast.Forecast;
+import com.expert.mark.model.content.forecast.Forecast;
 import com.expert.mark.repository.ForecastRepository;
 import com.expert.mark.util.db.DatabaseClientProvider;
 import io.vertx.core.Future;
@@ -9,18 +9,20 @@ import io.vertx.ext.mongo.MongoClient;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class ForecastRepositoryImpl implements ForecastRepository {
 
-    private final String documentName = "Forecast";
+    private final String documentName = "forecast";
     private final MongoClient mongoClient = DatabaseClientProvider.provide();
 
     @Override
     public Forecast findForecastById(String id) {
         JsonObject query = new JsonObject();
         query.put("_id", id);
-        return findForecastsByQuery(query).get(0);
+        List<Forecast> forecasts = findForecastsByQuery(query);
+        return (forecasts.isEmpty()) ? null : forecasts.get(0);
     }
 
     @Override
@@ -61,8 +63,13 @@ public class ForecastRepositoryImpl implements ForecastRepository {
             throw new RuntimeException(res.getMessage());
         });
 
-        return forecasts;
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
+        return forecasts;
     }
 
     @Override
@@ -72,6 +79,9 @@ public class ForecastRepositoryImpl implements ForecastRepository {
         AtomicReference<Boolean> success = new AtomicReference<>(false);
         mongoClient.findOneAndDelete(documentName, query).onComplete(res -> {
             success.set(res.succeeded());
+            if (!res.succeeded()) {
+                res.cause().printStackTrace();
+            }
         });
 
         return success.get();
@@ -83,9 +93,15 @@ public class ForecastRepositoryImpl implements ForecastRepository {
         jsonForecast.remove("_id");
         mongoClient.save(documentName, jsonForecast, res -> {
             if (res.succeeded()) {
-                forecast.setId(res.result());
+                forecast.set_id(res.result());
             }
         });
+
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         return forecast;
     }
@@ -93,7 +109,7 @@ public class ForecastRepositoryImpl implements ForecastRepository {
     @Override
     public boolean updateForecast(Forecast forecast) {
         JsonObject query = new JsonObject();
-        query.put("_id", forecast.getId());
+        query.put("_id", forecast.get_id());
         AtomicReference<Boolean> successful = new AtomicReference<>(false);
         mongoClient.findOneAndUpdate(documentName, query, forecast.parseToJson(), res -> {
             successful.set(res.succeeded());

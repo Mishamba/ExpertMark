@@ -1,6 +1,6 @@
 package com.expert.mark.repository;
 
-import com.expert.mark.model.forecast.Forecast;
+import com.expert.mark.model.content.forecast.Forecast;
 
 import java.util.List;
 

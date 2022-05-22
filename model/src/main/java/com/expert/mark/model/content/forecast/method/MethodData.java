@@ -1,4 +1,4 @@
-package com.expert.mark.model.forecast.method;
+package com.expert.mark.model.content.forecast.method;
 
 import io.vertx.core.json.JsonObject;
 

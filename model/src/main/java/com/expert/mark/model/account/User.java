@@ -1,11 +1,9 @@
 package com.expert.mark.model.account;
 
+import com.expert.mark.util.parser.DateParser;
 import io.vertx.core.json.JsonObject;
 import lombok.*;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @AllArgsConstructor
@@ -17,26 +15,32 @@ import java.util.Date;
 public class User {
     private String username;
     private char[] password;
-    private String avatarPath;
+    //private String avatarPath;
     private Date createDate;
-    private Date lastUpdateDate;
     private Role role;
     private Profile profile;
-    private Character character;
 
     public User(JsonObject jsonObject) {
         this.username = jsonObject.getString("username");
         this.password = jsonObject.getString("password").toCharArray();
-        this.avatarPath = jsonObject.getString("avatarPath");
-        try {
-            DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy zzzz");
-            this.createDate = dateFormat.parse(jsonObject.getString("createDate"));
-            this.lastUpdateDate = dateFormat.parse(jsonObject.getString("lastUpdateDate"));
-        } catch (ParseException e) {
-            throw new IllegalArgumentException("Wrong date format");
-        }
+        //this.avatarPath = jsonObject.getString("avatarPath");
+        this.createDate = DateParser.parseToDate(jsonObject.getString("createDate"));
         this.role = Role.valueOf(jsonObject.getString("role"));
         this.profile = new Profile(jsonObject.getJsonObject("profile"));
-        this.character = Character.valueOf(jsonObject.getString("character"));
+    }
+
+    public JsonObject parseToJson() {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.put("username", this.username);
+        if (this.password.length != 0) {
+            jsonObject.put("password", this.password);
+        }
+        jsonObject.put("createDate", this.createDate);
+        jsonObject.put("role", this.role.toString());
+        if (this.profile != null) {
+            jsonObject.put("profile", this.profile.parseToJson());
+        }
+
+        return jsonObject;
     }
 }

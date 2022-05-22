@@ -1,6 +1,6 @@
 package com.expert.mark.service.method.mapping;
 
-import com.expert.mark.model.forecast.method.type.MethodType;
+import com.expert.mark.model.content.forecast.method.type.MethodType;
 import com.expert.mark.service.BasicExpertForecastCalculationService;
 import com.expert.mark.service.impl.ThreeMarksForecastService;
 import com.expert.mark.service.impl.ThreeMarksWithChancesForecastService;

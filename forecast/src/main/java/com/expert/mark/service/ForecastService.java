@@ -1,12 +1,12 @@
 package com.expert.mark.service;
 
-import com.expert.mark.model.forecast.Forecast;
+import com.expert.mark.model.content.forecast.Forecast;
 
 import java.util.List;
 
 public interface ForecastService {
     Forecast createForecast(Forecast forecast);
-    boolean deleteForecast(Forecast forecast);
+    boolean deleteForecast(String _id);
     boolean updateForecast(Forecast forecast);
     Forecast getForecastById(String id);
     List<Forecast> getUserForecasts(String username);
