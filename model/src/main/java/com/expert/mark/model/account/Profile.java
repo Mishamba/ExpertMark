@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,11 +19,13 @@ public class Profile {
     private String accountDescription;
 
     public Profile(JsonObject jsonObject) {
-        this.followingUserNames = new ArrayList<>();
         JsonArray followingJsonArray = jsonObject.getJsonArray("following");
-        followingJsonArray.forEach(username -> {
-            this.followingUserNames.add((String) username);
-        });
+        if (followingJsonArray != null) {
+            this.followingUserNames = new ArrayList<>();
+            followingJsonArray.forEach(username -> {
+                this.followingUserNames.add((String) username);
+            });
+        }
 
         this.accountDescription = jsonObject.getString("accountDescription");
     }
@@ -31,7 +34,9 @@ public class Profile {
         JsonObject jsonObject = new JsonObject();
 
         JsonArray followingUserNamesJson = new JsonArray();
-        followingUserNames.forEach(followingUserNamesJson::add);
+        if (this.followingUserNames != null) {
+            followingUserNames.forEach(followingUserNamesJson::add);
+        }
         jsonObject.put("followingUserNames", followingUserNamesJson);
         jsonObject.put("accountDescription", this.accountDescription);
 

@@ -8,9 +8,8 @@ import java.util.List;
 public interface UserService {
     User createUser(User user);
     User updateUser(User user);
-    User getUserByUsername(String username);
+    User getUserByUsernameWithoutProfile(String username);
     User getUserByUsernameWithProfile(String username);
-    Profile getUserProfileByUsername(String username);
     List<String> getUserFollowings(String username);
     List<String> getMostTrustedExpertsUsernames();
     boolean addFollowing(String username, String followingUsername);

@@ -6,33 +6,44 @@ import com.expert.mark.util.db.DatabaseClientProvider;
 import io.vertx.core.Future;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
+import io.vertx.ext.mongo.FindOptions;
 import io.vertx.ext.mongo.MongoClient;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class UserRepositoryImpl implements UserRepository {
 
-    private final String documentName = "user";
+    private final String userDocumentName = "expertUser";
+    private final String expertStatisticDocumentName = "expert_statistic";
     private final MongoClient mongoClient = DatabaseClientProvider.provide();
 
     @Override
     public User save(User user) {
-        JsonObject userJson = new JsonObject();
+        JsonObject userJson = user.parseToJson();
         userJson.put("_id", user.getUsername());
         userJson.remove("username");
         AtomicReference<User> createdUser = new AtomicReference<>();
-        mongoClient.save(documentName, userJson).onComplete(res -> {
+        mongoClient.save(userDocumentName, userJson).onComplete(res -> {
             if (res.succeeded()) {
-                String result = res.result();
-                if (result != null) {
-                    createdUser.set(new User(new JsonObject(result)));
-                }
-            } else {
-                res.cause().printStackTrace();
+                mongoClient.findOne(userDocumentName, new JsonObject().put("_id", user.getUsername()), null,  findRes -> {
+                    try {
+                        TimeUnit.SECONDS.sleep(1);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    createdUser.set(new User(findRes.result()));
+                });
             }
-        });
+        }).onFailure(Throwable::printStackTrace);
+
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         return createdUser.get();
     }
@@ -45,7 +56,7 @@ public class UserRepositoryImpl implements UserRepository {
         AtomicReference<User> updatedUser = new AtomicReference<>();
         JsonObject query = new JsonObject();
         query.put("_id", user.getUsername());
-        mongoClient.findOneAndUpdate(documentName, query, userJson).onComplete(res -> {
+        mongoClient.findOneAndUpdate(userDocumentName, query, userJson).onComplete(res -> {
             if (res.succeeded()) {
                 JsonObject result = res.result();
                 if (result != null) {
@@ -55,6 +66,18 @@ public class UserRepositoryImpl implements UserRepository {
                 res.cause().printStackTrace();
             }
         });
+
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         return updatedUser.get();
     }
@@ -71,13 +94,19 @@ public class UserRepositoryImpl implements UserRepository {
         fields.put("character", 1);
         fields.put("isExpert", 1);
         AtomicReference<User> user = new AtomicReference<>();
-        mongoClient.findOne(documentName, query, fields).onComplete(res -> {
+        mongoClient.findOne(userDocumentName, query, fields).onComplete(res -> {
             if (res.succeeded()) {
                 user.set(new User(res.result()));
             } else {
                 res.cause().printStackTrace();
             }
         });
+
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         return user.get();
     }
@@ -87,13 +116,19 @@ public class UserRepositoryImpl implements UserRepository {
         JsonObject query = new JsonObject();
         query.put("_id", username);
         AtomicReference<User> user = new AtomicReference<>();
-        mongoClient.findOne(documentName, query, null).onComplete(res -> {
+        mongoClient.findOne(userDocumentName, query, null).onComplete(res -> {
             if (res.succeeded()) {
                 user.set(new User(res.result()));
             } else {
                 res.cause().printStackTrace();
             }
         });
+
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         return user.get();
     }
@@ -104,13 +139,19 @@ public class UserRepositoryImpl implements UserRepository {
         query.put("_id", username);
         JsonObject fields = new JsonObject();
         fields.put("profile.followingUserNames", 1);
-        Future future = mongoClient.findOne(documentName, query, fields).onComplete(res -> {
+        Future<JsonObject> future = mongoClient.findOne(userDocumentName, query, fields).onComplete(res -> {
             if (!res.succeeded()) {
                 res.cause().printStackTrace();
             }
         });
 
-        JsonArray result = (JsonArray) future.result();
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        JsonArray result = future.result().getJsonArray("followingUserNames");
         List<String> followings = new LinkedList<>();
         for (int i = 0; i < result.size(); i++) {
             followings.add((String) result.getValue(i));
@@ -121,7 +162,30 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public List<String> getMostTrustedExpertsUsernames() {
-        return null;
+        FindOptions findOptions = new FindOptions();
+        findOptions.setLimit(5);
+        findOptions.setSort(new JsonObject().put("accuracy", 1));
+        findOptions.setFields(new JsonObject().
+                put("expertUsername", true).
+                put("character", false).
+                put("accuracy", false));
+
+        List<String> usernames = new LinkedList<>();
+        mongoClient.findWithOptions(expertStatisticDocumentName, null, findOptions, res -> {
+            if (!res.succeeded()) {
+                res.cause().printStackTrace();
+            } else {
+                res.result().forEach(x -> usernames.add(x.getString("expertUsername")));
+            }
+        }).close();
+
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return usernames;
     }
 
     @Override

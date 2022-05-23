@@ -2,53 +2,57 @@ package com.expert.mark.service.impl;
 
 import com.expert.mark.model.account.Profile;
 import com.expert.mark.model.account.User;
+import com.expert.mark.repository.UserRepository;
+import com.expert.mark.repository.impl.UserRepositoryImpl;
 import com.expert.mark.service.UserService;
+import io.vertx.core.Vertx;
+import io.vertx.ext.web.client.WebClient;
 
+import java.util.Date;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
+
+    private final UserRepository userRepository = new UserRepositoryImpl();
+
     @Override
     public User createUser(User user) {
-        return null;
+        user.setCreateDate(new Date());
+        return userRepository.save(user);
     }
 
     @Override
     public User updateUser(User user) {
-        return null;
+        return userRepository.update(user);
     }
 
     @Override
-    public User getUserByUsername(String username) {
-        return null;
+    public User getUserByUsernameWithoutProfile(String username) {
+        return userRepository.getUserByUsername(username);
     }
 
     @Override
     public User getUserByUsernameWithProfile(String username) {
-        return null;
-    }
-
-    @Override
-    public Profile getUserProfileByUsername(String username) {
-        return null;
+        return userRepository.getUserByUsernameWithProfile(username);
     }
 
     @Override
     public List<String> getUserFollowings(String username) {
-        return null;
+        return userRepository.getUserFollowings(username);
     }
 
     @Override
     public List<String> getMostTrustedExpertsUsernames() {
-        return null;
+        return userRepository.getMostTrustedExpertsUsernames();
     }
 
     @Override
     public boolean addFollowing(String username, String followingUsername) {
-        return false;
+        return userRepository.addFollowing(username, followingUsername);
     }
 
     @Override
     public boolean removeFollowing(String username, String followingUsername) {
-        return false;
+        return userRepository.addFollowing(username, followingUsername);
     }
 }

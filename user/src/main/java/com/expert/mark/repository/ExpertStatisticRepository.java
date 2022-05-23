@@ -6,5 +6,5 @@ public interface ExpertStatisticRepository {
     ExpertStatistic getExpertStatisticByExpertUsername(String expertUsername);
     ExpertStatistic saveExpertStatistic(ExpertStatistic expertStatistic);
     ExpertStatistic updateExpertStatistic(ExpertStatistic expertStatistic);
-    boolean deleteExpertStatisticByExpertUsername(String expertUsername);
+    ExpertStatistic deleteExpertStatisticByExpertUsername(String expertUsername);
 }

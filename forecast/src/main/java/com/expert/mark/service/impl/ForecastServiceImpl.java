@@ -14,7 +14,7 @@ import java.util.List;
 
 public class ForecastServiceImpl implements ForecastService {
 
-    private final WebClient client = WebClient.create(Vertx.vertx());
+    private final WebClient webClient = WebClient.create(Vertx.vertx());
     private final ForecastRepository forecastRepository = new ForecastRepositoryImpl();
     private final Calculator calculator = new Calculator();
 
@@ -32,6 +32,7 @@ public class ForecastServiceImpl implements ForecastService {
 
     @Override
     public boolean updateForecast(Forecast forecast) {
+        calculator.calculateForecast(forecast);
         return forecastRepository.updateForecast(forecast);
     }
 
@@ -49,7 +50,7 @@ public class ForecastServiceImpl implements ForecastService {
     public List<Forecast> getAssetForecasts(String assetName, String username) {
         String callUrl = (username == null || username.isEmpty()) ? "/most_trusted_experts" : "/following/" + username;
         List<String> experts = new LinkedList<>();
-        client.get(8080, "localhost", callUrl).send().
+        webClient.get(8080, "localhost", callUrl).send().
                 onSuccess(response -> response.bodyAsJsonArray().forEach(expertUsername -> experts.add((String) expertUsername))).
                 onFailure(response -> {
                     throw new RuntimeException(response.getMessage());
