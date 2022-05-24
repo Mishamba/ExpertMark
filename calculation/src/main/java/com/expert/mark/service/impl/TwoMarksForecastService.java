@@ -10,6 +10,6 @@ public class TwoMarksForecastService implements BasicExpertForecastCalculationSe
         if (twoMarksData.getPessimisticMark() >= twoMarksData.getOptimisticMark()) {
             throw new IllegalArgumentException("Pessimistic mark must be lower than optimistic mark.");
         }
-        twoMarksData.setResult((twoMarksData.getPessimisticMark() * 3 + twoMarksData.getOptimisticMark() * 2) / 5);
+        twoMarksData.setResult((float) ((twoMarksData.getPessimisticMark() * 3 + twoMarksData.getOptimisticMark() * 2) / 5));
     }
 }

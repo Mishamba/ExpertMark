@@ -32,7 +32,10 @@ public class User {
         } else {
             this.role = Role.USER;
         }
-        this.profile = new Profile(jsonObject.getJsonObject("profile"));
+        JsonObject jsonProfile = jsonObject.getJsonObject("profile");
+        if (jsonProfile != null) {
+            this.profile = new Profile(jsonProfile);
+        }
     }
 
     public JsonObject parseToJson() {
@@ -41,7 +44,7 @@ public class User {
         if (this.password.length != 0) {
             JsonArray passwordJson = new JsonArray();
             for (char symbol : this.password) {
-                passwordJson.add(symbol);
+                passwordJson.add(String.valueOf(symbol));
             }
             jsonObject.put("password", passwordJson);
         }

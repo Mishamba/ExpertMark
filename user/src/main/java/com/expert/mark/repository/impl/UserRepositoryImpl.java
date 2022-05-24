@@ -83,16 +83,12 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public User getUserByUsername(String username) {
+    public User getUserByUsernameWithoutProfile(String username) {
         JsonObject query = new JsonObject();
         query.put("_id", username);
         JsonObject fields = new JsonObject();
         fields.put("_id", 1);
-        fields.put("createDate", 1);
-        fields.put("role", 1);
         fields.put("profile", 0);
-        fields.put("character", 1);
-        fields.put("isExpert", 1);
         AtomicReference<User> user = new AtomicReference<>();
         mongoClient.findOne(userDocumentName, query, fields).onComplete(res -> {
             if (res.succeeded()) {
@@ -151,7 +147,7 @@ public class UserRepositoryImpl implements UserRepository {
             e.printStackTrace();
         }
 
-        JsonArray result = future.result().getJsonArray("followingUserNames");
+        JsonArray result = future.result().getJsonObject("profile").getJsonArray("followingUserNames");
         List<String> followings = new LinkedList<>();
         for (int i = 0; i < result.size(); i++) {
             followings.add((String) result.getValue(i));
@@ -190,11 +186,29 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public boolean addFollowing(String username, String followingUsername) {
-        return false;
+        JsonObject query = new JsonObject();
+        query.put("_id", username);
+        JsonObject update = new JsonObject();
+        update.put("$push", new JsonObject().put("profile.followingUserNames", followingUsername));
+        AtomicReference<Boolean> succeeded = new AtomicReference<>(false);
+        mongoClient.updateCollection(userDocumentName, query, update).onComplete(res -> {
+            succeeded.set(res.succeeded());
+        });
+
+        return succeeded.get();
     }
 
     @Override
     public boolean removeFollowing(String username, String followingUsername) {
-        return false;
+        JsonObject query = new JsonObject();
+        query.put("_id", username);
+        JsonObject update = new JsonObject();
+        update.put("$pull", new JsonObject().put("profile.followingUserNames", followingUsername));
+        AtomicReference<Boolean> succeeded = new AtomicReference<>();
+        mongoClient.updateCollection(userDocumentName, query, update).onComplete(res -> {
+            succeeded.set(res.succeeded());
+        });
+
+        return succeeded.get();
     }
 }

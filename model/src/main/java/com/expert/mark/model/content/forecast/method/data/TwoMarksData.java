@@ -13,7 +13,6 @@ import lombok.*;
 public class TwoMarksData extends MethodData {
     private double pessimisticMark;
     private double optimisticMark;
-    private Double result;
 
     public TwoMarksData(JsonObject jsonObject) {
         this.pessimisticMark = jsonObject.getDouble("pessimisticMark");

@@ -7,7 +7,7 @@ import java.util.List;
 public interface UserRepository {
     User save(User user);
     User update(User user);
-    User getUserByUsername(String username);
+    User getUserByUsernameWithoutProfile(String username);
     User getUserByUsernameWithProfile(String username);
     List<String> getUserFollowings(String username);
     List<String> getMostTrustedExpertsUsernames();

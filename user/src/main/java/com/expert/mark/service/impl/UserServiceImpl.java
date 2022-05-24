@@ -1,12 +1,9 @@
 package com.expert.mark.service.impl;
 
-import com.expert.mark.model.account.Profile;
 import com.expert.mark.model.account.User;
 import com.expert.mark.repository.UserRepository;
 import com.expert.mark.repository.impl.UserRepositoryImpl;
 import com.expert.mark.service.UserService;
-import io.vertx.core.Vertx;
-import io.vertx.ext.web.client.WebClient;
 
 import java.util.Date;
 import java.util.List;
@@ -28,7 +25,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserByUsernameWithoutProfile(String username) {
-        return userRepository.getUserByUsername(username);
+        return userRepository.getUserByUsernameWithoutProfile(username);
     }
 
     @Override
@@ -53,6 +50,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean removeFollowing(String username, String followingUsername) {
-        return userRepository.addFollowing(username, followingUsername);
+        return userRepository.removeFollowing(username, followingUsername);
     }
 }

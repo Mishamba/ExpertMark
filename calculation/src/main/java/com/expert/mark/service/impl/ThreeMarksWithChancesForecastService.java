@@ -18,8 +18,8 @@ public class ThreeMarksWithChancesForecastService implements BasicExpertForecast
         }
 
         threeMarksWithChancesData.setResult(
-                threeMarksWithChancesData.getPessimisticMark() * threeMarksWithChancesData.getPessimisticChance() +
-                        threeMarksWithChancesData.getRealisticMark() * threeMarksWithChancesData.getRealisticChance() +
-                        threeMarksWithChancesData.getOptimisticMark() * threeMarksWithChancesData.getOptimisticChance());
+                (float) (threeMarksWithChancesData.getPessimisticMark() * threeMarksWithChancesData.getPessimisticChance() +
+                                        threeMarksWithChancesData.getRealisticMark() * threeMarksWithChancesData.getRealisticChance() +
+                                        threeMarksWithChancesData.getOptimisticMark() * threeMarksWithChancesData.getOptimisticChance()));
     }
 }

@@ -13,6 +13,6 @@ public class ThreeMarksForecastService implements BasicExpertForecastCalculation
             throw new IllegalArgumentException("Pessimistic mark must be lower than realistic mark. And realistic mark can't be bigger than optimistic mark.");
         }
 
-        threeMarksData.setResult((threeMarksData.getPessimisticMark() + 2 * threeMarksData.getRealisticMark() + threeMarksData.getOptimisticMark()) / 4);
+        threeMarksData.setResult((float) ((threeMarksData.getPessimisticMark() + 2 * threeMarksData.getRealisticMark() + threeMarksData.getOptimisticMark()) / 4));
     }
 }

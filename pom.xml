@@ -26,6 +26,8 @@
         <module>model</module>
         <module>user</module>
         <module>forecast</module>
+        <module>recommendation</module>
+        <module>expertAccurancy</module>
     </modules>
 
     <dependencies>

@@ -29,12 +29,19 @@ public class UserController extends AbstractVerticle {
         router.put("/users/unfollow/:userToUnfollow").handler(this::unFollowUser);
 
         vertx.createHttpServer().requestHandler(router).listen(8082);
+
+        vertx.setPeriodic(86400, this::calculateAccuracy);
     }
+
+    private void calculateAccuracy(Long aLong) {
+
+    }
+
 
     void getUserWithoutProfile(RoutingContext ctx) {
         String username = ctx.pathParam("username");
         User user = userService.getUserByUsernameWithoutProfile(username);
-        ctx.response().putHeader("Content-Type", "application/json").setStatusCode(200).send(user.toString());
+        ctx.response().putHeader("Content-Type", "application/json").setStatusCode(200).send(user.parseToJson().remove("profile").toString());
     }
 
     void getUserWithProfile(RoutingContext ctx) {

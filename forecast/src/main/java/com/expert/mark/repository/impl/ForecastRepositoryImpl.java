@@ -3,6 +3,7 @@ package com.expert.mark.repository.impl;
 import com.expert.mark.model.content.forecast.Forecast;
 import com.expert.mark.repository.ForecastRepository;
 import com.expert.mark.util.db.DatabaseClientProvider;
+import com.expert.mark.util.parser.DateParser;
 import io.vertx.core.Future;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.mongo.MongoClient;
@@ -41,13 +42,32 @@ public class ForecastRepositoryImpl implements ForecastRepository {
     }
 
     @Override
-    public List<Forecast> findUsersForecastsForAssetFromCurrentDate(String username, String assetName) {
+    public List<Forecast> findUsersForecastsForAssetFromDate(String username, String assetName, Date date) {
         JsonObject query = new JsonObject();
         query.put("ownerUsername", username);
         query.put("assetName", assetName);
+        query.put("date", new JsonObject().put("$gt", date));
         JsonObject dateQuery = new JsonObject();
         dateQuery.put("$lte", new Date());
         query.put("targetDate", dateQuery);
+        return findForecastsByQuery(query);
+    }
+
+    @Override
+    public List<Forecast> findUsersForecastsFromDate(String username, Date date) {
+        JsonObject query = new JsonObject();
+        query.put("ownerUsername", username);
+        query.put("date", new JsonObject().put("$gt", date));
+        JsonObject dateQuery = new JsonObject();
+        dateQuery.put("$lte", new Date());
+        query.put("targetDate", dateQuery);
+        return findForecastsByQuery(query);
+    }
+
+    @Override
+    public List<Forecast> findForecastsByTargetDate(Date date) {
+        JsonObject query = new JsonObject();
+        query.put("targetDate", DateParser.parseToString(date));
         return findForecastsByQuery(query);
     }
 

@@ -15,7 +15,6 @@ public class ThreeMarksData extends MethodData {
     private double pessimisticMark;
     private double realisticMark;
     private double optimisticMark;
-    private Double result;
 
     public ThreeMarksData(@NotNull JsonObject jsonObject) {
         this.pessimisticMark = jsonObject.getDouble("pessimisticMark");

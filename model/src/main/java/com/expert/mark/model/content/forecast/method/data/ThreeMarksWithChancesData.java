@@ -17,7 +17,6 @@ public class ThreeMarksWithChancesData extends MethodData {
     private float realisticChance;
     private double optimisticMark;
     private float optimisticChance;
-    private Double result;
 
     public ThreeMarksWithChancesData(JsonObject jsonObject) {
         this.pessimisticMark = jsonObject.getDouble("pessimisticMark");

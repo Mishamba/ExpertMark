@@ -2,6 +2,8 @@ package com.expert.mark.controller;
 
 import com.expert.mark.model.content.forecast.Forecast;
 import com.expert.mark.service.ForecastService;
+import com.expert.mark.service.Processor;
+import com.expert.mark.service.impl.ProcessorImpl;
 import com.expert.mark.service.impl.ForecastServiceImpl;
 import com.expert.mark.util.security.decryption.DecryptionUtil;
 import io.vertx.core.AbstractVerticle;
@@ -15,6 +17,7 @@ import java.util.List;
 public class ForecastController extends AbstractVerticle {
 
     private final ForecastService forecastService = new ForecastServiceImpl();
+    private final Processor processor = new ProcessorImpl();
 
     @Override
     public void start() throws Exception {
@@ -27,8 +30,19 @@ public class ForecastController extends AbstractVerticle {
         router.put("/forecasts/create").handler(this::createForecast);
         router.put("/forecasts/update").handler(this::updateForecast);
         router.get("/forecasts/:id").handler(this::getForecastById);
+        router.patch("/processExpertStatistic").handler(this::processForecastsAndExpertStatisticByCall);
 
         vertx.createHttpServer().requestHandler(router).listen(8081).onFailure(Throwable::printStackTrace);
+
+        vertx.setPeriodic(86400, this::processForecastsAndExpertStatistic);
+    }
+
+    private void processForecastsAndExpertStatisticByCall(RoutingContext routingContext) {
+        processor.updateExpertStatisticsAndCalculateForecastAccuracy();
+    }
+
+    private void processForecastsAndExpertStatistic(Long aLong) {
+        processor.updateExpertStatisticsAndCalculateForecastAccuracy();
     }
 
     void getForecastById(RoutingContext ctx) {
