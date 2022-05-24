@@ -7,12 +7,12 @@ import com.expert.mark.repository.ExpertStatisticRepository;
 import com.expert.mark.repository.ForecastRepository;
 import com.expert.mark.repository.impl.ExpertStatisticRepositoryImpl;
 import com.expert.mark.repository.impl.ForecastRepositoryImpl;
-import com.expert.mark.service.Processor;
+import com.expert.mark.service.ForecastProcessor;
 
 import java.util.Date;
 import java.util.List;
 
-public class ProcessorImpl implements Processor {
+public class ForecastProcessorImpl implements ForecastProcessor {
     private final ForecastRepository forecastRepository = new ForecastRepositoryImpl();
     private final ExpertStatisticRepository expertStatisticRepository = new ExpertStatisticRepositoryImpl();
     private final Calculator calculator = new Calculator();

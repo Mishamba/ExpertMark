@@ -1,6 +1,6 @@
 package com.expert.mark.service;
 
-public interface Processor {
+public interface ForecastProcessor {
     void processForecastsForUser(String username);
     void updateExpertStatisticsAndCalculateForecastAccuracy();
 }

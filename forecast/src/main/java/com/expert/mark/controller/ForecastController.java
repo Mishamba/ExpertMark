@@ -2,8 +2,8 @@ package com.expert.mark.controller;
 
 import com.expert.mark.model.content.forecast.Forecast;
 import com.expert.mark.service.ForecastService;
-import com.expert.mark.service.Processor;
-import com.expert.mark.service.impl.ProcessorImpl;
+import com.expert.mark.service.ForecastProcessor;
+import com.expert.mark.service.impl.ForecastProcessorImpl;
 import com.expert.mark.service.impl.ForecastServiceImpl;
 import com.expert.mark.util.security.decryption.DecryptionUtil;
 import io.vertx.core.AbstractVerticle;
@@ -17,7 +17,7 @@ import java.util.List;
 public class ForecastController extends AbstractVerticle {
 
     private final ForecastService forecastService = new ForecastServiceImpl();
-    private final Processor processor = new ProcessorImpl();
+    private final ForecastProcessor forecastProcessor = new ForecastProcessorImpl();
 
     @Override
     public void start() throws Exception {
@@ -38,15 +38,18 @@ public class ForecastController extends AbstractVerticle {
     }
 
     private void processForecastsAndExpertStatisticByCall(RoutingContext routingContext) {
-        processor.updateExpertStatisticsAndCalculateForecastAccuracy();
+        forecastProcessor.updateExpertStatisticsAndCalculateForecastAccuracy();
     }
 
     private void processForecastsAndExpertStatistic(Long aLong) {
-        processor.updateExpertStatisticsAndCalculateForecastAccuracy();
+        forecastProcessor.updateExpertStatisticsAndCalculateForecastAccuracy();
     }
 
     void getForecastById(RoutingContext ctx) {
         String forecastId = ctx.pathParam("id");
+        //TODO get username
+        String username = "smth";
+        this.sendQueryToSpy(username, forecastId, "forecastId");
         Forecast forecast = forecastService.getForecastById(forecastId);
         ctx.response().putHeader("Content-Type", "application/json").send((forecast == null) ? "{}" : forecast.toString());
     }
@@ -62,6 +65,9 @@ public class ForecastController extends AbstractVerticle {
     void createForecast(RoutingContext ctx) {
         JsonObject jsonForecast = ctx.getBodyAsJson();
         Forecast forecast = new Forecast(jsonForecast);
+        //TODO get username
+        String username = "smth";
+        this.sendQueryToSpy(username, forecast.getAssetName(), "assetName");
         Forecast savedForecast = forecastService.createForecast(forecast);
         ctx.response().putHeader("Content-Type", "application/json").
                 setStatusCode((savedForecast.get_id() != null && !savedForecast.get_id().isEmpty()) ? 200 : 500).
@@ -78,6 +84,9 @@ public class ForecastController extends AbstractVerticle {
 
     void getUsersForecasts(RoutingContext ctx) {
         String username = ctx.pathParam("username");
+        //TODO get username
+        String actorUsername = "smth";
+        this.sendQueryToSpy(actorUsername, username, "username");
         List<Forecast> forecastList = forecastService.getUserForecasts(username);
         ctx.response().putHeader("Content-Type", "application/json").
                 setStatusCode(200).send(forecastList.toString());
@@ -85,6 +94,9 @@ public class ForecastController extends AbstractVerticle {
 
     void getAssetForecasts(RoutingContext ctx) {
         String assetName = ctx.pathParam("assetName");
+        //TODO get username
+        String username = "smth";
+        this.sendQueryToSpy(username, assetName, "assetName");
         List<Forecast> forecastList = forecastService.getAssetForecasts(assetName, null);
         ctx.response().putHeader("Content-Type", "application/json").
                 setStatusCode(200).send(forecastList.toString());
@@ -100,5 +112,14 @@ public class ForecastController extends AbstractVerticle {
         List<Forecast> forecastList = forecastService.getAssetForecasts(assetName, username);
         ctx.response().putHeader("Content-Type", "application/json").
                 setStatusCode(200).send(forecastList.toString());
+    }
+
+    private void sendQueryToSpy(String username, String query, String queryType) {
+        vertx.eventBus().
+                send("userQuery", new JsonObject().
+                put("username", username).
+                put("queryData", new JsonObject().
+                        put("query", query).
+                        put("queryType", queryType)));
     }
 }

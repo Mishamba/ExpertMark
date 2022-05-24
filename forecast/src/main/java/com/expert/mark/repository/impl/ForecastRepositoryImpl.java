@@ -5,6 +5,7 @@ import com.expert.mark.repository.ForecastRepository;
 import com.expert.mark.util.db.DatabaseClientProvider;
 import com.expert.mark.util.parser.DateParser;
 import io.vertx.core.Future;
+import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.mongo.MongoClient;
 import java.util.Date;
@@ -68,6 +69,23 @@ public class ForecastRepositoryImpl implements ForecastRepository {
     public List<Forecast> findForecastsByTargetDate(Date date) {
         JsonObject query = new JsonObject();
         query.put("targetDate", DateParser.parseToString(date));
+        return findForecastsByQuery(query);
+    }
+
+    @Override
+    public List<Forecast> findForecastsForAssetWhereOwnerNotIn(String assetName, List<String> experts) {
+        JsonObject query = new JsonObject();
+        query.put("assetName", assetName);
+        JsonArray ninExperts = new JsonArray();
+        experts.forEach(ninExperts::add);
+        query.put("ownerUsername", new JsonObject().put("$nin", ninExperts));
+        return findForecastsByQuery(query);
+    }
+
+    @Override
+    public List<Forecast> findForecastsForAsset(String assetName) {
+        JsonObject query = new JsonObject();
+        query.put("assetName", assetName);
         return findForecastsByQuery(query);
     }
 

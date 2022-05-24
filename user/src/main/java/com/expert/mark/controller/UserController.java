@@ -29,23 +29,22 @@ public class UserController extends AbstractVerticle {
         router.put("/users/unfollow/:userToUnfollow").handler(this::unFollowUser);
 
         vertx.createHttpServer().requestHandler(router).listen(8082);
-
-        vertx.setPeriodic(86400, this::calculateAccuracy);
     }
-
-    private void calculateAccuracy(Long aLong) {
-
-    }
-
 
     void getUserWithoutProfile(RoutingContext ctx) {
         String username = ctx.pathParam("username");
+        //TODO
+        String actorUsername = "smth";
+        sendQueryToSpy(actorUsername, username, "username");
         User user = userService.getUserByUsernameWithoutProfile(username);
         ctx.response().putHeader("Content-Type", "application/json").setStatusCode(200).send(user.parseToJson().remove("profile").toString());
     }
 
     void getUserWithProfile(RoutingContext ctx) {
         String username = ctx.pathParam("username");
+        //TODO
+        String actorUsername = "smth";
+        sendQueryToSpy(actorUsername, username, "username");
         User user = userService.getUserByUsernameWithProfile(username);
         ctx.response().putHeader("Content-Type", "application/json").setStatusCode(200).send((user == null) ? "no user found" : user.parseToJson().toString());
     }
@@ -91,5 +90,14 @@ public class UserController extends AbstractVerticle {
     void getMostTrustedExperts(RoutingContext ctx) {
         List<String> usernames = userService.getMostTrustedExpertsUsernames();
         ctx.response().putHeader("Content-Type", "application/json").setStatusCode(200).send(usernames.toString());
+    }
+
+    private void sendQueryToSpy(String username, String query, String queryType) {
+        vertx.eventBus().
+                send("userQuery", new JsonObject().
+                        put("username", username).
+                        put("queryData", new JsonObject().
+                                put("query", query).
+                                put("queryType", queryType)));
     }
 }
