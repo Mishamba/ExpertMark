@@ -4,7 +4,6 @@ import io.vertx.core.json.JsonObject;
 import lombok.*;
 
 @AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = false)

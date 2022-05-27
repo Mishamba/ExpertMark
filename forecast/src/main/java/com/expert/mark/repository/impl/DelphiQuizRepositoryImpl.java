@@ -1,14 +1,17 @@
 package com.expert.mark.repository.impl;
 
 import com.expert.mark.model.content.forecast.method.data.delphi.data.DelphiQuiz;
-import com.expert.mark.model.content.forecast.method.data.delphi.data.QuizStep;
 import com.expert.mark.model.content.forecast.method.data.delphi.data.SingleMark;
 import com.expert.mark.model.content.forecast.method.data.delphi.discussion.Message;
 import com.expert.mark.repository.DelphiQuizRepository;
 import com.expert.mark.util.db.DatabaseClientProvider;
+import com.expert.mark.util.parser.DateParser;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.mongo.MongoClient;
 
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class DelphiQuizRepositoryImpl implements DelphiQuizRepository {
@@ -58,17 +61,6 @@ public class DelphiQuizRepositoryImpl implements DelphiQuizRepository {
     }
 
     @Override
-    public void addDelphiQuizStep(String delphiQuizId) {
-        JsonObject query = new JsonObject();
-        query.put("_id", delphiQuizId);
-        QuizStep quizStep = new QuizStep(new JsonObject());
-        JsonObject updateData = new JsonObject();
-        updateData.put("$push", new JsonObject().put("quizSteps", quizStep.parseToJson()));
-
-        mongoClient.updateCollection(delphiQuizDocumentName, query, updateData);
-    }
-
-    @Override
     public Message postDiscussionMessage(Message message, String delphiQuizId) {
         JsonObject query = new JsonObject();
         query.put("_id", delphiQuizId);
@@ -83,6 +75,18 @@ public class DelphiQuizRepositoryImpl implements DelphiQuizRepository {
     @Override
     public int getDelphiQuizStepsNumber(String delphiQuizId) {
         return this.getDelphiQuizById(delphiQuizId).getStepsNumbers();
+    }
+
+    @Override
+    public List<DelphiQuiz> getDelphiQuizzesByDiscussionEndDate(Date date) {
+        JsonObject query = new JsonObject();
+        query.put("discussionEndDate", DateParser.parseToStringWithoutMinutes(date));
+        List<DelphiQuiz> delphiQuizzes = new LinkedList<>();
+        mongoClient.find(delphiQuizDocumentName, query).onComplete(res -> {
+            res.result().forEach(x -> delphiQuizzes.add(new DelphiQuiz(x)));
+        });
+
+        return delphiQuizzes;
     }
 
     @Override

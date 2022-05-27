@@ -9,5 +9,6 @@ public interface DelphiQuizService {
     Message postMessage(Message message, String delphiQuizId);
     DelphiQuiz getDelphiQuiz(String delphiQuizId);
     SingleMark postSingleMark(String delphiQuizId, SingleMark singleMark);
-    void startNewQuizStep(String delphiQuizId);
+    void processDelphiQuiz(String delphiQuizId);
+    void processDelphiQuizzes();
 }

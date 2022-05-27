@@ -68,7 +68,7 @@ public class ForecastRepositoryImpl implements ForecastRepository {
     @Override
     public List<Forecast> findForecastsByTargetDate(Date date) {
         JsonObject query = new JsonObject();
-        query.put("targetDate", DateParser.parseToString(date));
+        query.put("targetDate", DateParser.parseToStringWithoutMinutes(date));
         return findForecastsByQuery(query);
     }
 

@@ -33,8 +33,7 @@ public class UserController extends AbstractVerticle {
 
     void getUserWithoutProfile(RoutingContext ctx) {
         String username = ctx.pathParam("username");
-        //TODO
-        String actorUsername = "smth";
+        String actorUsername = ctx.getBodyAsJson().getString("username");
         sendQueryToSpy(actorUsername, username, "username");
         User user = userService.getUserByUsernameWithoutProfile(username);
         ctx.response().putHeader("Content-Type", "application/json").setStatusCode(200).send(user.parseToJson().remove("profile").toString());
@@ -42,8 +41,7 @@ public class UserController extends AbstractVerticle {
 
     void getUserWithProfile(RoutingContext ctx) {
         String username = ctx.pathParam("username");
-        //TODO
-        String actorUsername = "smth";
+        String actorUsername = ctx.getBodyAsJson().getString("username");
         sendQueryToSpy(actorUsername, username, "username");
         User user = userService.getUserByUsernameWithProfile(username);
         ctx.response().putHeader("Content-Type", "application/json").setStatusCode(200).send((user == null) ? "no user found" : user.parseToJson().toString());
@@ -64,8 +62,7 @@ public class UserController extends AbstractVerticle {
     }
 
     void followUser(RoutingContext ctx) {
-        //TODO
-        String mainUser = ctx.getBodyAsString();
+        String mainUser = ctx.getBodyAsJson().getString("username");
         String userToFollow = ctx.pathParam("userToFollow");
         boolean isUserFollowed = userService.addFollowing(mainUser, userToFollow);
         ctx.response().putHeader("Content-Type", "application/json").setStatusCode(isUserFollowed ? 200 : 500).
@@ -73,17 +70,15 @@ public class UserController extends AbstractVerticle {
     }
 
     void unFollowUser(RoutingContext ctx) {
-        //TODO
-        String mainUser = ctx.getBodyAsString();
+        String actorUsername = ctx.getBodyAsJson().getString("username");
         String userToFollow = ctx.pathParam("userToFollow");
-        boolean isUserUnfollowed = userService.removeFollowing(mainUser, userToFollow);
+        boolean isUserUnfollowed = userService.removeFollowing(actorUsername, userToFollow);
         ctx.response().putHeader("Content-Type", "application/json").setStatusCode(isUserUnfollowed ? 200 : 500).
                 send(new JsonObject().put("isUserUnfollowed", isUserUnfollowed).toString());
     }
 
     void getUserFollowings(RoutingContext ctx) {
-        //TODO
-        String username = ctx.getBodyAsString();
+        String username = ctx.getBodyAsJson().getString("username");
         List<String> usernames = userService.getUserFollowings(username);
         ctx.response().putHeader("Content-Type", "application/json").setStatusCode(200).send(usernames.toString());
     }

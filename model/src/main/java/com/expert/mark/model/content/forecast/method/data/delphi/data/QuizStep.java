@@ -26,7 +26,7 @@ public class QuizStep {
         jsonObject.getJsonArray("marks").forEach(markObject -> {
             this.marks.add(new SingleMark((JsonObject) markObject));
         });
-        this.justificationFinishDate = DateParser.parseToDateWithMinutes(jsonObject.getString("justificationFinishDate"));
+        this.justificationFinishDate = DateParser.parseToDateWithoutMinutes(jsonObject.getString("justificationFinishDate"));
         this.anotherTourRequired = jsonObject.getBoolean("anotherTourRequired");
         this.medianMark = jsonObject.getDouble("medianMark");
     }

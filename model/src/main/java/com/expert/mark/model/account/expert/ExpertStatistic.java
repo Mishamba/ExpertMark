@@ -34,7 +34,7 @@ public class ExpertStatistic {
         jsonObject.put("expertUsername", this.expertUsername);
         jsonObject.put("character", this.character.name());
         jsonObject.put("accuracy", this.accuracy);
-        jsonObject.put("lastUpdateDate", DateParser.parseToString(this.lastUpdateDate));
+        jsonObject.put("lastUpdateDate", DateParser.parseToStringWithoutMinutes(this.lastUpdateDate));
         jsonObject.put("requiresUpdate", this.requiresUpdate);
 
         return jsonObject;

@@ -48,7 +48,7 @@ public class User {
             }
             jsonObject.put("password", passwordJson);
         }
-        jsonObject.put("createDate", DateParser.parseToString(this.createDate));
+        jsonObject.put("createDate", DateParser.parseToStringWithoutMinutes(this.createDate));
         jsonObject.put("role", this.role.name());
         if (this.profile != null) {
             jsonObject.put("profile", this.profile.parseToJson());

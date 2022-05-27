@@ -1,10 +1,12 @@
 package com.expert.mark.model.content.forecast.method.data.delphi.data;
 
 import com.expert.mark.model.content.forecast.method.data.delphi.discussion.Message;
+import com.expert.mark.util.parser.DateParser;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import lombok.*;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,7 +23,9 @@ public class DelphiQuiz {
     private String description;
     private Integer discussionTimeInDays;
     private List<String> expertsUsernames;
+    private Date discussionEndDate;
     private List<Message> discussion;
+    private Date createDate;
     private Double firstTourQuartileRation;
 
     public QuizStep getLastStep() {
@@ -34,19 +38,17 @@ public class DelphiQuiz {
 
     public DelphiQuiz(JsonObject jsonObject) {
         this.quizSteps = new LinkedList<>();
-        jsonObject.getJsonArray("quizSteps").forEach(quizStepObject -> {
-            this.quizSteps.add(new QuizStep((JsonObject) quizStepObject));
-        });
+        jsonObject.getJsonArray("quizSteps").forEach(quizStepObject -> this.quizSteps.add(new QuizStep((JsonObject) quizStepObject)));
         this.assetName = jsonObject.getString("assetName");
         this.title = jsonObject.getString("title");
         this.description = jsonObject.getString("description");
+        this.discussionEndDate = DateParser.parseToDateWithoutMinutes(jsonObject.getString("discussionEndDate"));
         this.discussion = new LinkedList<>();
         jsonObject.getJsonArray("discussion").forEach(x -> discussion.add(new Message((JsonObject) x)));
         this.discussionTimeInDays = jsonObject.getInteger("discussionTimeInDays");
         this.expertsUsernames = new LinkedList<>();
-        jsonObject.getJsonArray("expertsUsernames").forEach(expertUsernameObject -> {
-            this.expertsUsernames.add((String) expertUsernameObject);
-        });
+        jsonObject.getJsonArray("expertsUsernames").forEach(expertUsernameObject -> this.expertsUsernames.add((String) expertUsernameObject));
+        this.createDate = DateParser.parseToDateWithoutMinutes(jsonObject.getString("createDate"));
         this.firstTourQuartileRation = jsonObject.getDouble("firstTourQuartileRation");
     }
 
@@ -64,6 +66,8 @@ public class DelphiQuiz {
         jsonObject.put("description", this.description);
         jsonObject.put("discussionTimeInDays", this.discussionTimeInDays);
         jsonObject.put("expertsUsernames", expertsUsernamesArray);
+        jsonObject.put("createDate", DateParser.parseToStringWithoutMinutes(this.createDate));
+        jsonObject.put("discussionEndDate", DateParser.parseToStringWithoutMinutes(this.discussionEndDate));
         jsonObject.put("firstTourQuartileRation", this.firstTourQuartileRation);
 
         return jsonObject;

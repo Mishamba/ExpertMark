@@ -29,8 +29,7 @@ public class RecommendationController extends AbstractVerticle {
     }
 
     private void findForecastsToRecommend(RoutingContext routingContext) {
-        //TODO get username from userToken
-        String username = "smth";
+        String username = routingContext.getBodyAsJson().getString("username");
         List<Forecast> forecasts = forecastRecommendationService.recommendForecastForUser(username);
         JsonArray forecastsJson = new JsonArray();
         forecasts.forEach(forecast -> forecastsJson.add(forecast.parseToJson()));
@@ -39,8 +38,7 @@ public class RecommendationController extends AbstractVerticle {
     }
 
     private void findExpertsToRecommend(RoutingContext routingContext) {
-        //TODO get username from userToken
-        String username = "smth";
+        String username = routingContext.getBodyAsJson().getString("username");
         List<User> experts = expertRecommendationService.recommendExpertsForUser(username);
         JsonArray expertsJson = new JsonArray();
         experts.forEach(forecast -> expertsJson.add(forecast.parseToJson()));

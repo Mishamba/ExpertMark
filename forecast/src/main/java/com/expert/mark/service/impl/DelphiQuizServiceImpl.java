@@ -8,6 +8,9 @@ import com.expert.mark.repository.DelphiQuizRepository;
 import com.expert.mark.repository.impl.DelphiQuizRepositoryImpl;
 import com.expert.mark.service.DelphiQuizService;
 
+import java.util.Date;
+import java.util.List;
+
 public class DelphiQuizServiceImpl implements DelphiQuizService {
 
     private final DelphiQuizRepository delphiQuizRepository = new DelphiQuizRepositoryImpl();
@@ -16,7 +19,10 @@ public class DelphiQuizServiceImpl implements DelphiQuizService {
     public DelphiQuiz createDelphiQuiz(DelphiQuiz delphiQuiz) {
         delphiQuiz.setQuizSteps(null);
         delphiQuiz.setFirstTourQuartileRation(null);
-        if (delphiQuiz.getTitle() == null || delphiQuiz.getAssetName() == null || delphiQuiz.getExpertsUsernames() == null) {
+        delphiQuiz.setDiscussionEndDate(new Date(new Date().getTime() +
+                86400L * delphiQuiz.getDiscussionTimeInDays()));
+        if (delphiQuiz.getTitle() == null || delphiQuiz.getAssetName() == null ||
+                delphiQuiz.getExpertsUsernames() == null) {
             throw new IllegalArgumentException();
         }
 
@@ -45,9 +51,41 @@ public class DelphiQuizServiceImpl implements DelphiQuizService {
     }
 
     @Override
-    public void startNewQuizStep(String delphiQuizId) {
+    public void processDelphiQuizzes() {
+        List<DelphiQuiz> delphiQuizzes = delphiQuizRepository.getDelphiQuizzesByDiscussionEndDate(new Date());
+        delphiQuizzes.forEach(delphiQuiz -> processDelphiQuiz(delphiQuiz.getTitle()));
+    }
+
+    @Override
+    public void processDelphiQuiz(String delphiQuizId) {
         DelphiQuiz delphiQuiz = delphiQuizRepository.getDelphiQuizById(delphiQuizId);
+        List<SingleMark> singleMarkList = delphiQuiz.getLastStep().getMarks();
+        singleMarkList.sort(SingleMark::compareTo);
+        double medianMark;
+        if (singleMarkList.size() % 2 == 0) {
+            medianMark = singleMarkList.get(singleMarkList.size() / 2).getMark().getResult() +
+                    singleMarkList.get(singleMarkList.size() / 2 + 1).getMark().getResult();
+        } else {
+            medianMark = singleMarkList.get((singleMarkList.size() - 1) / 2 + 1).getMark().getResult();
+        }
+
+        delphiQuiz.getLastStep().setMedianMark(medianMark);
+
+        double lowerQuartile = singleMarkList.get(singleMarkList.size() / 4).getMark().getResult();
+        double higherQuartile = singleMarkList.get(singleMarkList.size() -
+                (singleMarkList.size() / 4) + 1).getMark().getResult();
+
+        double currentTourQuartileRation = higherQuartile / lowerQuartile;
+
+        if (delphiQuiz.getFirstTourQuartileRation() != null) {
+            delphiQuiz.setFirstTourQuartileRation(currentTourQuartileRation);
+            delphiQuiz.getLastStep().setAnotherTourRequired(true);
+        } else if (delphiQuiz.getFirstTourQuartileRation() / currentTourQuartileRation <= 1.6) {
+            delphiQuiz.getLastStep().setAnotherTourRequired(false);
+        }
+
         delphiQuiz.getQuizSteps().add(new QuizStep());
+
         delphiQuizRepository.updateDelphiQuiz(delphiQuiz);
     }
 }

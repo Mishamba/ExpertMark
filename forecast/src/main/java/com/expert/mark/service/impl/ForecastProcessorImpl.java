@@ -8,6 +8,8 @@ import com.expert.mark.repository.ForecastRepository;
 import com.expert.mark.repository.impl.ExpertStatisticRepositoryImpl;
 import com.expert.mark.repository.impl.ForecastRepositoryImpl;
 import com.expert.mark.service.ForecastProcessor;
+import io.vertx.core.Vertx;
+import io.vertx.ext.web.client.WebClient;
 
 import java.util.Date;
 import java.util.List;
@@ -15,6 +17,7 @@ import java.util.List;
 public class ForecastProcessorImpl implements ForecastProcessor {
     private final ForecastRepository forecastRepository = new ForecastRepositoryImpl();
     private final ExpertStatisticRepository expertStatisticRepository = new ExpertStatisticRepositoryImpl();
+    private final WebClient webClient = WebClient.create(Vertx.vertx());
 
     @Override
     public void updateExpertStatisticsAndCalculateForecastAccuracy() {
@@ -57,10 +60,15 @@ public class ForecastProcessorImpl implements ForecastProcessor {
 
     private void processForecastAccuracyCalculation(Forecast forecast) {
         String assetName = forecast.getAssetName();
-        //TODO get real actualPrice
-        double actualPrice = 50;
-        double predictedPrice = forecast.getMethodData().getResult();
-        Float accuracy = 100 - (float) ((Math.abs(predictedPrice - actualPrice) / actualPrice) * 100);
-        forecast.setAccuracy(accuracy);
+        webClient.get("https://api.nomics.com/v1/currencies/ticker?key=ff714c134e6e9e935f88d4b74c3b2c81839cbf1d&ids=" +
+                        assetName +
+                        "&interval=1d,30d&convert=USD&platform-currency=ETH&per-page=100&page=1").
+                send().
+                onComplete(res -> {
+                    double actualPrice = res.result().bodyAsJsonObject().getDouble("price");
+                    double predictedPrice = forecast.getMethodData().getResult();
+                    Float accuracy = 100 - (float) ((Math.abs(predictedPrice - actualPrice) / actualPrice) * 100);
+                    forecast.setAccuracy(accuracy);
+                });
     }
 }

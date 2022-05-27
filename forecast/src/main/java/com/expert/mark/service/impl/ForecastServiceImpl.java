@@ -51,7 +51,7 @@ public class ForecastServiceImpl implements ForecastService {
     public List<Forecast> getAssetForecasts(String assetName, String username) {
         String callUrl = (username == null || username.isEmpty()) ? "/most_trusted_experts" : "/following/" + username;
         List<String> experts = new LinkedList<>();
-        webClient.get(8080, "localhost", callUrl).send().
+        webClient.get(8082, "localhost", callUrl).send().
                 onSuccess(response -> response.bodyAsJsonArray().forEach(expertUsername -> experts.add((String) expertUsername))).
                 onFailure(response -> {
                     throw new RuntimeException(response.getMessage());

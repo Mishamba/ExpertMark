@@ -7,6 +7,7 @@ import com.expert.mark.service.impl.ForecastProcessorImpl;
 import com.expert.mark.service.impl.ForecastServiceImpl;
 import com.expert.mark.util.security.decryption.DecryptionUtil;
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
@@ -27,24 +28,14 @@ public class ForecastVerticle extends AbstractVerticle {
         router.get("/forecasts/user_following_based/:assetName").handler(this::userFollowingBasedAssetForecast);
         router.get("/forecasts/user_owned/:username").handler(this::getUsersForecasts);
         router.get("/forecasts/assets/:asset_name").handler(this::getAssetForecasts);
-        router.put("/forecasts/create").handler(this::createForecast);
+        router.put("/forecasts/create").handler(this::createForecast);//tested
         router.put("/forecasts/update").handler(this::updateForecast);
-        router.get("/forecasts/:id").handler(this::getForecastById);
+        router.get("/forecasts/:id").handler(this::getForecastById);//tested
         router.patch("/processExpertStatistic").handler(this::processForecastsAndExpertStatisticByCall);
-        router.put("/delphiQuiz/create").handler(this::createDelphiQuiz);
-        router.put("/delphiQuiz/addMark").handler(this::addMarkToDelphiQuiz);
 
         vertx.createHttpServer().requestHandler(router).listen(8081).onFailure(Throwable::printStackTrace);
 
         vertx.setPeriodic(86400, this::processForecastsAndExpertStatistic);
-    }
-
-    private void addMarkToDelphiQuiz(RoutingContext routingContext) {
-
-    }
-
-    private void createDelphiQuiz(RoutingContext routingContext) {
-
     }
 
     private void processForecastsAndExpertStatisticByCall(RoutingContext routingContext) {
@@ -57,11 +48,10 @@ public class ForecastVerticle extends AbstractVerticle {
 
     void getForecastById(RoutingContext ctx) {
         String forecastId = ctx.pathParam("id");
-        //TODO get username
-        String username = "smth";
-        this.sendQueryToSpy(username, forecastId, "forecastId");
+        String actorUsername = ctx.getBodyAsJson().getString("username");
+        this.sendQueryToSpy(actorUsername, forecastId, "forecastId");
         Forecast forecast = forecastService.getForecastById(forecastId);
-        ctx.response().putHeader("Content-Type", "application/json").send((forecast == null) ? "{}" : forecast.toString());
+        ctx.response().putHeader("Content-Type", "application/json").send((forecast == null) ? "{}" : forecast.parseToJson().encode());
     }
 
     void updateForecast(RoutingContext ctx) {
@@ -69,19 +59,18 @@ public class ForecastVerticle extends AbstractVerticle {
         Forecast forecastToUpdate = new Forecast(updatedForecast);
         boolean updatedSuccessfully = forecastService.updateForecast(forecastToUpdate);
         ctx.response().putHeader("Content-Type", "application/json").
-                setStatusCode((updatedSuccessfully) ? 200 : 500).send(forecastToUpdate.toString());
+                setStatusCode((updatedSuccessfully) ? 200 : 500).send(forecastToUpdate.parseToJson().encode());
     }
 
     void createForecast(RoutingContext ctx) {
-        JsonObject jsonForecast = ctx.getBodyAsJson();
-        Forecast forecast = new Forecast(jsonForecast);
-        //TODO get username
-        String username = "smth";
+        JsonObject body = ctx.getBodyAsJson();
+        Forecast forecast = new Forecast(body.getJsonObject("forecast"));
+        String username = body.getString("username");
         this.sendQueryToSpy(username, forecast.getAssetName(), "assetName");
         Forecast savedForecast = forecastService.createForecast(forecast);
         ctx.response().putHeader("Content-Type", "application/json").
                 setStatusCode((savedForecast.get_id() != null && !savedForecast.get_id().isEmpty()) ? 200 : 500).
-                send(savedForecast.toString());
+                send(savedForecast.parseToJson().encode());
     }
 
     void deleteForecast(RoutingContext ctx) {
@@ -93,23 +82,25 @@ public class ForecastVerticle extends AbstractVerticle {
     }
 
     void getUsersForecasts(RoutingContext ctx) {
-        String username = ctx.pathParam("username");
-        //TODO get username
-        String actorUsername = "smth";
+        String username = ctx.pathParam("usernameToFind");
+        String actorUsername = ctx.getBodyAsJson().getString("username");
         this.sendQueryToSpy(actorUsername, username, "username");
         List<Forecast> forecastList = forecastService.getUserForecasts(username);
+        JsonArray forecastListJson = new JsonArray();
+        forecastList.forEach(x -> forecastListJson.add(x.parseToJson()));
         ctx.response().putHeader("Content-Type", "application/json").
-                setStatusCode(200).send(forecastList.toString());
+                setStatusCode(200).send(forecastListJson.encode());
     }
 
     void getAssetForecasts(RoutingContext ctx) {
         String assetName = ctx.pathParam("assetName");
-        //TODO get username
-        String username = "smth";
-        this.sendQueryToSpy(username, assetName, "assetName");
+        String actorUsername = ctx.getBodyAsJson().getString("username");
+        this.sendQueryToSpy(actorUsername, assetName, "assetName");
         List<Forecast> forecastList = forecastService.getAssetForecasts(assetName, null);
+        JsonArray forecastListJson = new JsonArray();
+        forecastList.forEach(x -> forecastListJson.add(x.parseToJson()));
         ctx.response().putHeader("Content-Type", "application/json").
-                setStatusCode(200).send(forecastList.toString());
+                setStatusCode(200).send(forecastListJson.encode());
     }
 
     void userFollowingBasedAssetForecast(RoutingContext ctx) {
@@ -120,15 +111,17 @@ public class ForecastVerticle extends AbstractVerticle {
             username = DecryptionUtil.getUsernameFromUserToken(userToken);
         }
         List<Forecast> forecastList = forecastService.getAssetForecasts(assetName, username);
+        JsonArray forecastListJson = new JsonArray();
+        forecastList.forEach(x -> forecastListJson.add(x.parseToJson()));
         ctx.response().putHeader("Content-Type", "application/json").
-                setStatusCode(200).send(forecastList.toString());
+                setStatusCode(200).send(forecastListJson.encode());
     }
 
     private void sendQueryToSpy(String username, String query, String queryType) {
         vertx.eventBus().
                 send("userQuery", new JsonObject().
-                put("username", username).
-                put("queryData", new JsonObject().
+                        put("username", username).
+                        put("queryData", new JsonObject().
                         put("query", query).
                         put("queryType", queryType)));
     }

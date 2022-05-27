@@ -6,13 +6,12 @@ import com.expert.mark.model.content.forecast.method.data.delphi.discussion.Mess
 import com.expert.mark.service.DelphiQuizService;
 import com.expert.mark.service.impl.DelphiQuizServiceImpl;
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.BodyHandler;
 
-public class DelphiQuizController extends AbstractVerticle {
+public class DelphiQuizVerticle extends AbstractVerticle {
 
     private final DelphiQuizService delphiQuizService = new DelphiQuizServiceImpl();
 
@@ -26,7 +25,13 @@ public class DelphiQuizController extends AbstractVerticle {
         router.put("/delphiQuiz/forceNewQuizStep").handler(this::forceNewQuizStep);
         router.put("/delphiQuiz/:delphiQuizTitle/postMark").handler(this::postMark);
 
-        vertx.createHttpServer().requestHandler(router).listen(8083);
+        vertx.createHttpServer().requestHandler(router).listen(8084);
+
+        vertx.setPeriodic(86400, this::processDelphiQuizzes);
+    }
+
+    private void processDelphiQuizzes(Long aLong) {
+        delphiQuizService.processDelphiQuizzes();
     }
 
     private void postMark(RoutingContext routingContext) {
@@ -45,7 +50,8 @@ public class DelphiQuizController extends AbstractVerticle {
     }
 
     private void forceNewQuizStep(RoutingContext routingContext) {
-        delphiQuizService.startNewQuizStep(routingContext.getBodyAsString());
+        String delphiQuizId = routingContext.getBodyAsString();
+        delphiQuizService.processDelphiQuiz(delphiQuizId);
         routingContext.response().setStatusCode(200).send();
     }
 
