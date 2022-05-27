@@ -21,8 +21,8 @@ public class Post {
 
     public Post(JsonObject jsonObject) {
         this.id = jsonObject.getString("id");
-        this.postDate = DateParser.parseToDate(jsonObject.getString("postDate"));
-        this.updateDate = DateParser.parseToDate(jsonObject.getString("updateDate"));
+        this.postDate = DateParser.parseToDateWithMinutes(jsonObject.getString("postDate"));
+        this.updateDate = DateParser.parseToDateWithMinutes(jsonObject.getString("updateDate"));
         this.ownerUsername = jsonObject.getString("ownerUsername");
         this.body = jsonObject.getString("body");
     }

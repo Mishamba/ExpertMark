@@ -28,7 +28,11 @@ public class ThreeMarksData extends MethodData {
         jsonObject.put("pessimisticMark", this.pessimisticMark);
         jsonObject.put("realisticMark", this.realisticMark);
         jsonObject.put("optimisticMark", this.optimisticMark);
-        jsonObject.put("result", this.result);
         return jsonObject;
+    }
+
+    @Override
+    public double getResult() {
+        return this.getPessimisticMark() + 2 * this.getRealisticMark() + this.getOptimisticMark() / 4;
     }
 }

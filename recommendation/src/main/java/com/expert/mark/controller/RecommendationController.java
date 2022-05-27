@@ -14,7 +14,7 @@ import io.vertx.ext.web.RoutingContext;
 
 import java.util.List;
 
-public class ExpertRecommendationController extends AbstractVerticle {
+public class RecommendationController extends AbstractVerticle {
 
     private final ExpertRecommendationService expertRecommendationService = new ExpertRecommendationServiceImpl();
     private final ForecastRecommendationService forecastRecommendationService = new ForecastRecommendationServiceImpl();
@@ -46,6 +46,5 @@ public class ExpertRecommendationController extends AbstractVerticle {
         experts.forEach(forecast -> expertsJson.add(forecast.parseToJson()));
 
         routingContext.response().setStatusCode(200).putHeader("Content-Type", "application/json").end(expertsJson.encode());
-
     }
 }

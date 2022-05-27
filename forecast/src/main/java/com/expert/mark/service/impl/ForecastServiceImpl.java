@@ -1,8 +1,9 @@
 package com.expert.mark.service.impl;
 
-import com.expert.mark.Calculator;
 import com.expert.mark.model.content.forecast.Forecast;
+import com.expert.mark.repository.ExpertStatisticRepository;
 import com.expert.mark.repository.ForecastRepository;
+import com.expert.mark.repository.impl.ExpertStatisticRepositoryImpl;
 import com.expert.mark.repository.impl.ForecastRepositoryImpl;
 import com.expert.mark.service.ForecastService;
 import io.vertx.core.Vertx;
@@ -16,12 +17,12 @@ public class ForecastServiceImpl implements ForecastService {
 
     private final WebClient webClient = WebClient.create(Vertx.vertx());
     private final ForecastRepository forecastRepository = new ForecastRepositoryImpl();
-    private final Calculator calculator = new Calculator();
+    private final ExpertStatisticRepository expertStatisticRepository = new ExpertStatisticRepositoryImpl();
 
     @Override
     public Forecast createForecast(Forecast forecast) {
-        calculator.calculateForecast(forecast);
         forecast.setCreateDate(new Date());
+        expertStatisticRepository.setUpdateRequired(forecast.getOwnerUsername());
         return forecastRepository.createForecast(forecast);
     }
 
@@ -32,7 +33,7 @@ public class ForecastServiceImpl implements ForecastService {
 
     @Override
     public boolean updateForecast(Forecast forecast) {
-        calculator.calculateForecast(forecast);
+        expertStatisticRepository.setUpdateRequired(forecast.getOwnerUsername());
         return forecastRepository.updateForecast(forecast);
     }
 

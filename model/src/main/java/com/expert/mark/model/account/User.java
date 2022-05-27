@@ -25,7 +25,7 @@ public class User {
         this.username = jsonObject.getString("username");
         this.password =  jsonObject.getString("password").toCharArray();
         //this.avatarPath = jsonObject.getString("avatarPath");
-        this.createDate = DateParser.parseToDate(jsonObject.getString("createDate"));
+        this.createDate = DateParser.parseToDateWithMinutes(jsonObject.getString("createDate"));
         String roleString = jsonObject.getString("role");
         if (!roleString.isEmpty()) {
             this.role = Role.valueOf(roleString);

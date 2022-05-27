@@ -1,6 +1,7 @@
-package com.expert.mark.model.content.forecast.method.data.delphi;
+package com.expert.mark.model.content.forecast.method.data.delphi.data;
 
 import com.expert.mark.util.parser.DateParser;
+import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import lombok.*;
 
@@ -25,8 +26,20 @@ public class QuizStep {
         jsonObject.getJsonArray("marks").forEach(markObject -> {
             this.marks.add(new SingleMark((JsonObject) markObject));
         });
-        this.justificationFinishDate = DateParser.parseToDate(jsonObject.getString("justificationFinishDate"));
+        this.justificationFinishDate = DateParser.parseToDateWithMinutes(jsonObject.getString("justificationFinishDate"));
         this.anotherTourRequired = jsonObject.getBoolean("anotherTourRequired");
         this.medianMark = jsonObject.getDouble("medianMark");
+    }
+
+    public JsonObject parseToJson() {
+        JsonObject jsonObject = new JsonObject();
+
+        JsonArray marksJsonArray = new JsonArray();
+        this.marks.forEach(mark -> marksJsonArray.add(mark.parseToJson()));
+        jsonObject.put("marks", marksJsonArray);
+        jsonObject.put("anotherTourRequired", this.anotherTourRequired);
+        jsonObject.put("medianMark", this.medianMark);
+
+        return jsonObject;
     }
 }

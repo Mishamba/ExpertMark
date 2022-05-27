@@ -64,6 +64,7 @@ public class UserController extends AbstractVerticle {
     }
 
     void followUser(RoutingContext ctx) {
+        //TODO
         String mainUser = ctx.getBodyAsString();
         String userToFollow = ctx.pathParam("userToFollow");
         boolean isUserFollowed = userService.addFollowing(mainUser, userToFollow);

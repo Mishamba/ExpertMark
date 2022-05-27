@@ -16,7 +16,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class ForecastRepositoryImpl implements ForecastRepository {
 
-    private final String documentName = "forecast";
+    private final String forecastDocumentName = "forecast";
     private final MongoClient mongoClient = DatabaseClientProvider.provide();
 
     @Override
@@ -91,7 +91,7 @@ public class ForecastRepositoryImpl implements ForecastRepository {
 
     private List<Forecast> findForecastsByQuery(JsonObject query) {
         Future<List<JsonObject>> futureForecasts = mongoClient.
-                find(documentName, query);
+                find(forecastDocumentName, query);
         List<Forecast> forecasts = new LinkedList<>();
         futureForecasts.onComplete(res -> {
             if (res.succeeded()) {
@@ -115,7 +115,7 @@ public class ForecastRepositoryImpl implements ForecastRepository {
         JsonObject query = new JsonObject();
         query.put("_id", id);
         AtomicReference<Boolean> success = new AtomicReference<>(false);
-        mongoClient.findOneAndDelete(documentName, query).onComplete(res -> {
+        mongoClient.findOneAndDelete(forecastDocumentName, query).onComplete(res -> {
             success.set(res.succeeded());
             if (!res.succeeded()) {
                 res.cause().printStackTrace();
@@ -129,11 +129,13 @@ public class ForecastRepositoryImpl implements ForecastRepository {
     public Forecast createForecast(Forecast forecast) {
         JsonObject jsonForecast = forecast.parseToJson();
         jsonForecast.remove("_id");
-        mongoClient.save(documentName, jsonForecast, res -> {
+        mongoClient.save(forecastDocumentName, jsonForecast, res -> {
             if (res.succeeded()) {
                 forecast.set_id(res.result());
             }
         });
+
+
 
         try {
             TimeUnit.SECONDS.sleep(1);
@@ -148,8 +150,12 @@ public class ForecastRepositoryImpl implements ForecastRepository {
     public boolean updateForecast(Forecast forecast) {
         JsonObject query = new JsonObject();
         query.put("_id", forecast.get_id());
+        JsonObject updateQuery = forecast.parseToJson();
+        updateQuery.remove("creationDate");
+        updateQuery.remove("assetName");
+        updateQuery.remove("ownerUsername");
         AtomicReference<Boolean> successful = new AtomicReference<>(false);
-        mongoClient.findOneAndUpdate(documentName, query, forecast.parseToJson(), res -> {
+        mongoClient.findOneAndUpdate(forecastDocumentName, query, updateQuery, res -> {
             successful.set(res.succeeded());
         });
 

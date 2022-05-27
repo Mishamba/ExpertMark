@@ -10,6 +10,6 @@ import lombok.*;
 @EqualsAndHashCode(callSuper = false)
 @ToString
 public abstract class MethodData {
-    protected Float result;
     public abstract JsonObject parseToJson();
+    public abstract double getResult();
 }

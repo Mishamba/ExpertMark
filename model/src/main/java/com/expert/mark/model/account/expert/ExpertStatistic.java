@@ -24,7 +24,7 @@ public class ExpertStatistic {
         this.expertUsername = jsonObject.getString("expertUsername");
         this.character = Character.valueOf(jsonObject.getString("character"));
         this.accuracy = jsonObject.getFloat("accuracy");
-        this.lastUpdateDate = DateParser.parseToDate(jsonObject.getString("lastUpdateDate"));
+        this.lastUpdateDate = DateParser.parseToDateWithMinutes(jsonObject.getString("lastUpdateDate"));
         this.requiresUpdate = jsonObject.getBoolean("requiresUpdate");
     }
 

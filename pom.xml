@@ -21,7 +21,6 @@
         </plugins>
     </build>
     <modules>
-        <module>calculation</module>
         <module>util</module>
         <module>model</module>
         <module>user</module>

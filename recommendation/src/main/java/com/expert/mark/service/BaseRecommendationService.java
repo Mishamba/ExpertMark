@@ -12,7 +12,7 @@ import io.vertx.ext.mongo.MongoClient;
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class BaseRecommendationProcessor {
+public abstract class BaseRecommendationService {
 
     protected MongoClient mongoClient = DatabaseClientProvider.provide();
     protected ForecastRepository forecastRepository = new ForecastRepositoryImpl();

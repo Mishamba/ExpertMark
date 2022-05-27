@@ -12,7 +12,7 @@ import java.util.List;
 
 public class ExpertStatisticRepositoryImpl implements ExpertStatisticRepository {
 
-    private final String documentName = "expert_statistic";
+    private final String documentName = "expertStatistic";
     private final MongoClient mongoClient = DatabaseClientProvider.provide();
 
     @Override
@@ -52,10 +52,20 @@ public class ExpertStatisticRepositoryImpl implements ExpertStatisticRepository 
         Future<List<JsonObject>> expertStatisticFuture = mongoClient.find(documentName, query);
 
         List<ExpertStatistic> expertStatistics = new LinkedList<>();
-        for (JsonObject expertStatisticJson : expertStatisticFuture.result()) {
-            expertStatistics.add(new ExpertStatistic(expertStatisticJson));
-        }
-
+        expertStatisticFuture.onSuccess(res -> {
+            for (JsonObject expertStatisticJson : res) {
+                expertStatistics.add(new ExpertStatistic(expertStatisticJson));
+            }
+        });
         return expertStatistics;
+    }
+
+    @Override
+    public void setUpdateRequired(String username) {
+        JsonObject query = new JsonObject();
+        query.put("_id", username);
+        JsonObject updateDate = new JsonObject();
+        updateDate.put("updateRequired", true);
+        mongoClient.findOneAndUpdate(documentName, query, updateDate);
     }
 }

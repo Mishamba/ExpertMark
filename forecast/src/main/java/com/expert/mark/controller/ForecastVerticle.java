@@ -14,7 +14,7 @@ import io.vertx.ext.web.handler.BodyHandler;
 
 import java.util.List;
 
-public class ForecastController extends AbstractVerticle {
+public class ForecastVerticle extends AbstractVerticle {
 
     private final ForecastService forecastService = new ForecastServiceImpl();
     private final ForecastProcessor forecastProcessor = new ForecastProcessorImpl();
@@ -31,10 +31,20 @@ public class ForecastController extends AbstractVerticle {
         router.put("/forecasts/update").handler(this::updateForecast);
         router.get("/forecasts/:id").handler(this::getForecastById);
         router.patch("/processExpertStatistic").handler(this::processForecastsAndExpertStatisticByCall);
+        router.put("/delphiQuiz/create").handler(this::createDelphiQuiz);
+        router.put("/delphiQuiz/addMark").handler(this::addMarkToDelphiQuiz);
 
         vertx.createHttpServer().requestHandler(router).listen(8081).onFailure(Throwable::printStackTrace);
 
         vertx.setPeriodic(86400, this::processForecastsAndExpertStatistic);
+    }
+
+    private void addMarkToDelphiQuiz(RoutingContext routingContext) {
+
+    }
+
+    private void createDelphiQuiz(RoutingContext routingContext) {
+
     }
 
     private void processForecastsAndExpertStatisticByCall(RoutingContext routingContext) {

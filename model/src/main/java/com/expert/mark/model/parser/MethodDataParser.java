@@ -21,17 +21,17 @@ public class MethodDataParser {
         }
     }
     
-    public static String parseMethodDataToJson(MethodData data, MethodType type) {
+    public static JsonObject parseMethodDataToJson(MethodData data, MethodType type) {
         switch (type) {
             case THREE_MARKS_FORECAST:
                 ThreeMarksData threeMarksData = (ThreeMarksData) data;
-                return threeMarksData.toString();
+                return threeMarksData.parseToJson();
             case THREE_MARKS_WITH_CHANCES_FORECAST:
                 ThreeMarksWithChancesData threeMarksWithChancesData = (ThreeMarksWithChancesData) data;
-                return threeMarksWithChancesData.toString();
+                return threeMarksWithChancesData.parseToJson();
             case TWO_MARKS_FORECAST:
                  TwoMarksData twoMarksData = (TwoMarksData) data;
-                 return twoMarksData.toString();
+                 return twoMarksData.parseToJson();
             default:
                 throw new RuntimeException("no such method");
         }

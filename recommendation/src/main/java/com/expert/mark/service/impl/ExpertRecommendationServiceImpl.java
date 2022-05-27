@@ -2,7 +2,7 @@ package com.expert.mark.service.impl;
 
 import com.expert.mark.model.account.User;
 import com.expert.mark.service.ExpertRecommendationService;
-import com.expert.mark.service.BaseRecommendationProcessor;
+import com.expert.mark.service.BaseRecommendationService;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class ExpertRecommendationServiceImpl extends BaseRecommendationProcessor implements ExpertRecommendationService {
+public class ExpertRecommendationServiceImpl extends BaseRecommendationService implements ExpertRecommendationService {
     @Override
     public List<User> recommendExpertsForUser(String username) {
         List<String> assetNames = this.getAssetNamesForUser(username);

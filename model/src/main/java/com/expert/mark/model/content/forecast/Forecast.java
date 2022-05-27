@@ -32,8 +32,8 @@ public class Forecast {
                 parseJsonToMethodData(jsonObject.getJsonObject("methodData"), this.methodType);
         this.assetName = jsonObject.getString("assetName");
         this.ownerUsername = jsonObject.getString("ownerUsername");
-        this.createDate = DateParser.parseToDate(jsonObject.getString("createDate"));
-        this.targetDate = DateParser.parseToDate(jsonObject.getString("targetDate"));
+        this.createDate = DateParser.parseToDateWithMinutes(jsonObject.getString("createDate"));
+        this.targetDate = DateParser.parseToDateWithMinutes(jsonObject.getString("targetDate"));
         this.accuracy = jsonObject.getFloat("accuracy");
     }
 
