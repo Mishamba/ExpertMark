@@ -6,7 +6,9 @@ import com.expert.mark.repository.ForecastRepository;
 import com.expert.mark.repository.impl.ExpertStatisticRepositoryImpl;
 import com.expert.mark.repository.impl.ForecastRepositoryImpl;
 import com.expert.mark.service.ForecastService;
+import com.expert.mark.service.UserService;
 import io.vertx.core.Vertx;
+import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.client.WebClient;
 
 import java.util.Date;
@@ -17,7 +19,7 @@ public class ForecastServiceImpl implements ForecastService {
 
     private final WebClient webClient = WebClient.create(Vertx.vertx());
     private final ForecastRepository forecastRepository = new ForecastRepositoryImpl();
-    private final ExpertStatisticRepository expertStatisticRepository = new ExpertStatisticRepositoryImpl();
+    private final UserService userService = new UserServiceImpl();
 
     @Override
     public Forecast createForecast(Forecast forecast) {
@@ -47,14 +49,7 @@ public class ForecastServiceImpl implements ForecastService {
 
     @Override
     public List<Forecast> getAssetForecasts(String assetName, String username) {
-        String callUrl = (username == null || username.isEmpty()) ? "/most_trusted_experts" : "/following/" + username;
-        List<String> experts = new LinkedList<>();
-        webClient.get(8082, "localhost", callUrl).send().
-                onSuccess(response -> response.bodyAsJsonArray().forEach(expertUsername -> experts.add((String) expertUsername))).
-                onFailure(response -> {
-                    throw new RuntimeException(response.getMessage());
-                });
-
+        List<String> experts = userService.getUserFollowings(username);
         return getAssetForecastsFromExperts(assetName, experts);
     }
 

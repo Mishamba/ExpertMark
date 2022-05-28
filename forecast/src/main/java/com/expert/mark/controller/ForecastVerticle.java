@@ -27,7 +27,7 @@ public class ForecastVerticle extends AbstractVerticle {
         router.delete("/forecasts/delete").handler(this::deleteForecast);
         router.get("/forecasts/user_following_based/:assetName").handler(this::userFollowingBasedAssetForecast);
         router.get("/forecasts/user_owned/:username").handler(this::getUsersForecasts);
-        router.get("/forecasts/assets/:asset_name").handler(this::getAssetForecasts);
+        router.get("/forecasts/assets/:assetName").handler(this::getAssetForecasts);
         router.put("/forecasts/create").handler(this::createForecast);//tested
         router.put("/forecasts/update").handler(this::updateForecast);
         router.get("/forecasts/:id").handler(this::getForecastById);//tested
@@ -97,7 +97,7 @@ public class ForecastVerticle extends AbstractVerticle {
         String assetName = ctx.pathParam("assetName");
         String actorUsername = ctx.getBodyAsJson().getString("username");
         this.sendQueryToSpy(actorUsername, assetName, "assetName");
-        List<Forecast> forecastList = forecastService.getAssetForecasts(assetName, null);
+        List<Forecast> forecastList = forecastService.getAssetForecasts(assetName, actorUsername);
         JsonArray forecastListJson = new JsonArray();
         forecastList.forEach(x -> forecastListJson.add(x.parseToJson()));
         ctx.response().putHeader("Content-Type", "application/json").

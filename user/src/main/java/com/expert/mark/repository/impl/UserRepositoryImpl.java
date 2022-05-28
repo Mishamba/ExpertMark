@@ -117,7 +117,9 @@ public class UserRepositoryImpl implements UserRepository {
         AtomicReference<User> user = new AtomicReference<>();
         mongoClient.findOne(userDocumentName, query, null).onComplete(res -> {
             if (res.succeeded()) {
-                user.set(new User(res.result()));
+                JsonObject jsonObject = res.result();
+                jsonObject.put("username", jsonObject.getString("_id"));
+                user.set(new User(jsonObject));
             } else {
                 res.cause().printStackTrace();
             }

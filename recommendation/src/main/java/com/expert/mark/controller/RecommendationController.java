@@ -9,8 +9,10 @@ import com.expert.mark.service.impl.ForecastRecommendationServiceImpl;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonArray;
+import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
+import io.vertx.ext.web.handler.BodyHandler;
 
 import java.util.List;
 
@@ -22,14 +24,16 @@ public class RecommendationController extends AbstractVerticle {
     @Override
     public void start() throws Exception {
         Router router = Router.router(Vertx.vertx());
+        router.route().handler(BodyHandler.create());
         router.get("/recommend/experts").handler(this::findExpertsToRecommend);
         router.get("/recommend/forecasts").handler(this::findForecastsToRecommend);
 
         vertx.createHttpServer().requestHandler(router).listen(8083).onFailure(Throwable::printStackTrace);
     }
 
-    private void findForecastsToRecommend(RoutingContext routingContext) {
-        String username = routingContext.getBodyAsJson().getString("username");
+    void findForecastsToRecommend(RoutingContext routingContext) {
+        JsonObject body = routingContext.getBodyAsJson();
+        String username = body.getString("username");
         List<Forecast> forecasts = forecastRecommendationService.recommendForecastForUser(username);
         JsonArray forecastsJson = new JsonArray();
         forecasts.forEach(forecast -> forecastsJson.add(forecast.parseToJson()));
@@ -37,11 +41,12 @@ public class RecommendationController extends AbstractVerticle {
         routingContext.response().setStatusCode(200).putHeader("Content-Type", "application/json").end(forecastsJson.encode());
     }
 
-    private void findExpertsToRecommend(RoutingContext routingContext) {
-        String username = routingContext.getBodyAsJson().getString("username");
+    void findExpertsToRecommend(RoutingContext routingContext) {
+        JsonObject body = routingContext.getBodyAsJson();
+        String username = body.getString("username");
         List<User> experts = expertRecommendationService.recommendExpertsForUser(username);
         JsonArray expertsJson = new JsonArray();
-        experts.forEach(forecast -> expertsJson.add(forecast.parseToJson()));
+        experts.forEach(expert -> expertsJson.add(expert.parseToJson()));
 
         routingContext.response().setStatusCode(200).putHeader("Content-Type", "application/json").end(expertsJson.encode());
     }
