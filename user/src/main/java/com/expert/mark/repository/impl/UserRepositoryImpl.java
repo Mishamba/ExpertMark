@@ -92,7 +92,10 @@ public class UserRepositoryImpl implements UserRepository {
         AtomicReference<User> user = new AtomicReference<>();
         mongoClient.findOne(userDocumentName, query, fields).onComplete(res -> {
             if (res.succeeded()) {
-                user.set(new User(res.result()));
+                JsonObject userJson = res.result();
+                userJson.remove("password");
+                userJson.put("username", userJson.getString("_id"));
+                user.set(new User(userJson));
             } else {
                 res.cause().printStackTrace();
             }
@@ -104,7 +107,7 @@ public class UserRepositoryImpl implements UserRepository {
             e.printStackTrace();
         }
 
-        return user.get();
+            return user.get();
     }
 
     @Override
@@ -118,7 +121,7 @@ public class UserRepositoryImpl implements UserRepository {
             } else {
                 res.cause().printStackTrace();
             }
-        });
+        }).onFailure(Throwable::printStackTrace);
 
         try {
             TimeUnit.SECONDS.sleep(1);
@@ -195,6 +198,12 @@ public class UserRepositoryImpl implements UserRepository {
             succeeded.set(res.succeeded());
         });
 
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         return succeeded.get();
     }
 
@@ -208,6 +217,12 @@ public class UserRepositoryImpl implements UserRepository {
         mongoClient.updateCollection(userDocumentName, query, update).onComplete(res -> {
             succeeded.set(res.succeeded());
         });
+
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         return succeeded.get();
     }

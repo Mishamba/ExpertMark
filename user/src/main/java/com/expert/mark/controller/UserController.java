@@ -4,6 +4,7 @@ import com.expert.mark.model.account.User;
 import com.expert.mark.service.UserService;
 import com.expert.mark.service.impl.UserServiceImpl;
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
@@ -19,9 +20,9 @@ public class UserController extends AbstractVerticle {
     public void start() {
         Router router = Router.router(vertx);
         router.route().handler(BodyHandler.create());
-        router.get("/users/profile/:username").handler(this::getUserWithoutProfile);
-        router.get("/users/:username").handler(this::getUserWithProfile);
-        router.get("/followings").handler(this::getUserFollowings);
+        router.get("/users/profile/:username").handler(this::getUserWithoutProfile);//tested
+        router.get("/users/:username").handler(this::getUserWithProfile);//tested
+        router.get("/followings").handler(this::getUserFollowings);//tested
         router.get("/most_trusted_experts").handler(this::getMostTrustedExperts);
         router.post("/user").handler(this::createUser);
         router.put("/users/update").handler(this::updateUser);
@@ -36,7 +37,9 @@ public class UserController extends AbstractVerticle {
         String actorUsername = ctx.getBodyAsJson().getString("username");
         sendQueryToSpy(actorUsername, username, "username");
         User user = userService.getUserByUsernameWithoutProfile(username);
-        ctx.response().putHeader("Content-Type", "application/json").setStatusCode(200).send(user.parseToJson().remove("profile").toString());
+        JsonObject userJson = user.parseToJson();
+        userJson.remove("profile");
+        ctx.response().putHeader("Content-Type", "application/json").setStatusCode(200).send(userJson.encode());
     }
 
     void getUserWithProfile(RoutingContext ctx) {
@@ -44,7 +47,7 @@ public class UserController extends AbstractVerticle {
         String actorUsername = ctx.getBodyAsJson().getString("username");
         sendQueryToSpy(actorUsername, username, "username");
         User user = userService.getUserByUsernameWithProfile(username);
-        ctx.response().putHeader("Content-Type", "application/json").setStatusCode(200).send((user == null) ? "no user found" : user.parseToJson().toString());
+        ctx.response().putHeader("Content-Type", "application/json").setStatusCode(200).send((user == null) ? "no user found" : user.parseToJson().encode());
     }
 
     void createUser(RoutingContext ctx) {
@@ -80,7 +83,9 @@ public class UserController extends AbstractVerticle {
     void getUserFollowings(RoutingContext ctx) {
         String username = ctx.getBodyAsJson().getString("username");
         List<String> usernames = userService.getUserFollowings(username);
-        ctx.response().putHeader("Content-Type", "application/json").setStatusCode(200).send(usernames.toString());
+        JsonArray usernamesJson = new JsonArray();
+        usernames.forEach(usernamesJson::add);
+        ctx.response().putHeader("Content-Type", "application/json").setStatusCode(200).send(usernamesJson.encode());
     }
 
     void getMostTrustedExperts(RoutingContext ctx) {

@@ -27,6 +27,7 @@
         <module>forecast</module>
         <module>recommendation</module>
         <module>spy</module>
+        <module>currency</module>
     </modules>
 
     <dependencies>
@@ -54,13 +55,13 @@
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-core</artifactId>
-            <version>4.2.7</version>
+            <version>4.3.0</version>
         </dependency>
 
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-web</artifactId>
-            <version>4.2.7</version>
+            <version>4.3.0</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
@@ -75,7 +76,7 @@
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-codegen</artifactId>
-            <version>4.2.7</version>
+            <version>4.3.0</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator -->

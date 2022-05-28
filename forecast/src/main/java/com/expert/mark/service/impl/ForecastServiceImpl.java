@@ -22,7 +22,6 @@ public class ForecastServiceImpl implements ForecastService {
     @Override
     public Forecast createForecast(Forecast forecast) {
         forecast.setCreateDate(new Date());
-        expertStatisticRepository.setUpdateRequired(forecast.getOwnerUsername());
         return forecastRepository.createForecast(forecast);
     }
 
@@ -33,7 +32,6 @@ public class ForecastServiceImpl implements ForecastService {
 
     @Override
     public boolean updateForecast(Forecast forecast) {
-        expertStatisticRepository.setUpdateRequired(forecast.getOwnerUsername());
         return forecastRepository.updateForecast(forecast);
     }
 

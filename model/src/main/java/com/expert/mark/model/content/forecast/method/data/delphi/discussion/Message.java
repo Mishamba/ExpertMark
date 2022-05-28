@@ -24,7 +24,7 @@ public class Message {
     public JsonObject parseToJson() {
         JsonObject jsonObject = new JsonObject();
 
-        jsonObject.put("postDate", DateParser.parseToStringWithoutMinutes(this.postDate));
+        jsonObject.put("postDate", DateParser.parseToStringWithMinutes(this.postDate));
         jsonObject.put("message", this.message);
 
         return jsonObject;

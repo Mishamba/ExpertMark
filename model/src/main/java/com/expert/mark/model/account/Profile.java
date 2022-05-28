@@ -18,7 +18,7 @@ public class Profile {
     private String accountDescription;
 
     public Profile(JsonObject jsonObject) {
-        JsonArray followingJsonArray = jsonObject.getJsonArray("following");
+        JsonArray followingJsonArray = jsonObject.getJsonArray("followingUserNames");
         if (followingJsonArray != null) {
             this.followingUserNames = new ArrayList<>();
             followingJsonArray.forEach(username -> {

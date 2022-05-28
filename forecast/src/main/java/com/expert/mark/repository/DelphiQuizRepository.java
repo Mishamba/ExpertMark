@@ -13,6 +13,6 @@ public interface DelphiQuizRepository {
     DelphiQuiz updateDelphiQuiz(DelphiQuiz delphiQuiz);
     Message postDiscussionMessage(Message message, String delphiQuizId);
     int getDelphiQuizStepsNumber(String delphiQuizId);
-    List<DelphiQuiz> getDelphiQuizzesByDiscussionEndDate(Date date);
+    List<DelphiQuiz> getDelphiQuizzesRequiredToProcess(Date date);
     SingleMark postSingleMark(String delphiQuizId, SingleMark singleMark);
 }

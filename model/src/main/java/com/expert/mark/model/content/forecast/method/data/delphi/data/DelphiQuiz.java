@@ -38,16 +38,25 @@ public class DelphiQuiz {
 
     public DelphiQuiz(JsonObject jsonObject) {
         this.quizSteps = new LinkedList<>();
-        jsonObject.getJsonArray("quizSteps").forEach(quizStepObject -> this.quizSteps.add(new QuizStep((JsonObject) quizStepObject)));
+        JsonArray quizSteps = jsonObject.getJsonArray("quizSteps");
+        if (quizSteps != null) {
+            quizSteps.forEach(quizStepObject -> this.quizSteps.add(new QuizStep((JsonObject) quizStepObject)));
+        }
         this.assetName = jsonObject.getString("assetName");
         this.title = jsonObject.getString("title");
         this.description = jsonObject.getString("description");
         this.discussionEndDate = DateParser.parseToDateWithoutMinutes(jsonObject.getString("discussionEndDate"));
         this.discussion = new LinkedList<>();
-        jsonObject.getJsonArray("discussion").forEach(x -> discussion.add(new Message((JsonObject) x)));
+        JsonArray discussion = jsonObject.getJsonArray("discussion");
+        if (discussion != null) {
+            discussion.forEach(x -> this.discussion.add(new Message((JsonObject) x)));
+        }
         this.discussionTimeInDays = jsonObject.getInteger("discussionTimeInDays");
         this.expertsUsernames = new LinkedList<>();
-        jsonObject.getJsonArray("expertsUsernames").forEach(expertUsernameObject -> this.expertsUsernames.add((String) expertUsernameObject));
+        JsonArray expertsUsernames = jsonObject.getJsonArray("expertsUsernames");
+        if (expertsUsernames != null) {
+            jsonObject.getJsonArray("expertsUsernames").forEach(expertUsernameObject -> this.expertsUsernames.add((String) expertUsernameObject));
+        }
         this.createDate = DateParser.parseToDateWithoutMinutes(jsonObject.getString("createDate"));
         this.firstTourQuartileRation = jsonObject.getDouble("firstTourQuartileRation");
     }
@@ -56,9 +65,17 @@ public class DelphiQuiz {
         JsonObject jsonObject = new JsonObject();
 
         JsonArray quizStepsArray = new JsonArray();
-        this.quizSteps.forEach(quizStep -> quizStepsArray.add(quizStep.parseToJson()));
+        if (this.quizSteps != null) {
+            this.quizSteps.forEach(quizStep -> quizStepsArray.add(quizStep.parseToJson()));
+        }
         JsonArray expertsUsernamesArray = new JsonArray();
-        this.expertsUsernames.forEach(expertsUsernamesArray::add);
+        if (this.expertsUsernames != null) {
+            this.expertsUsernames.forEach(expertsUsernamesArray::add);
+        }
+        JsonArray discussionArray = new JsonArray();
+        if (this.discussion != null) {
+            this.discussion.forEach(disc -> discussionArray.add(disc.parseToJson()));
+        }
 
         jsonObject.put("quizSteps", quizStepsArray);
         jsonObject.put("assetName", this.assetName);
@@ -68,6 +85,7 @@ public class DelphiQuiz {
         jsonObject.put("expertsUsernames", expertsUsernamesArray);
         jsonObject.put("createDate", DateParser.parseToStringWithoutMinutes(this.createDate));
         jsonObject.put("discussionEndDate", DateParser.parseToStringWithoutMinutes(this.discussionEndDate));
+        jsonObject.put("discussion", discussionArray);
         jsonObject.put("firstTourQuartileRation", this.firstTourQuartileRation);
 
         return jsonObject;

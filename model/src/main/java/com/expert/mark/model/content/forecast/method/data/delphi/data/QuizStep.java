@@ -16,16 +16,21 @@ import java.util.List;
 @ToString
 @EqualsAndHashCode
 public class QuizStep {
+    private Integer stepNumber;
     private List<SingleMark> marks;
     private Date justificationFinishDate;
     private Boolean anotherTourRequired;
     private Double medianMark;
 
     public QuizStep(JsonObject jsonObject) {
-        this.marks = new LinkedList<>();
-        jsonObject.getJsonArray("marks").forEach(markObject -> {
-            this.marks.add(new SingleMark((JsonObject) markObject));
-        });
+        this.stepNumber = jsonObject.getInteger("stepNumber");
+        JsonArray marksJson = jsonObject.getJsonArray("marks");
+        if (marksJson != null) {
+            this.marks = new LinkedList<>();
+            marksJson.forEach(markObject -> {
+                this.marks.add(new SingleMark((JsonObject) markObject));
+            });
+        }
         this.justificationFinishDate = DateParser.parseToDateWithoutMinutes(jsonObject.getString("justificationFinishDate"));
         this.anotherTourRequired = jsonObject.getBoolean("anotherTourRequired");
         this.medianMark = jsonObject.getDouble("medianMark");
@@ -34,11 +39,18 @@ public class QuizStep {
     public JsonObject parseToJson() {
         JsonObject jsonObject = new JsonObject();
 
-        JsonArray marksJsonArray = new JsonArray();
-        this.marks.forEach(mark -> marksJsonArray.add(mark.parseToJson()));
-        jsonObject.put("marks", marksJsonArray);
+        jsonObject.put("stepNumber", this.stepNumber);
+        if (this.marks != null) {
+            JsonArray marksJsonArray = new JsonArray();
+            this.marks.forEach(mark -> marksJsonArray.add(mark.parseToJson()));
+            jsonObject.put("marks", marksJsonArray);
+        } else {
+            jsonObject.put("marks", null);
+        }
         jsonObject.put("anotherTourRequired", this.anotherTourRequired);
         jsonObject.put("medianMark", this.medianMark);
+        jsonObject.put("justificationFinishDate",
+                DateParser.parseToStringWithoutMinutes(this.justificationFinishDate));
 
         return jsonObject;
     }

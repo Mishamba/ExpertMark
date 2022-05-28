@@ -25,7 +25,7 @@ public class RecommendationController extends AbstractVerticle {
         router.get("/recommend/experts").handler(this::findExpertsToRecommend);
         router.get("/recommend/forecasts").handler(this::findForecastsToRecommend);
 
-        vertx.createHttpServer().requestHandler(router).listen(8083);
+        vertx.createHttpServer().requestHandler(router).listen(8083).onFailure(Throwable::printStackTrace);
     }
 
     private void findForecastsToRecommend(RoutingContext routingContext) {

@@ -19,7 +19,7 @@ public class SingleMark implements Comparable<SingleMark> {
 
     public SingleMark(JsonObject jsonObject) {
         this.methodType = MethodType.valueOf(jsonObject.getString("methodType"));
-        this.mark = MethodDataParser.parseJsonToMethodData(jsonObject.getJsonObject("mark"), this.methodType);
+        this.mark = MethodDataParser.parseJsonToMethodData(jsonObject.getJsonObject("methodData"), this.methodType);
         this.ownerUsername = jsonObject.getString("ownerUsername");
     }
 
@@ -27,7 +27,7 @@ public class SingleMark implements Comparable<SingleMark> {
         JsonObject jsonObject = new JsonObject();
 
         jsonObject.put("methodType", this.methodType.name());
-        jsonObject.put("mark", this.mark.parseToJson());
+        jsonObject.put("methodData", this.mark.parseToJson());
         jsonObject.put("ownerUsername", this.ownerUsername);
 
         return jsonObject;

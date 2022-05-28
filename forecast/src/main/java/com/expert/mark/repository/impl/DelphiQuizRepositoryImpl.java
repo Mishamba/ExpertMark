@@ -6,12 +6,14 @@ import com.expert.mark.model.content.forecast.method.data.delphi.discussion.Mess
 import com.expert.mark.repository.DelphiQuizRepository;
 import com.expert.mark.util.db.DatabaseClientProvider;
 import com.expert.mark.util.parser.DateParser;
+import io.vertx.core.Future;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.mongo.MongoClient;
 
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class DelphiQuizRepositoryImpl implements DelphiQuizRepository {
@@ -22,13 +24,18 @@ public class DelphiQuizRepositoryImpl implements DelphiQuizRepository {
     @Override
     public DelphiQuiz getDelphiQuizById(String id) {
         JsonObject query = new JsonObject();
-        query.put("id", id);
-        AtomicReference<DelphiQuiz> delphiQuiz = new AtomicReference<>();
-        mongoClient.findOne(delphiQuizDocumentName, query, null).onComplete(res -> {
-            delphiQuiz.set(new DelphiQuiz(res.result()));
-        });
+        query.put("_id", id);
+        List<DelphiQuiz> delphiQuizzes = new LinkedList<>();
+        mongoClient.findOne(delphiQuizDocumentName, query, null).
+                onComplete(yes -> delphiQuizzes.add(new DelphiQuiz(yes.result())));
 
-        return delphiQuiz.get();
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return delphiQuizzes.get(0);
     }
 
     @Override
@@ -36,11 +43,7 @@ public class DelphiQuizRepositoryImpl implements DelphiQuizRepository {
         JsonObject delphiQuizJson = delphiQuiz.parseToJson();
         delphiQuizJson.put("_id", delphiQuiz.getTitle());
         delphiQuizJson.remove("title");
-        mongoClient.save(delphiQuizDocumentName, delphiQuizJson).onSuccess(res -> {
-            if (!delphiQuiz.getTitle().equals(res)) {
-                throw new RuntimeException("delphiQuiz wasn't created");
-            }
-        });
+        mongoClient.save(delphiQuizDocumentName, delphiQuizJson);
 
         return delphiQuiz;
     }
@@ -50,12 +53,15 @@ public class DelphiQuizRepositoryImpl implements DelphiQuizRepository {
         JsonObject query = new JsonObject();
         query.put("_id", delphiQuiz.getTitle());
         JsonObject delphiQuizJson = delphiQuiz.parseToJson();
-        delphiQuizJson.put("_id", delphiQuiz.getTitle());
         delphiQuizJson.remove("title");
         delphiQuizJson.remove("expertsUsernames");
         AtomicReference<DelphiQuiz> updatedDelphiQuiz = new AtomicReference<>();
         mongoClient.updateCollection(delphiQuizDocumentName, query, delphiQuizJson).
-                onSuccess(res -> updatedDelphiQuiz.set(new DelphiQuiz(res.toJson())));
+                onSuccess(res -> updatedDelphiQuiz.set(new DelphiQuiz(res.toJson()))).
+                onFailure(res -> {
+                    res.getCause().printStackTrace();
+                    throw new RuntimeException();
+                });
 
         return updatedDelphiQuiz.get();
     }
@@ -78,13 +84,22 @@ public class DelphiQuizRepositoryImpl implements DelphiQuizRepository {
     }
 
     @Override
-    public List<DelphiQuiz> getDelphiQuizzesByDiscussionEndDate(Date date) {
+    public List<DelphiQuiz> getDelphiQuizzesRequiredToProcess(Date date) {
         JsonObject query = new JsonObject();
         query.put("discussionEndDate", DateParser.parseToStringWithoutMinutes(date));
         List<DelphiQuiz> delphiQuizzes = new LinkedList<>();
         mongoClient.find(delphiQuizDocumentName, query).onComplete(res -> {
-            res.result().forEach(x -> delphiQuizzes.add(new DelphiQuiz(x)));
+            res.result().forEach(x ->  {
+                x.put("title", x.getString("_id"));
+                delphiQuizzes.add(new DelphiQuiz(x));
+            });
         });
+
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         return delphiQuizzes;
     }
@@ -95,7 +110,7 @@ public class DelphiQuizRepositoryImpl implements DelphiQuizRepository {
         query.put("_id", delphiQuizId);
         JsonObject updateData = new JsonObject();
         int quizNumber = this.getDelphiQuizById(delphiQuizId).getStepsNumbers();
-        updateData.put("$push", new JsonObject().put("quizSteps." + quizNumber + ".singleMarks",
+        updateData.put("$push", new JsonObject().put("quizSteps." + quizNumber + ".marks",
                 singleMark.parseToJson()));
 
         mongoClient.updateCollection(delphiQuizDocumentName, query, updateData);

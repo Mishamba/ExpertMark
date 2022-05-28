@@ -17,25 +17,25 @@ public class ExpertStatistic {
     private String expertUsername;
     private Character character;
     private Float accuracy;
-    private Date lastUpdateDate;
-    private Boolean requiresUpdate;
 
     public ExpertStatistic(JsonObject jsonObject) {
         this.expertUsername = jsonObject.getString("expertUsername");
-        this.character = Character.valueOf(jsonObject.getString("character"));
+        if (jsonObject.getString("character") != null) {
+            this.character = Character.valueOf(jsonObject.getString("character"));
+        }
         this.accuracy = jsonObject.getFloat("accuracy");
-        this.lastUpdateDate = DateParser.parseToDateWithMinutes(jsonObject.getString("lastUpdateDate"));
-        this.requiresUpdate = jsonObject.getBoolean("requiresUpdate");
     }
 
     public JsonObject parseToJsonObject() {
         JsonObject jsonObject = new JsonObject();
 
         jsonObject.put("expertUsername", this.expertUsername);
-        jsonObject.put("character", this.character.name());
+        if (this.character != null) {
+            jsonObject.put("character", this.character.name());
+        } else {
+            jsonObject.put("character", null);
+        }
         jsonObject.put("accuracy", this.accuracy);
-        jsonObject.put("lastUpdateDate", DateParser.parseToStringWithoutMinutes(this.lastUpdateDate));
-        jsonObject.put("requiresUpdate", this.requiresUpdate);
 
         return jsonObject;
     }

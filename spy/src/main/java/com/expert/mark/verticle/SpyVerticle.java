@@ -17,14 +17,18 @@ public class SpyVerticle extends AbstractVerticle {
             JsonObject findQuery = new JsonObject();
             findQuery.put("_id", userQuery.getString("username"));
             JsonObject updateQuery = new JsonObject();
-            updateQuery.put("$push", new JsonObject().put("queries", userQuery.getString("queryData")));
+            updateQuery.put("$push", new JsonObject().put("queries", userQuery.getJsonObject("queryData")));
             mongoClient.find("userQuery", findQuery).onSuccess(res -> {
 
                 if (!res.isEmpty()) {
                     mongoClient.findOneAndUpdate("userQuery", findQuery, updateQuery).
                             onComplete(yes -> System.out.println("is spy save completed: " + yes.result()));
                 } else {
-                    mongoClient.save("userQuery", new JsonObject().put("queries", new JsonArray().add(userQuery)));
+                    userQuery.put("_id", userQuery.getString("username"));
+                    userQuery.remove("username");
+                    userQuery.put("queries", new JsonArray().add(userQuery.getJsonObject("queryData")));
+                    userQuery.remove("queryData");
+                    mongoClient.save("userQuery", userQuery);
                 }
             });
         });

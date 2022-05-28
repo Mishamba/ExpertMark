@@ -7,6 +7,7 @@ import java.util.List;
 public interface ExpertStatisticRepository {
     ExpertStatistic getExpertStatisticByExpertUsername(String expertUsername);
     ExpertStatistic updateExpertStatistic(ExpertStatistic expertStatistic);
+    ExpertStatistic createExpertStatistic(ExpertStatistic expertStatistic);
     List<ExpertStatistic> getUpdateRequiredExpertStatistics();
-    void setUpdateRequired(String username);
+    void setUpdateRequired(String username, boolean updateRequired);
 }

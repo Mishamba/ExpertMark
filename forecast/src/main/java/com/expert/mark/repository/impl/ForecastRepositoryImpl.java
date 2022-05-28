@@ -1,6 +1,8 @@
 package com.expert.mark.repository.impl;
 
+import com.expert.mark.model.account.expert.ExpertStatistic;
 import com.expert.mark.model.content.forecast.Forecast;
+import com.expert.mark.repository.ExpertStatisticRepository;
 import com.expert.mark.repository.ForecastRepository;
 import com.expert.mark.util.db.DatabaseClientProvider;
 import com.expert.mark.util.parser.DateParser;
@@ -8,6 +10,7 @@ import io.vertx.core.Future;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.mongo.MongoClient;
+
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,6 +21,7 @@ public class ForecastRepositoryImpl implements ForecastRepository {
 
     private final String forecastDocumentName = "forecast";
     private final MongoClient mongoClient = DatabaseClientProvider.provide();
+    private final ExpertStatisticRepository expertStatisticRepository = new ExpertStatisticRepositoryImpl();
 
     @Override
     public Forecast findForecastById(String id) {
@@ -122,6 +126,12 @@ public class ForecastRepositoryImpl implements ForecastRepository {
             }
         });
 
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         return success.get();
     }
 
@@ -135,7 +145,10 @@ public class ForecastRepositoryImpl implements ForecastRepository {
             }
         });
 
-
+        expertStatisticRepository.createExpertStatistic(
+                new ExpertStatistic(new JsonObject().put("expertUsername", forecast.getOwnerUsername()).
+                        put("requiresUpdate", false).put("lastUpdateDate",
+                                DateParser.parseToStringWithoutMinutes(new Date()))));
 
         try {
             TimeUnit.SECONDS.sleep(1);
@@ -154,11 +167,9 @@ public class ForecastRepositoryImpl implements ForecastRepository {
         updateQuery.remove("creationDate");
         updateQuery.remove("assetName");
         updateQuery.remove("ownerUsername");
-        AtomicReference<Boolean> successful = new AtomicReference<>(false);
-        mongoClient.findOneAndUpdate(forecastDocumentName, query, updateQuery, res -> {
-            successful.set(res.succeeded());
-        });
+        updateQuery.remove("_id");
 
-        return successful.get();
+        mongoClient.findOneAndUpdate(forecastDocumentName, query, updateQuery, null);
+        return true;
     }
 }

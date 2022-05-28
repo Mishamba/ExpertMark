@@ -35,11 +35,12 @@ public class ForecastVerticle extends AbstractVerticle {
 
         vertx.createHttpServer().requestHandler(router).listen(8081).onFailure(Throwable::printStackTrace);
 
-        vertx.setPeriodic(86400, this::processForecastsAndExpertStatistic);
+        vertx.setPeriodic(86400 * 1000, this::processForecastsAndExpertStatistic);
     }
 
     private void processForecastsAndExpertStatisticByCall(RoutingContext routingContext) {
         forecastProcessor.updateExpertStatisticsAndCalculateForecastAccuracy();
+        routingContext.response().send();
     }
 
     private void processForecastsAndExpertStatistic(Long aLong) {
@@ -122,7 +123,7 @@ public class ForecastVerticle extends AbstractVerticle {
                 send("userQuery", new JsonObject().
                         put("username", username).
                         put("queryData", new JsonObject().
-                        put("query", query).
-                        put("queryType", queryType)));
+                                put("query", query).
+                                put("queryType", queryType)));
     }
 }

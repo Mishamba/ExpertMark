@@ -23,9 +23,11 @@ public class User {
 
     public User(JsonObject jsonObject) {
         this.username = jsonObject.getString("username");
-        this.password =  jsonObject.getString("password").toCharArray();
+        if (jsonObject.getString("password") != null) {
+            this.password = jsonObject.getString("password").toCharArray();
+        }
         //this.avatarPath = jsonObject.getString("avatarPath");
-        this.createDate = DateParser.parseToDateWithMinutes(jsonObject.getString("createDate"));
+        this.createDate = DateParser.parseToDateWithoutMinutes(jsonObject.getString("createDate"));
         String roleString = jsonObject.getString("role");
         if (!roleString.isEmpty()) {
             this.role = Role.valueOf(roleString);
@@ -41,7 +43,7 @@ public class User {
     public JsonObject parseToJson() {
         JsonObject jsonObject = new JsonObject();
         jsonObject.put("username", this.username);
-        if (this.password.length != 0) {
+        if (this.password != null) {
             JsonArray passwordJson = new JsonArray();
             for (char symbol : this.password) {
                 passwordJson.add(String.valueOf(symbol));
