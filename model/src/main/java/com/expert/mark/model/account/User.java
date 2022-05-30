@@ -1,7 +1,6 @@
 package com.expert.mark.model.account;
 
 import com.expert.mark.util.parser.DateParser;
-import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import lombok.*;
 
@@ -15,8 +14,7 @@ import java.util.Date;
 @EqualsAndHashCode
 public class User {
     private String username;
-    private char[] password;
-    //private String avatarPath;
+    private String password;
     private Date createDate;
     private Role role;
     private Profile profile;
@@ -24,9 +22,8 @@ public class User {
     public User(JsonObject jsonObject) {
         this.username = jsonObject.getString("username");
         if (jsonObject.getString("password") != null) {
-            this.password = jsonObject.getString("password").toCharArray();
+            this.password = jsonObject.getString("password");
         }
-        //this.avatarPath = jsonObject.getString("avatarPath");
         this.createDate = DateParser.parseToDateWithoutMinutes(jsonObject.getString("createDate"));
         String roleString = jsonObject.getString("role");
         if (!roleString.isEmpty()) {
@@ -44,11 +41,7 @@ public class User {
         JsonObject jsonObject = new JsonObject();
         jsonObject.put("username", this.username);
         if (this.password != null) {
-            JsonArray passwordJson = new JsonArray();
-            for (char symbol : this.password) {
-                passwordJson.add(String.valueOf(symbol));
-            }
-            jsonObject.put("password", passwordJson);
+            jsonObject.put("password", this.password);
         }
         jsonObject.put("createDate", DateParser.parseToStringWithoutMinutes(this.createDate));
         jsonObject.put("role", this.role.name());

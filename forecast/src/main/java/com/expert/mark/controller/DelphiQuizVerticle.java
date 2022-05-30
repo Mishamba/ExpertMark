@@ -13,6 +13,8 @@ import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.BodyHandler;
 
+import java.util.concurrent.atomic.AtomicReference;
+
 public class DelphiQuizVerticle extends AbstractVerticle {
 
     private final DelphiQuizService delphiQuizService = new DelphiQuizServiceImpl();
@@ -22,15 +24,70 @@ public class DelphiQuizVerticle extends AbstractVerticle {
     public void start() throws Exception {
         Router router = Router.router(vertx);
         router.route().handler(BodyHandler.create());
-        router.put("/delphiQuiz/create").handler(this::createDelphiQuiz);
-        router.post("/delphiQuiz/:delphiQuizTitle/post/message").handler(this::postExpertMessage);
+        router.put("/delphiQuiz/create").handler(ctx -> {
+            if (ctx.request().getHeader("Authorization") != null) {
+                vertx.eventBus()
+                        .request("authenticate", ctx.request().getHeader("Authorization"))
+                        .onComplete(res -> {
+                            JsonObject response = (JsonObject) res.result().body();
+                            if (response.getString("role").equals("ADMIN")) {
+                                this.createDelphiQuiz(ctx);
+                            }
+                        });
+            } else {
+                ctx.response().setStatusCode(403).send();
+            }
+        });
+        router.post("/delphiQuiz/:delphiQuizTitle/post/message").handler(ctx -> {
+            if (ctx.request().getHeader("Authorization") != null) {
+                vertx.eventBus()
+                    .request("authenticate", ctx.request().getHeader("Authorization"))
+                    .onComplete(res -> {
+                        JsonObject response = (JsonObject) res.result().body();
+                        if (response.getString("role").equals("USER")) {
+                            this.postExpertMessage(ctx);
+                        }
+                    });
+        }});
         router.get("/delphiQuiz/:delphiQuizTitle").handler(this::getDelphiQuiz);
-        router.put("/delphiQuiz/forceNewQuizStep").handler(this::forceNewQuizStep);
-        router.post("/delphiQuiz/:delphiQuizTitle/post/mark").handler(this::postMark);
+        router.put("/delphiQuiz/forceNewQuizStep").handler(ctx -> {
+            vertx.eventBus()
+                    .request("authenticate", ctx.request().getHeader("Authorization"))
+                    .onComplete(res -> {
+                        JsonObject response = (JsonObject) res.result().body();
+                        if (response.getString("role").equals("ADMIN")) {
+                            this.forceNewQuizStep(ctx);
+                        }
+                    });
+        });
+        router.post("/delphiQuiz/:delphiQuizTitle/post/mark").handler(ctx -> {
+            vertx.eventBus()
+                    .request("authenticate", ctx.request().getHeader("Authorization"))
+                    .onComplete(res -> {
+                        JsonObject response = (JsonObject) res.result().body();
+                        if (response.getString("role").equals("USER")) {
+                            this.postMark(ctx);
+                        }
+                    });
+        });
 
         vertx.createHttpServer().requestHandler(router).listen(8084);
 
         vertx.setPeriodic(86400 * 1000, this::processDelphiQuizzes);
+    }
+
+    private boolean isAuthorized(RoutingContext ctx, String role) {
+        AtomicReference<Boolean> isAuthorized = new AtomicReference<>(false);
+        if (ctx.request().getHeader("Authorization") != null) {
+            vertx.eventBus()
+                    .request("authenticate", ctx.request().getHeader("Authorization"))
+                    .onComplete(res -> {
+                        JsonObject response = (JsonObject) res.result().body();
+                        isAuthorized.set(response.getString("role").equals(role));
+                    });
+        }
+
+        return isAuthorized.get();
     }
 
     private void processDelphiQuizzes(Long aLong) {

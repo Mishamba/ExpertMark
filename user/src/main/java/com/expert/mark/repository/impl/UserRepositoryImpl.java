@@ -93,7 +93,6 @@ public class UserRepositoryImpl implements UserRepository {
         mongoClient.findOne(userDocumentName, query, fields).onComplete(res -> {
             if (res.succeeded()) {
                 JsonObject userJson = res.result();
-                userJson.remove("password");
                 userJson.put("username", userJson.getString("_id"));
                 user.set(new User(userJson));
             } else {
