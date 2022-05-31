@@ -1,5 +1,6 @@
 package com.expert.mark.controller;
 
+import com.expert.mark.model.account.expert.ExpertStatistic;
 import com.expert.mark.model.content.forecast.Forecast;
 import com.expert.mark.service.ForecastService;
 import com.expert.mark.service.ForecastProcessor;
@@ -32,10 +33,18 @@ public class ForecastVerticle extends AbstractVerticle {
         router.put("/forecasts/update").handler(this::updateForecast);
         router.get("/forecasts/:id").handler(this::getForecastById);//tested
         router.patch("/processExpertStatistic").handler(this::processForecastsAndExpertStatisticByCall);
+        router.get("/expertStatistic/:expertUsername").handler(this::getExpertStatistic);
 
         vertx.createHttpServer().requestHandler(router).listen(8081).onFailure(Throwable::printStackTrace);
 
         vertx.setPeriodic(86400 * 1000, this::processForecastsAndExpertStatistic);
+    }
+
+    private void getExpertStatistic(RoutingContext routingContext) {
+        String expertUsername = routingContext.pathParam("expertUsername");
+        ExpertStatistic expertStatistic = forecastService.getExpertStatisticByExpertUsername(expertUsername);
+        routingContext.response().setStatusCode(200).putHeader("Content-Type", "application/json").
+                send(expertStatistic.parseToJsonObject().encode());
     }
 
     private void processForecastsAndExpertStatisticByCall(RoutingContext routingContext) {
