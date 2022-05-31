@@ -145,11 +145,6 @@ public class ForecastRepositoryImpl implements ForecastRepository {
             }
         });
 
-        expertStatisticRepository.createExpertStatistic(
-                new ExpertStatistic(new JsonObject().put("expertUsername", forecast.getOwnerUsername()).
-                        put("requiresUpdate", false).put("lastUpdateDate",
-                                DateParser.parseToStringWithoutMinutes(new Date()))));
-
         try {
             TimeUnit.SECONDS.sleep(1);
         } catch (InterruptedException e) {

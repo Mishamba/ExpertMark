@@ -47,14 +47,16 @@ public class UserController extends AbstractVerticle {
         String actorUsername = ctx.getBodyAsJson().getString("username");
         sendQueryToSpy(actorUsername, username, "username");
         User user = userService.getUserByUsernameWithProfile(username);
-        ctx.response().putHeader("Content-Type", "application/json").setStatusCode(200).send((user == null) ? "no user found" : user.parseToJson().encode());
+        ctx.response().putHeader("Content-Type", "application/json").setStatusCode(200)
+                .send((user == null) ? "no user found" : user.parseToJson().encode());
     }
 
     void createUser(RoutingContext ctx) {
         JsonObject body = ctx.getBodyAsJson();
         User userToCreate = new User(body);
-        User createdUser = userService.createUser(userToCreate);
-        ctx.response().putHeader("Content-Type", "application/json").setStatusCode(200).send(createdUser.toString());
+        userService.createUser(userToCreate);
+        ctx.response().putHeader("Content-Type", "application/json").setStatusCode(200)
+                .send(new JsonObject().put("username", userToCreate.getUsername()).encode());
     }
 
     void updateUser(RoutingContext ctx) {

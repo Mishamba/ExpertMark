@@ -4,7 +4,6 @@ import com.expert.mark.model.account.expert.ExpertStatistic;
 import com.expert.mark.repository.ExpertStatisticRepository;
 import com.expert.mark.util.db.DatabaseClientProvider;
 import io.vertx.core.Future;
-import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.mongo.MongoClient;
 

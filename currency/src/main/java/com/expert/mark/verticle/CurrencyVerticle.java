@@ -5,11 +5,18 @@ import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CurrencyVerticle extends AbstractVerticle {
+    private Logger logger = LoggerFactory.getLogger(CurrencyVerticle.class.getName());
+
     @Override
     public void start() throws Exception {
         Router router = Router.router(Vertx.vertx());
+        router.route().handler(ctx -> {
+            logger.debug("request to url {}", ctx.request().uri());
+        });
         router.get("/currency/:asset").handler(this::getAssetCurrency);
 
         vertx.createHttpServer().requestHandler(router).listen(8088);

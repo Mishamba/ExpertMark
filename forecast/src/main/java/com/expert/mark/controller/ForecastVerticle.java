@@ -13,6 +13,8 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.BodyHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -20,11 +22,15 @@ public class ForecastVerticle extends AbstractVerticle {
 
     private final ForecastService forecastService = new ForecastServiceImpl();
     private final ForecastProcessor forecastProcessor = new ForecastProcessorImpl();
+    private final Logger logger = LoggerFactory.getLogger(ForecastVerticle.class.getName());
 
     @Override
     public void start() throws Exception {
         Router router = Router.router(vertx);
         router.route().handler(BodyHandler.create());
+        router.route().handler(ctx -> {
+            logger.debug("request to url {}", ctx.request().uri());
+        });
         router.delete("/forecasts/delete").handler(this::deleteForecast);
         router.get("/forecasts/user_following_based/:assetName").handler(this::userFollowingBasedAssetForecast);
         router.get("/forecasts/user_owned/:username").handler(this::getUsersForecasts);
