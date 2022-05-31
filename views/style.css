@@ -63,8 +63,63 @@ body {
 }
 
 .box {
-    margin: 142px 500px 300px 500px;
+    margin: 142px 500px 0px 500px;
     width: 1200px;
-    height: 1000px;
+    height: 2000px;
     background-color: #ffffff;
+}
+
+.menu__inner {
+    margin: 200px 300px;
+    height: 100%; /* Full-height: remove this if you want "auto" height */
+    width: 160px; /* Set the width of the sidebar */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 20px;
+}
+
+.btn {
+    margin: 10px 20px;
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+    font-family: 'Raleway', sans-serif;
+    font-size: 13px;
+    color: #ffffff;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-align: center;
+    transition: background .1s linear;
+}
+
+.btn--red {
+    background-color: #e84545;
+}
+
+.btn--red:hover {
+    background-color: #dd3434;
+}
+
+.footer {
+    background-color: #565454;
+}
+
+.copyright {
+    padding: 20px 0;
+    background-color: #3a3838;
+}
+
+.copyright__text {
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #a6a2a2;
+}
+
+.copyright__text span {
+    color: #ffffff;
 }
