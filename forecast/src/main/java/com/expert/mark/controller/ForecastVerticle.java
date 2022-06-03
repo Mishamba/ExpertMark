@@ -28,9 +28,6 @@ public class ForecastVerticle extends AbstractVerticle {
     public void start() throws Exception {
         Router router = Router.router(vertx);
         router.route().handler(BodyHandler.create());
-        router.route().handler(ctx -> {
-            logger.debug("request to url {}", ctx.request().uri());
-        });
         router.delete("/forecasts/delete").handler(this::deleteForecast);
         router.get("/forecasts/user_following_based/:assetName").handler(this::userFollowingBasedAssetForecast);
         router.get("/forecasts/user_owned/:username").handler(this::getUsersForecasts);
