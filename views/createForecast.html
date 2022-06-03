@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CreateForecast</title>
+    <script src="script/createForecastScript.js"></script>
+</head>
+<body>
+<header class="header">
+    <div class="container">
+        <div class="header__inner">
+            <div class="header_logo">
+                <h1>ExpertMark</h1>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!--Box-->
+<div id="forecast_data" class="box">
+    <div class="header__inner">
+        Asset name:
+    </div>
+    <label>
+        <input id="asset_name" type="text">
+    </label>
+    <div class="header__inner">
+        Target date (dd, mmm, yyyy format):
+    </div>
+    <label>
+        <input id="target_date" type="text">
+    </label>
+    <div class="header__inner">
+        <label for="method_type"></label>
+        <select name="method" id="method_type" onChange="changeMethod()">
+            <option value="TWO_MARKS_FORECAST" selected>Two marks method</option>
+            <option value="THREE_MARKS_FORECAST">Three marks method</option>
+            <option value="THREE_MARKS_WITH_CHANCES_FORECAST">Three marks with chances method</option>
+        </select>
+        <div id="forecast_method_data">
+            <div class="header__inner">
+                Pessimistic mark
+            </div>
+            <label>
+                <input id="1" type="number">
+            </label>
+            <div class="header__inner">
+                Optimistic mark
+            </div>
+            <label>
+                <input id="2" type="number">
+            </label>
+        </div>
+    </div>
+    <div class="btn">
+        <button onclick="sendForecast()">
+            Create Forecast
+        </button>
+    </div>
+</div>
+
+<!--Menu-->
+<div class="menu">
+    <div class="container">
+        <div class="menu__inner">
+            <a class="btn  btn--red" href="#">Profile</a>
+            <a class="btn  btn--red" href="#">My Forecasts</a>
+            <a class="btn  btn--red" href="#">Assets</a>
+            <a class="btn  btn--red" href="#">Delphi</a>
+        </div>
+    </div>
+</div>
+
+<!--Footer-->
+<footer class="footer">
+    <div class="copyright">
+        <div class="container">
+            <div class="copyright__text">
+                <div>Copyright © 2022 ExpertMark. All Rights Reserved</div>
+                <div>Made with <span style="color:#e84545;">&#10084</span> <span>by Mihail Nenahov</span></div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
