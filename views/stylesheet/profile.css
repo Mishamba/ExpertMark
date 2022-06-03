@@ -37,6 +37,14 @@ body {
     border-bottom: 1px solid #515369;
 }
 
+a {
+    margin-left: 50px;
+    color: #ffffff;
+    text-decoration: none;
+    opacity: .75;
+    transition: opacity .1s linear;
+}
+
 .nav {
     display: flex;
     font-size: 13px;
@@ -46,7 +54,7 @@ body {
 }
 
 .nav__link {
-    margin-left: 50px;
+    margin-right: 50px;
     color: #ffffff;
     text-decoration: none;
     opacity: .75;
