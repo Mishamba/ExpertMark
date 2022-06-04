@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>CreateForecast</title>
-    <script src="script/createForecastScript.js"></script>
+    <title>CreateDelphiQuizForecast</title>
+    <script src="script/createDelphiQuizScript.js"></script>
 </head>
 <body>
 <header class="header">
@@ -19,40 +19,31 @@
 <!--Box-->
 <div id="forecast_data" class="box">
     <div class="header__inner">
-        Asset name:
+        Create Delphi Quiz
     </div>
-    <label>
-        <input id="asset_name" type="text">
-    </label>
     <div class="header__inner">
-        Target date (dd, mmm, yyyy format):
+        <div class="header__inner">Title</div>
+        <label>
+            <input id="title" type="text">
+        </label>
+        <div class="header__inner">Asset Name</div>
+        <label>
+            <input id="asset_name" type="text">
+        </label>
+        <div class="header__inner">Description</div>
+        <label>
+            <input id="description" type="text">
+        </label>
+        <div class="header__inner">DiscussionTimeInDays</div>
+        <label>
+            <input id="discussion_time_in_days" type="number">
+        </label>
+        <div class="header__inner">ExpertUsernames</div>
+        <label>
+            <input id="expert_usernames" type="text">
+        </label>
     </div>
-    <label>
-        <input id="target_date" type="text">
-    </label>
-    <div class="header__inner">
-        <label for="method_type"></label>
-        <select name="method" id="method_type" onChange="changeMethod()">
-            <option value="TWO_MARKS_FORECAST" selected>Two marks method</option>
-            <option value="THREE_MARKS_FORECAST">Three marks method</option>
-            <option value="THREE_MARKS_WITH_CHANCES_FORECAST">Three marks with chances method</option>
-        </select>
-        <div id="forecast_method_data">
-            <div class="header__inner">
-                Pessimistic mark
-            </div>
-            <label>
-                <input id="pessimistic_mark" type="number">
-            </label>
-            <div class="header__inner">
-                Optimistic mark
-            </div>
-            <label>
-                <input id="optimistic_mark" type="number">
-            </label>
-        </div>
-    </div>
-    <div id="send_forecast_button" class="btn">
+    <div id="send_delphi_quiz_button" class="btn">
         <button>
             Create Forecast
         </button>
