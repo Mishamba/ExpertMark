@@ -23,13 +23,15 @@ public class DelphiQuizServiceImpl implements DelphiQuizService {
     @Override
     public DelphiQuiz createDelphiQuiz(DelphiQuiz delphiQuiz) {
         delphiQuiz.setQuizSteps(null);
-        delphiQuiz.setFirstTourQuartileRation(null);
+        delphiQuiz.setFirstTourQuartileRation(0D);
         List<QuizStep> quizSteps = new LinkedList<>();
         quizSteps.add(new QuizStep(new JsonObject().put("stepNumber", 1).put("marks", new JsonArray())));
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         calendar.add(Calendar.DATE, delphiQuiz.getDiscussionTimeInDays());
         quizSteps.get(0).setJustificationFinishDate(calendar.getTime());
+        quizSteps.get(0).setAnotherTourRequired(true);
+        quizSteps.get(0).setMedianMark(0D);
         delphiQuiz.setQuizSteps(quizSteps);
         delphiQuiz.setCreateDate(new Date());
         delphiQuiz.setDiscussionEndDate(calendar.getTime());
@@ -123,7 +125,7 @@ public class DelphiQuizServiceImpl implements DelphiQuizService {
 
         double currentTourQuartileRation = higherQuartile / lowerQuartile;
 
-        if (delphiQuiz.getFirstTourQuartileRation() == null) {
+        if (delphiQuiz.getFirstTourQuartileRation() == 0) {
             delphiQuiz.setFirstTourQuartileRation(currentTourQuartileRation);
             delphiQuiz.getLastStep().setAnotherTourRequired(true);
         } else {
@@ -134,8 +136,13 @@ public class DelphiQuizServiceImpl implements DelphiQuizService {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(new Date());
             calendar.add(Calendar.DATE, delphiQuiz.getDiscussionTimeInDays());
-            delphiQuiz.getQuizSteps().add(new QuizStep(new JsonObject().put("stepNumber", delphiQuiz.getStepsNumbers() + 1).
-                    put("justificationFinishDate", DateParser.parseToStringWithoutMinutes(calendar.getTime()))));
+            delphiQuiz.getQuizSteps().add(new QuizStep(
+                    new JsonObject()
+                            .put("stepNumber", delphiQuiz.getStepsNumbers() + 1)
+                            .put("justificationFinishDate", DateParser.parseToStringWithoutMinutes(calendar.getTime()))
+                            .put("anotherTourRequired", true)
+                            .put("medianMark", 0D))
+            );
             delphiQuiz.setDiscussionEndDate(calendar.getTime());
         }
 

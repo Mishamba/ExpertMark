@@ -30,6 +30,7 @@
         <module>currency</module>
         <module>security</module>
         <module>expertStatistic</module>
+        <module>runner</module>
     </modules>
 
     <dependencies>

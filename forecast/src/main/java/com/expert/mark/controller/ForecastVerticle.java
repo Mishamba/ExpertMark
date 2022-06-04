@@ -8,6 +8,9 @@ import com.expert.mark.service.impl.ForecastProcessorImpl;
 import com.expert.mark.service.impl.ForecastServiceImpl;
 import com.expert.mark.util.security.decryption.DecryptionUtil;
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.http.Cookie;
+import io.vertx.core.http.impl.CookieImpl;
+import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
@@ -28,12 +31,23 @@ public class ForecastVerticle extends AbstractVerticle {
     public void start() throws Exception {
         Router router = Router.router(vertx);
         router.route().handler(BodyHandler.create());
-        router.delete("/forecasts/delete").handler(this::deleteForecast);
+
         router.get("/forecasts/user_following_based/:assetName").handler(this::userFollowingBasedAssetForecast);
         router.get("/forecasts/user_owned/:username").handler(this::getUsersForecasts);
         router.get("/forecasts/assets/:assetName").handler(this::getAssetForecasts);
-        router.put("/forecasts/create").handler(this::createForecast);//tested
-        router.put("/forecasts/update").handler(this::updateForecast);
+        router.put("/forecasts/create").handler(ctx -> {
+            vertx.eventBus()
+                    .request("authenticate", ctx.request().getHeader("Authorization"))
+                    .onComplete(res -> {
+                        JsonObject response = (JsonObject) res.result().body();
+                        if (response.getString("role").equals("USER")) {
+                            ctx.request().cookies().add(new CookieImpl("username", response.getString("username")));
+                            this.createForecast(ctx);
+                        } else {
+                            ctx.response().setStatusCode(403).send();
+                        }
+                    });
+        });
         router.get("/forecasts/:id").handler(this::getForecastById);//tested
         router.patch("/processExpertStatistic").handler(this::processForecastsAndExpertStatisticByCall);
         router.get("/expertStatistic/:expertUsername").handler(this::getExpertStatistic);
@@ -67,31 +81,23 @@ public class ForecastVerticle extends AbstractVerticle {
         ctx.response().putHeader("Content-Type", "application/json").send((forecast == null) ? "{}" : forecast.parseToJson().encode());
     }
 
-    void updateForecast(RoutingContext ctx) {
-        JsonObject updatedForecast = ctx.getBodyAsJson();
-        Forecast forecastToUpdate = new Forecast(updatedForecast);
-        boolean updatedSuccessfully = forecastService.updateForecast(forecastToUpdate);
-        ctx.response().putHeader("Content-Type", "application/json").
-                setStatusCode((updatedSuccessfully) ? 200 : 500).send(forecastToUpdate.parseToJson().encode());
-    }
-
     void createForecast(RoutingContext ctx) {
         JsonObject body = ctx.getBodyAsJson();
-        Forecast forecast = new Forecast(body.getJsonObject("forecast"));
-        String username = body.getString("username");
-        this.sendQueryToSpy(username, forecast.getAssetName(), "assetName");
+        String username = null;
+        for (Cookie cookie : ctx.request().cookies()) {
+            if (cookie.getName().equals("username")) {
+                username = cookie.getValue();
+                break;
+            }
+        }
+        Forecast forecast = new Forecast(body.getJsonObject("forecast").put("ownerUsername", username));
+        if (username != null) {
+            this.sendQueryToSpy(username, forecast.getAssetName(), "assetName");
+        }
         Forecast savedForecast = forecastService.createForecast(forecast);
         ctx.response().putHeader("Content-Type", "application/json").
                 setStatusCode((savedForecast.get_id() != null && !savedForecast.get_id().isEmpty()) ? 200 : 500).
                 send(savedForecast.parseToJson().encode());
-    }
-
-    void deleteForecast(RoutingContext ctx) {
-        JsonObject body = ctx.getBodyAsJson();
-        String id = body.getString("_id");
-        boolean deletedSuccessfully = forecastService.deleteForecast(id);
-        ctx.response().putHeader("Content-Type", "application/json").
-                setStatusCode((deletedSuccessfully) ? 200 : 500).send((deletedSuccessfully) ? "Forecast was deleted" : "Forecast wasn't deleted");
     }
 
     void getUsersForecasts(RoutingContext ctx) {
