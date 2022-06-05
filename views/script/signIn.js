@@ -1,6 +1,6 @@
 import $ from "jquery"
 
-$("#sign_in_button").click(function() {
+$("#sign_in_button").onclick(function() {
     let username = $("username").val();
     let password = $("password").val();
 
@@ -18,6 +18,7 @@ $("#sign_in_button").click(function() {
             $(".container").append("<p>Not Authorized</p>")
         } else {
             document.cookie = "userToken:" + data
+            $(location).attr("href", "http://localhost:8080/profile.html")
         }
     })
 })
