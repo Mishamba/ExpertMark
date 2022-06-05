@@ -1,15 +1,20 @@
 const $ = require("jquery")
 
-$("#sign_in_button").onclick(function() {
-    let username = $("username").val();
-    let password = $("password").val();
+$("#sign_in_button").click(function() {
+    let username = $("#username").val();
+    let password = $("#password").val();
+
+    let credentials = {"username": username, "password": password}
+
+    console.log(credentials)
 
     $.ajax({
         url: "http://localhost:8085/authorize",
         type: "post",
-        data: { "username": username, "password": password },
+        data: JSON.stringify(credentials),
         headers: {
-            "Content-Type": "application/json",
+            "X-Requested-With": "XMLHttpRequest",
+            "Content-Type": "application/json"
         },
         dataStructure: "json"
     }).done(function(data) {
@@ -17,8 +22,9 @@ $("#sign_in_button").onclick(function() {
         if (data.status === 403 || data.status === 500) {
             $(".container").append("<p>Not Authorized</p>")
         } else {
-            document.cookie = "userToken:" + data
-            $(location).attr("href", "http://localhost:8080/profile.html")
+            console.log(data)
+            document.cookie = "userToken=" + data
+            $(location).attr("href", "http://localhost:63342/profile.html?username=" + username)
         }
     })
 })

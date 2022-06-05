@@ -1,6 +1,6 @@
-import $ from "jquery"
-import getUrlVars from "views/script/util/requestUtils.js"
-import getJwtToken from "views/script/util/security.js"
+const $ = require("jquery")
+const getUrlVars = require("views/script/util/requestUtils")
+const getJwtToken = require("views/script/util/security.js")
 
 //getting
 $(document).ready(function() {
