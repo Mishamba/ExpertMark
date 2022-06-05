@@ -1,5 +1,5 @@
 import $ from "jquery";
-import getJWTFromCookie  from "views/script/util/security"
+import getJWTFromCookie  from "views/script/util/security.js"
 
 $("#send_delphi_quiz_button").click(function() {
     let title = $("#title").val()

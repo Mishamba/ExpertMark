@@ -1,6 +1,6 @@
 import $ from "jquery"
-import getUrlVars from "util/requestUtils.js"
-import getJwtToken from "util/security"
+import getUrlVars from "views/script/util/requestUtils.js"
+import getJwtToken from "views/script/util/security.js"
 
 //getting
 $(document).ready(function() {
