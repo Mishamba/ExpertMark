@@ -24,7 +24,7 @@ $("#sign_in_button").click(function() {
         } else {
             console.log(data)
             document.cookie = "userToken=" + data
-            $(location).attr("href", "http://localhost:63342/profile.html?username=" + username)
+            $(location).attr("href", "http://localhost:63342/ExpertMark/views/profile.html?username=" + username)
         }
     })
 })

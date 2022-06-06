@@ -1,6 +1,4 @@
-import $ from "jquery"
-import getJWTFromCookie from "views/script/util/security.js"
-import getMethodDataJsonByMethodType from "../util/methodDataParser.js"
+const $ = require("jquery")
 
 $("#send_forecast_button").click(function() {
     //getting all required info

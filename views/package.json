@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "type": "commonjs",
   "dependencies": {
+    "brfs": "^2.0.2",
     "jquery": "^3.6.0",
+    "jquery-templates": "^1.0.0",
     "resolve-cwd": "^3.0.0"
   },
   "devDependencies": {

@@ -1,6 +1,4 @@
 const $ = require("jquery")
-const getUrlVars = require("views/script/util/requestUtils")
-const getJwtToken = require("views/script/util/security.js")
 
 //getting
 $(document).ready(function() {
@@ -20,13 +18,13 @@ $(document).ready(function() {
         dataType: "json",
         success: function(data) {
             let dataJson = JSON.parse(data)
-            let delphiQuiz = $("div", {"class":"delphi__inner"})
-            $(delphiQuiz).append($("<div class=\"delphi__title\">Title: Bitcoin future</div>"))
-            $(delphiQuiz).append($("<img src=\"img/" + dataJson.get("assetName") +".webp\" alt=\"\" class=\"delphi__img\">Title: " + dataJson.get("title") + "</img>"))
-            $(delphiQuiz).append($("<div class=\"delphi__asset\">Asset name: " + dataJson.get("assetName") +"</div>"))
-            $(delphiQuiz).append($("<div class=\"delphi__description\">Description: " + dataJson.get("description") +"</div>"))
-            $(delphiQuiz).append($("<div class=\"delphi__date\">Create Date: " + dataJson.get("createDate") +"</div>"))
-            $(delphiQuiz).append($("<div class=\"delphi__experts\">Experts: " + dataJson.get("experts") +"</div>"))
+            let delphiQuiz = $("<div class=\"delphi__inner\"></div>")
+            $(delphiQuiz).appendChild($("<div class=\"delphi__title\">Title: Bitcoin future</div>"))
+            $(delphiQuiz).appendChild($("<img src=\"img/" + dataJson.get("assetName") +".webp\" alt=\"\" class=\"delphi__img\">Title: " + dataJson.get("title") + "</img>"))
+            $(delphiQuiz).appendChild($("<div class=\"delphi__asset\">Asset name: " + dataJson.get("assetName") +"</div>"))
+            $(delphiQuiz).appendChild($("<div class=\"delphi__description\">Description: " + dataJson.get("description") +"</div>"))
+            $(delphiQuiz).appendChild($("<div class=\"delphi__date\">Create Date: " + dataJson.get("createDate") +"</div>"))
+            $(delphiQuiz).appendChild($("<div class=\"delphi__experts\">Experts: " + dataJson.get("experts") +"</div>"))
 
             //TODO complete chat
 
