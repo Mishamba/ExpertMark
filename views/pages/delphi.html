@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../stylesheet/delphi.css">
+    <script src="../script/src/util/createMessageEditor.js"></script>
+    <script src="../script/src/util/createMethodDataEditor.js"></script>
     <script src="../script/src/util/security.js"></script>
     <script src="../script/src/util/requestUtils.js"></script>
     <script src="../script/src/viewDelphiQuiz.js"></script>
@@ -41,7 +43,7 @@
         <div class="delphi__discussion">
             <div class="message__editor">
                 <label>
-                    <input type="text">
+                    <input id="message_body_editor" type="text">
                 </label>
                 <button id="message_send_button">Send</button>
             </div>
@@ -72,37 +74,41 @@
             </div>
         </div>
         <br>
-        <div class="delphi__marks">
-            <div class="mark__editor">
-                <label for="method_type"></label>
-                <select name="method" id="method_type" onChange="changeMethod()">
-                    <option value="TWO_MARKS_FORECAST" selected>Two marks method</option>
-                    <option value="THREE_MARKS_FORECAST">Three marks method</option>
-                    <option value="THREE_MARKS_WITH_CHANCES_FORECAST">Three marks with chances method</option>
-                </select>
-                <div id="forecast_method_data">
-                    <div class="editor__header">
-                        Pessimistic mark
-                    </div>
-                    <label>
-                        <input id="pessimistic_mark" type="number">
-                    </label>
-                    <div class="editor__header">
-                        Optimistic mark
-                    </div>
-                    <label>
-                        <input id="optimistic_mark" type="number">
-                    </label>
-                </div>
-            </div>
             <br>
-            <div class="quiz_step">
-                <div class="quiz__step_info">justification finish date: smth</div>
-                <br>
-                <div class="marks">
-                    <div class="method_type">method type: TWO_MARKS_FORECAST</div>
-                    <div class="method_data">pessimistic mark: 10</div>
-                    <div class="method_data">optimistic mark: 15</div>
+            <div class="quizzes">
+                <div class="quiz_step">
+                    <div class="quiz__step_info">justification finish date: smth</div>
+                    <br>
+                    <div class="mark__editor">
+                        <label for="method_type"></label>
+                        <select name="method" id="method_type" onChange="changeMethod()">
+                            <option value="TWO_MARKS_FORECAST" selected>Two marks method</option>
+                            <option value="THREE_MARKS_FORECAST">Three marks method</option>
+                            <option value="THREE_MARKS_WITH_CHANCES_FORECAST">Three marks with chances method</option>
+                        </select>
+                        <div id="forecast_method_data">
+                            <div class="editor__header">
+                                Pessimistic mark
+                            </div>
+                            <label>
+                                <input id="pessimistic_mark" type="number">
+                            </label>
+                            <div class="editor__header">
+                                Optimistic mark
+                            </div>
+                            <label>
+                                <input id="optimistic_mark" type="number">
+                            </label>
+                            <button class="create__forecast">Create Forecast</button>
+                        </div>
+                    </div>
+                    <div class="marks">
+                        <div class="mark">
+                            <div class="method_type">method type: TWO_MARKS_FORECAST</div>
+                            <div class="method_data">pessimistic mark: 10</div>
+                            <div class="method_data">optimistic mark: 15</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

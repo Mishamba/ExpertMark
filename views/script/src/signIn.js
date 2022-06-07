@@ -23,7 +23,9 @@ $("#sign_in_button").click(function() {
             $(".container").append("<p>Not Authorized</p>")
         } else {
             console.log(data)
-            document.cookie = "userToken=" + data
+            document.cookie = "userToken=" + data['jwt']
+            document.cookie = "username=" + data['username']
+            document.cookie = "role" + data['role']
             $(location).attr("href", "http://localhost:63342/ExpertMark/views/profile.html?username=" + username)
         }
     })

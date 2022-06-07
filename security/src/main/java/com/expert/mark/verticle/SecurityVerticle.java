@@ -42,6 +42,7 @@ public class SecurityVerticle extends AbstractVerticle {
                 .allowedHeaders(allowHeaders)
                 .allowedMethods(allowMethods));
 
+        // TODO add role and username to send
         router.route().handler(BodyHandler.create());
         router.post("/authorize").handler(ctx -> {
             String jwt = authorize(ctx.getBodyAsJson());
