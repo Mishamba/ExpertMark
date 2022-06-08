@@ -134,7 +134,7 @@ a {
     font-size: 20px;
 }
 
-.assetName {
+.asset__name {
     margin-top: 5px;
     color: #000000;
     font-size: 18px;
@@ -145,25 +145,25 @@ a {
     width: 3%;
 }
 
-.methodType {
+.method__type {
     margin-top: 10px;
     color: #000000;
     font-size: 18px;
 }
 
-.methodData {
+.method__data {
     margin-top: 5px;
     color: #000000;
     font-size: 17px;
 }
 
-.creatingDate {
+.creating__data {
     margin-top: 5px;
     color: #000000;
     font-size: 18px;
 }
 
-.targetDate {
+.target__data {
     margin-top: 5px;
     color: #000000;
     font-size: 18px;
@@ -176,7 +176,6 @@ a {
 }
 
 .left {
-    margin-top: 0 auto;
     text-align: left;
     z-index: 0;
 }
