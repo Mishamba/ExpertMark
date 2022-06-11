@@ -70,6 +70,14 @@ a {
     opacity: 1;
 }
 
+.box {
+    margin: 142px 500px 0 500px;
+    width: 1200px;
+    height: 2000px;
+    background-color: #ffffff;
+
+}
+
 .menu__inner {
     margin: 200px 300px;
     height: 100%; /* Full-height: remove this if you want "auto" height */
@@ -98,6 +106,12 @@ a {
     border-radius: 5px;
 }
 
+.btn--search {
+    padding: 9px;
+    background-color: #dd3434;
+    cursor: pointer;
+    border-radius: 5px;
+}
 
 .btn--red {
     background-color: #e84545;
@@ -107,132 +121,86 @@ a {
     background-color: #dd3434;
 }
 
-
-.box {
-    margin: 142px 500px 0 500px;
-    width: 1200px;
-    height: 1000px;
-    background-color: #ffffff;
-    z-index: 0;
-}
-
-.delphi__inner {
-    color: #a6a2a2;
-    padding: 0 40px;
-    margin: 0 auto;
-    text-align: left;
-}
-
-.delphi__title {
-    line-height: 5;
-    text-align: left;
-    font-size: 20px;
-    color: #2d3033;
-    font-weight: 700;
-    z-index: 0;
-}
-
-.delphi__img {
-    float: right;
+.delphi__quiz_inner {
     position: relative;
-    z-index: 2;
-}
-
-.delphi__asset {
-    font-size: 16px;
+    top: 100px;
+    left: 150px;
+    line-height: 1.5;
+    font-size: 30px;
     color: #000000;
 }
 
-.delphi__description {
-    font-size: 16px;
-    color: #000000;
+#input__title {
+    height: 30px;
+    width: 500px;
 }
 
-.delphi__date {
-    font-size: 16px;
-    color: #000000;
+.asset__name {
+    margin-top: 15px;
 }
 
-.delphi__experts {
-    font-size: 16px;
-    color: #000000;
+#input__asset_name {
+    height: 30px;
+    width: 500px;
+}
+
+.description {
+    margin-top: 15px;
+}
+
+#input__description {
+    height: 30px;
+    width: 500px;
 }
 
 .discussion {
-    margin: 100px 0 10px 0;
-    font-size: 18px;
-    color: #000000;
+    margin-top: 15px;
 }
 
-.delphi__discussion {
-    float: left;
-    background-color: #808080;
-    width: 400px;
-    height: 430px;
-    border: 2px #000000 solid;
-    border-radius: 3px;
-}
-
-.message {
-    margin-top: 10px;
-    margin-left: 20px;
-    width: 10%;
-    color: #000000;
-}
-
-#message_body_editor {
-    margin-left: 15px;
-    width: 300px;
-    height: 40px;
-}
-
-#message_send_button {
-    background-color: #a83636;
-    cursor: pointer;
-    border-radius: 5px;
-    width: 60px;
-    height: 40px;
-}
-
-.quizzes {
-    border: 2px #000000 solid;
-    border-radius: 3px;
-    background-color: #8982cc;
-    float: right;
-    margin-right: 300px;
-    display: flex;
-    width: 300px;
-    height: 400px;
-}
-
-.quiz__step_info {
-    margin-top: 10px;
-    margin-bottom: 20px;
-    margin-left: 10px;
-    font-size: 18px;
-    color: #000000;
-}
-
-select {
-    margin-left: 10px;
-    width: 250px;
+#discussion_time_in_days {
     height: 30px;
+    width: 500px;
 }
 
-#forecast_method_data {
-    margin-top: 30px;
-    margin-left: 10px;
-    line-height: 1.5;
-    font-size: 16px;
-    color: #000000;
+.usernames {
+    margin-top: 15px;
 }
 
-.marks {
-    margin-top: 20px;
-    margin-left: 10px;
-    line-height: 1.5;
-    font-size: 15px;
-    color: #000000;
+#input_usernames {
+    height: 30px;
+    width: 500px;
+}
+
+.add {
+    font-size: 17px;
+    width: 80px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: #a83838;
+}
+
+.delete {
+    font-size: 17px;
+    width: 80px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: #a83838;
+}
+
+.expert__names {
+    margin-top: 10px;
+    border: 3px #000000 solid;
+    width: 500px;
+    height: 100px;
+}
+
+.create__quiz {
+    margin-top: 10px;
+    font-size: 17px;
+    width: 10%;
+    height: 30px;
+    border-radius: 5px;
+    background-color: #a83838;
 }
 
 .copyright {

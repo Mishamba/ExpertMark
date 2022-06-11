@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>CreateDelphiQuizForecast</title>
     <script src="../script/src/createDelphiQuiz.js"></script>
-    <link rel="stylesheet" href="../stylesheet/profile.css">
+    <link rel="stylesheet" href="../stylesheet/createDelphiQuiz.css">
 </head>
 <body>
 <header class="header">
@@ -18,38 +18,40 @@
 </header>
 
 <!--Box-->
-<div id="forecast_data" class="box">
-    <div class="header__inner">
-        Create Delphi Quiz
+    <div id="forecast_data" class="box">
+        <div class="delphi__quiz_inner">
+                <div class="title">Title</div>
+                <label>
+                    <input id="input__title" type="text">
+                </label>
+                <div class="asset__name">Asset Name</div>
+                <label>
+                    <input id="input__asset_name" type="text">
+                </label>
+                <div class="description">Description</div>
+                <label>
+                    <input id="input__description" type="text">
+                </label>
+                <div class="discussion">Discussion Time In Days</div>
+                <label>
+                    <input id="discussion_time_in_days" type="number">
+                </label>
+                <div class="usernames">Expert Usernames</div>
+                <label>
+                    <input id="input_usernames" type="text">
+                </label>
+                <button class="add">
+                    Add
+                </button>
+                <button class="delete">
+                    Delete
+                </button>
+                <div class="expert__names"></div>
+                <button class="create__quiz">
+                    Create Quiz
+                 </button>
+        </div>
     </div>
-    <div class="header__inner">
-        <div class="header__inner">Title</div>
-        <label>
-            <input id="title" type="text">
-        </label>
-        <div class="header__inner">Asset Name</div>
-        <label>
-            <input id="asset_name" type="text">
-        </label>
-        <div class="header__inner">Description</div>
-        <label>
-            <input id="description" type="text">
-        </label>
-        <div class="header__inner">DiscussionTimeInDays</div>
-        <label>
-            <input id="discussion_time_in_days" type="number">
-        </label>
-        <div class="header__inner">ExpertUsernames</div>
-        <label>
-            <input id="expert_usernames" type="text">
-        </label>
-    </div>
-    <div id="send_delphi_quiz_button" class="btn">
-        <button>
-            Create Forecast
-        </button>
-    </div>
-</div>
 
 <!--Menu-->
 <div class="menu">

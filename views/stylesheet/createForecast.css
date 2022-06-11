@@ -113,18 +113,75 @@ a {
 .btn--red:hover {
     background-color: #dd3434;
 }
+.create__forecast_inner {
+    position: relative;
+    top: 100px;
+    left: 100px;
+    font-size: 30px;
+    line-height: 1.5;
+}
 
+.asset__name {
+    color: #000000;
+}
 
+#input__asset_name {
+    height: 30px;
+    width: 500px;
+}
 
+.target__date {
+    margin-top: 10px;
+    color: #000000;
+}
 
+#input__target_date {
+    height: 30px;
+    width: 500px;
+}
 
+.method {
+    margin-top: 15px;
+    color: #000000;
+}
 
+select {
+    font-size: 20px;
+    height: 30px;
+    width: 500px;
+}
 
+.pessimistic__mark {
+    margin-top: 15px;
+}
+
+#input__pessimistic_mark {
+    height: 30px;
+    width: 500px;
+}
+
+.optimistic__mark {
+    margin-top: 15px;
+}
+
+#input__optimistic_mark {
+    height: 30px;
+    width: 500px;
+}
+
+.create__forecast {
+    margin-top: 15px;
+    font-size: 20px;
+    width: 500px;
+    height: 40px;
+    background-color: #e84545;
+}
 
 .copyright {
     padding: 20px 0;
     background-color: #000000;
 }
+
 
 .copyright__text {
     text-align: center;

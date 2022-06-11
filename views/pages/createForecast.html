@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>CreateForecast</title>
-    <link rel="stylesheet" href="../stylesheet/profile.css">
+    <link rel="stylesheet" href="../stylesheet/createForecast.css">
     <script src="../script/src/util/security.js"></script>
     <script src="../script/src/createForecast.js"></script>
 </head>
@@ -20,46 +20,46 @@
 
 <!--Box-->
 <div id="forecast_data" class="box">
-    <div class="header__inner">
-        Asset name:
-    </div>
-    <label>
-        <input id="asset_name" type="text">
-    </label>
-    <div class="header__inner">
-        Target date (dd, mmm, yyyy format):
-    </div>
-    <label>
-        <input id="target_date" type="text">
-    </label>
-    <div class="header__inner">
-        <label for="method_type"></label>
-        <select name="method" id="method_type" onChange="changeMethod()">
-            <option value="TWO_MARKS_FORECAST" selected>Two marks method</option>
-            <option value="THREE_MARKS_FORECAST">Three marks method</option>
-            <option value="THREE_MARKS_WITH_CHANCES_FORECAST">Three marks with chances method</option>
-        </select>
-        <div id="forecast_method_data">
-            <div class="header__inner">
-                Pessimistic mark
-            </div>
-            <label>
-                <input id="pessimistic_mark" type="number">
-            </label>
-            <div class="header__inner">
-                Optimistic mark
-            </div>
-            <label>
-                <input id="optimistic_mark" type="number">
-            </label>
+    <div class="create__forecast_inner">
+        <div class="asset__name">
+            Asset name:
         </div>
-    </div>
-    <div id="send_forecast_button" class="btn">
-        <button>
+        <label>
+            <input id="input__asset_name" type="text">
+        </label>
+        <div class="target__date">
+            Target date (dd, mmm, yyyy format):
+        </div>
+        <label>
+            <input id="input__target_date" type="text">
+        </label>
+        <div class="method"> Method Type:
+            <label for="method_type"></label>
+            <select name="method" id="method_type" onChange="changeMethod()">
+                <option value="TWO_MARKS_FORECAST" selected>Two marks method</option>
+                <option value="THREE_MARKS_FORECAST">Three marks method</option>
+                <option value="THREE_MARKS_WITH_CHANCES_FORECAST">Three marks with chances method</option>
+            </select>
+            <div id="forecast_method_data">
+                <div class="pessimistic__mark">
+                    Pessimistic mark:
+                </div>
+                <label>
+                    <input id="input__pessimistic_mark" type="number">
+                </label>
+                <div class="optimistic__mark">
+                    Optimistic mark:
+                </div>
+                <label>
+                    <input id="input__optimistic_mark" type="number">
+                </label>
+            </div>
+        </div>
+        <button class="create__forecast">
             Create Forecast
         </button>
+        </div>
     </div>
-</div>
 
 <!--Menu-->
 <div class="menu">
