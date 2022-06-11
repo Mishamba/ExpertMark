@@ -155,10 +155,24 @@ a {
     border: 5px solid #000000;
 }
 
+.expert__inner {
+    text-align: center;
+    width: 100%;
+    padding: 0 40px;
+    border: 5px solid #000000;
+    cursor: pointer;
+}
+
 .username {
     margin-top: 10px;
     color: #000000;
     font-size: 20px;
+}
+
+.character {
+    margin-top: 5px;
+    color: #000000;
+    font-size: 18px;
 }
 
 .asset__name {
