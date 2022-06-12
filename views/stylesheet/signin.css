@@ -41,3 +41,21 @@ button:hover {
 .container {
     padding: 400px 400px;
 }
+
+a {
+    position: relative;
+    bottom: 390px;
+    left: 400px;
+    text-decoration: none;
+    cursor: pointer;
+    font-family: 'Raleway', sans-serif;
+    font-size: 13px;
+    color: #ffffff;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-align: center;
+    transition: background .1s linear;
+    border: 10px #e84545 solid;
+    background-color: #e84545;
+    border-radius: 5px;
+}
