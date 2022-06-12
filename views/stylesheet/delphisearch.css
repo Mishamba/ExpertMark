@@ -144,13 +144,15 @@ button {
 }
 
 .forecast__inner {
+    position: relative;
+    right: 50px;
     text-align: center;
-    width: 100%;
+    width: 400%;
     padding: 0 40px;
     border: 5px solid #000000;
 }
 
-.username {
+.title {
     margin-top: 10px;
     color: #000000;
     font-size: 20px;
@@ -162,22 +164,23 @@ button {
     font-size: 18px;
 }
 
-.asset__img {
-    margin-left: 140px;
-    width: 3%;
-}
-
-.method__type {
-    margin-top: 10px;
+.description {
+    margin-top: 5px;
     color: #000000;
     font-size: 18px;
 }
 
-.method__data {
+.experts {
     margin-top: 5px;
     color: #000000;
-    font-size: 17px;
+    font-size: 18px;
 }
+
+.asset__img {
+    position: relative;
+    left: 750px;
+}
+
 
 .creating__data {
     margin-top: 5px;
