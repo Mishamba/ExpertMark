@@ -70,8 +70,18 @@ a {
     opacity: 1;
 }
 
+button {
+    position: relative;
+    top: 180px;
+    left: 600px;
+    background-color: #a6a2a2;
+    width: 150px;
+    height: 50px;
+    cursor: pointer;
+}
+
 .box {
-    margin: 142px 500px 0 500px;
+    margin: 210px 500px 0 500px;
     width: 1200px;
     height: 2000px;
     background-color: #ffffff;

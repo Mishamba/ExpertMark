@@ -38,7 +38,6 @@ body {
 }
 
 a {
-    margin-left: 50px;
     color: #ffffff;
     text-decoration: none;
     opacity: .75;
@@ -200,4 +199,9 @@ button {
     margin-top: 10px;
     margin-left: 300px;
     z-index: 50;
+}
+
+a .forecast__inner {
+    position: relative;
+    left: .1px;
 }

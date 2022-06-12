@@ -71,10 +71,14 @@ a {
 }
 
 .box {
-    margin: 142px 500px 0 500px;
+    position: relative;
+    top: 200px;
+    left: 500px;
     width: 1200px;
     height: 2000px;
     background-color: #ffffff;
+    z-index: 1;
+
 }
 
 .menu__inner {
@@ -87,11 +91,6 @@ a {
     left: 0;
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 20px;
-}
-
-form {
-    position: relative;
-    top: 10px;
 }
 
 .btn {
@@ -117,84 +116,115 @@ form {
 
 .btn--red:hover {
     background-color: #dd3434;
+
 }
-.create__forecast_inner {
+
+.btn--search1 {
     position: relative;
-    top: 100px;
-    left: 100px;
-    font-size: 30px;
-    line-height: 1.5;
+    top: 180px;
+    left: 800px;
+    width: 200px;
+    height: 50px;
+    background-color: #dd3434;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.btn--search2 {
+    position: relative;
+    top: 180px;
+    left: 900px;
+    width: 200px;
+    height: 50px;
+    background-color: #dd3434;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+
+.forecast {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 140px 0;
+}
+
+.forecast__inner {
+    text-align: center;
+    width: 100%;
+    padding: 0 40px;
+    border: 5px solid #000000;
+}
+
+.expert__inner {
+    text-align: center;
+    width: 100%;
+    padding: 0 40px;
+    border: 5px solid #000000;
+    cursor: pointer;
+}
+
+.username {
+    margin-top: 10px;
+    color: #000000;
+    font-size: 20px;
+}
+
+.character {
+    margin-top: 5px;
+    color: #000000;
+    font-size: 18px;
 }
 
 .asset__name {
+    margin-top: 5px;
     color: #000000;
+    font-size: 18px;
 }
 
-#input__asset_name {
-    height: 30px;
-    width: 500px;
+.asset__img {
+    margin-left: 140px;
+    width: 3%;
 }
 
-.target__date {
+.method__type {
     margin-top: 10px;
     color: #000000;
+    font-size: 18px;
 }
 
-#input__target_date {
-    height: 30px;
-    width: 500px;
-}
-
-.method {
-    margin-top: 15px;
+.method__data {
+    margin-top: 5px;
     color: #000000;
+    font-size: 17px;
 }
 
-select {
-    font-size: 20px;
-    height: 30px;
-    width: 500px;
+.creating__data {
+    margin-top: 5px;
+    color: #000000;
+    font-size: 18px;
 }
 
-.pessimistic__mark {
-    margin-top: 15px;
+.target__data {
+    margin-top: 5px;
+    color: #000000;
+    font-size: 18px;
 }
 
-#input__pessimistic_mark {
-    height: 30px;
-    width: 500px;
+.accuracy {
+    color: #000000;
+    font-size: 18px;
+    margin-bottom: 10px;
 }
 
-.optimistic__mark {
-    margin-top: 15px;
+.left {
+    text-align: left;
+    z-index: 0;
 }
 
-#input__optimistic_mark {
-    height: 30px;
-    width: 500px;
-}
-
-.create__forecast {
-    margin-top: 15px;
-    font-size: 20px;
-    width: 500px;
-    height: 40px;
-    background-color: #e84545;
-}
-
-.copyright {
-    padding: 20px 0;
-    background-color: #000000;
-}
-
-
-.copyright__text {
+.right {
+    position: absolute;
     text-align: center;
-    font-size: 14px;
-    line-height: 1.5;
-    color: #a6a2a2;
-}
-
-.copyright__text span {
-    color: #ffffff;
+    margin-top: 10px;
+    margin-left: 300px;
+    z-index: 50;
 }
