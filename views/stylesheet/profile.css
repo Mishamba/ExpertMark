@@ -138,6 +138,18 @@ a {
     font-weight: 700;
 }
 
+button {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    background-color: #e84545;
+    width: 100px;
+    height: 30px;
+    border-radius: 10px;
+    border-color: #e84545;
+    cursor: pointer;
+}
+
 .profile__followings {
     line-height: 1.5;
     font-size: 16px;

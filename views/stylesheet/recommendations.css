@@ -121,7 +121,7 @@ a {
 
 .btn--search1 {
     position: relative;
-    top: 180px;
+    top: 230px;
     left: 800px;
     width: 200px;
     height: 50px;
@@ -133,7 +133,7 @@ a {
 .btn--search2 {
     position: relative;
     top: 180px;
-    left: 900px;
+    left: 1100px;
     width: 200px;
     height: 50px;
     background-color: #dd3434;
