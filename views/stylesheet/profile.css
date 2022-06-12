@@ -138,6 +138,12 @@ a {
     font-weight: 700;
 }
 
+h2 {
+    position: relative;
+    top: 160px;
+    left: 1040px;
+}
+
 button {
     font-size: 17px;
     font-weight: 700;

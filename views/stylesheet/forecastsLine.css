@@ -109,6 +109,12 @@ a {
     border-radius: 5px;
 }
 
+h2 {
+    position: relative;
+    top: 160px;
+    left: 1040px;
+}
+
 
 .btn--red {
     background-color: #e84545;

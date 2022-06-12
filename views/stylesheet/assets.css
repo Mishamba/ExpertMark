@@ -70,8 +70,14 @@ a {
     opacity: 1;
 }
 
+h2 {
+    position: relative;
+    top: 160px;
+    left: 1040px;
+}
+
 .box {
-    margin: 142px 500px 0 500px;
+    margin: 190px 500px 0 500px;
     width: 1200px;
     height: 2000px;
     background-color: #ffffff;

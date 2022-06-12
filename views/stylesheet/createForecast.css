@@ -77,6 +77,12 @@ a {
     background-color: #ffffff;
 }
 
+h2 {
+    position: relative;
+    top: 130px;
+    left: 1040px;
+}
+
 .menu__inner {
     margin: 200px 300px;
     height: 100%; /* Full-height: remove this if you want "auto" height */
