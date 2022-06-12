@@ -109,11 +109,10 @@ a {
 
 
 .box {
-    margin: 142px 500px 0 500px;
     width: 1200px;
-    height: 5000px;
+    height: 15000px;
+    margin: 142px 500px 0 500px;
     background-color: #ffffff;
-    z-index: 0;
 }
 
 .delphi__inner {
