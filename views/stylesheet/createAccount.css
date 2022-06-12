@@ -1,0 +1,64 @@
+body {
+    margin: 0;
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+    color: #6c7279;
+    -webkit-font-smoothing: antialiased;
+    background-color: #000;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+.container {
+    width: 100%;
+    max-width: 1920px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+h1 {
+    position: relative;
+    top: 100px;
+    left: 800px;
+}
+
+.username {
+    position: relative;
+    top: 100px;
+    left: 800px;
+}
+
+.password {
+    margin-top: 10px;
+    position: relative;
+    top: 100px;
+    left: 800px;
+}
+
+.description {
+    margin-top: 10px;
+    position: relative;
+    top: 100px;
+    left: 800px;
+}
+
+.username input {
+    position: relative;
+    left: 5px;
+}
+
+.password input {
+    position: relative;
+    left: 9px;
+}
+
+button {
+    margin-top: 20px;
+    position: relative;
+    top: 100px;
+    left: 800px;
+}
