@@ -25,8 +25,8 @@ public class QuizStep {
     public QuizStep(JsonObject jsonObject) {
         this.stepNumber = jsonObject.getInteger("stepNumber");
         JsonArray marksJson = jsonObject.getJsonArray("marks");
+        this.marks = new LinkedList<>();
         if (marksJson != null) {
-            this.marks = new LinkedList<>();
             marksJson.forEach(markObject -> {
                 this.marks.add(new SingleMark((JsonObject) markObject));
             });

@@ -7,6 +7,8 @@ import com.expert.mark.service.DelphiQuizService;
 import com.expert.mark.service.impl.DelphiQuizServiceImpl;
 import com.expert.mark.util.db.DatabaseClientProvider;
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.http.Cookie;
+import io.vertx.core.http.impl.CookieImpl;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.mongo.MongoClient;
 import io.vertx.ext.web.Router;
@@ -66,7 +68,10 @@ public class DelphiQuizVerticle extends AbstractVerticle {
                     .onComplete(res -> {
                         JsonObject response = (JsonObject) res.result().body();
                         if (response.getString("role").equals("USER")) {
+                            ctx.request().cookies().add(new CookieImpl("username", response.getString("username")));
                             this.postMark(ctx);
+                        } else {
+                            ctx.response().setStatusCode(403).send();
                         }
                     });
         });
@@ -74,6 +79,10 @@ public class DelphiQuizVerticle extends AbstractVerticle {
         vertx.createHttpServer().requestHandler(router).listen(8084);
 
         vertx.setPeriodic(86400 * 1000, this::processDelphiQuizzes);
+    }
+
+    private void processDelphiQuizzesForce(RoutingContext routingContext) {
+        this.processDelphiQuizzes(0L);
     }
 
     private boolean isAuthorized(RoutingContext ctx, String role) {
@@ -97,6 +106,14 @@ public class DelphiQuizVerticle extends AbstractVerticle {
     private void postMark(RoutingContext routingContext) {
         String delphiQuizId = routingContext.pathParam("delphiQuizTitle");
         JsonObject body = routingContext.getBodyAsJson();
+        AtomicReference<String> ownerUsername = new AtomicReference<>();
+        for (Cookie cookie : routingContext.request().cookies()) {
+            if (cookie.getName().equals("username")) {
+                ownerUsername.set(cookie.getValue());
+                break;
+            }
+        }
+        body.put("ownerUsername", ownerUsername);
         SingleMark singleMark = new SingleMark(body);
         delphiQuizService.postSingleMark(delphiQuizId, singleMark);
         routingContext.response().setStatusCode(200).send();

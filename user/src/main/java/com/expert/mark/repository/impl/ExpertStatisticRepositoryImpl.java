@@ -7,11 +7,12 @@ import io.vertx.core.Future;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.mongo.MongoClient;
 
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class ExpertStatisticRepositoryImpl implements ExpertStatisticRepository {
 
-    private final String documentName = "expert_statistic";
+    private final String documentName = "expertStatistic";
     private final MongoClient mongoClient = DatabaseClientProvider.provide();
 
     @Override
@@ -24,6 +25,12 @@ public class ExpertStatisticRepositoryImpl implements ExpertStatisticRepository 
                         res.cause().printStackTrace();
                     }
                 });
+
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         return new ExpertStatistic(expertStatisticFuture.result());
     }
@@ -38,8 +45,7 @@ public class ExpertStatisticRepositoryImpl implements ExpertStatisticRepository 
             if (!res.succeeded()) {
                 res.cause().printStackTrace();
             } else {
-                savedExpertStatistic.set(new ExpertStatistic(mongoClient.findOne(documentName,
-                        new JsonObject().put("_id", res.result()), null).result()));
+                savedExpertStatistic.set(this.getExpertStatisticByExpertUsername(expertStatistic.getExpertUsername()));
             }
         });
 
@@ -73,6 +79,5 @@ public class ExpertStatisticRepositoryImpl implements ExpertStatisticRepository 
         });
 
         return new ExpertStatistic(deletedExpertStatisticJson.result());
-
     }
 }

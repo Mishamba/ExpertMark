@@ -1,9 +1,13 @@
 package com.expert.mark.service.impl;
 
 import com.expert.mark.model.account.User;
+import com.expert.mark.model.account.expert.ExpertStatistic;
+import com.expert.mark.repository.ExpertStatisticRepository;
 import com.expert.mark.repository.UserRepository;
+import com.expert.mark.repository.impl.ExpertStatisticRepositoryImpl;
 import com.expert.mark.repository.impl.UserRepositoryImpl;
 import com.expert.mark.service.UserService;
+import io.vertx.core.json.JsonObject;
 
 import java.util.Date;
 import java.util.List;
@@ -11,10 +15,13 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository = new UserRepositoryImpl();
+    private final ExpertStatisticRepository expertStatisticRepository = new ExpertStatisticRepositoryImpl();
 
     @Override
     public User createUser(User user) {
         user.setCreateDate(new Date());
+        ExpertStatistic expertStatistic = new ExpertStatistic(new JsonObject().put("expertUsername", user.getUsername()));
+        expertStatisticRepository.saveExpertStatistic(expertStatistic);
         return userRepository.save(user);
     }
 

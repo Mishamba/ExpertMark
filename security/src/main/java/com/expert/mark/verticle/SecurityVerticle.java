@@ -65,7 +65,7 @@ public class SecurityVerticle extends AbstractVerticle {
     private JWTAuthOptions getConfig() {
         return new JWTAuthOptions()
                 .setKeyStore(new KeyStoreOptions()
-                        .setPath("/home/mishamba/java/ExpertMark/security/src/main/resources/keystore.jceks")
+                        .setPath("keystore.jceks")
                         .setPassword("secret"));
     }
 

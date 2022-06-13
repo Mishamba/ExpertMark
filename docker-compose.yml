@@ -7,3 +7,13 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=123
+  web:
+    container_name: expertMarkContainer
+    image: expert-mark:latest
+    ports:
+      - "8081:8081"
+      - "8082:8082"
+      - "8083:8083"
+      - "8084:8084"
+      - "8085:8085"
+      - "8088:8088"

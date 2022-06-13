@@ -1,5 +1,6 @@
 package com.expert.mark.service.impl;
 
+import com.expert.mark.model.account.expert.ExpertStatistic;
 import com.expert.mark.model.content.forecast.Forecast;
 import com.expert.mark.repository.ExpertStatisticRepository;
 import com.expert.mark.repository.ForecastRepository;
@@ -17,15 +18,17 @@ import java.util.List;
 
 public class ForecastServiceImpl implements ForecastService {
 
-    private final WebClient webClient = WebClient.create(Vertx.vertx());
     private final ForecastRepository forecastRepository = new ForecastRepositoryImpl();
     private final UserService userService = new UserServiceImpl();
+    private final ExpertStatisticRepository expertStatisticRepository = new ExpertStatisticRepositoryImpl();
 
     @Override
     public Forecast createForecast(Forecast forecast) {
         forecast.setCreateDate(new Date());
         return forecastRepository.createForecast(forecast);
     }
+
+
 
     @Override
     public boolean deleteForecast(String _id) {
@@ -51,6 +54,11 @@ public class ForecastServiceImpl implements ForecastService {
     public List<Forecast> getAssetForecasts(String assetName, String username) {
         List<String> experts = userService.getUserFollowings(username);
         return getAssetForecastsFromExperts(assetName, experts);
+    }
+
+    @Override
+    public ExpertStatistic getExpertStatisticByExpertUsername(String username) {
+        return expertStatisticRepository.getExpertStatisticByExpertUsername(username);
     }
 
     private List<Forecast> getAssetForecastsFromExperts(String asset, List<String> expertsUsernames) {

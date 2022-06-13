@@ -27,7 +27,11 @@ public class DelphiQuizRepositoryImpl implements DelphiQuizRepository {
         query.put("_id", id);
         List<DelphiQuiz> delphiQuizzes = new LinkedList<>();
         mongoClient.findOne(delphiQuizDocumentName, query, null).
-                onComplete(yes -> delphiQuizzes.add(new DelphiQuiz(yes.result())));
+                onComplete(yes -> {
+                    JsonObject res = yes.result();
+                    res.put("title", res.getString("_id"));
+                    delphiQuizzes.add(new DelphiQuiz(yes.result()));
+                });
 
         try {
             TimeUnit.SECONDS.sleep(1);
