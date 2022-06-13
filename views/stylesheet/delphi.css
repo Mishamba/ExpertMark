@@ -173,7 +173,6 @@ a {
     float: left;
     background-color: #808080;
     width: 400px;
-    height: 430px;
     border: 2px #000000 solid;
     border-radius: 3px;
 }
@@ -181,7 +180,6 @@ a {
 .message {
     margin-top: 10px;
     margin-left: 20px;
-    width: 10%;
     color: #000000;
 }
 
