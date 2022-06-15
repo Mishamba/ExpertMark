@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CreateForecast</title>
+    <link rel="stylesheet" href="../stylesheet/createForecast.css">
+    <script src="../script/src/util/security.js"></script>
+    <script src="../script/src/createForecast.js"></script>
+</head>
+<body>
+<header class="header">
+    <div class="container">
+        <div class="header__inner">
+            <div class="header_logo">
+                <h1>ExpertMark</h1>
+            </div>
+
+            <nav class="nav">
+                <a href="signIn.html" class="nav__link">Sign In</a>
+                <a href="signIn.html" class="nav__link">Sign Out</a>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<h2>Create Forecast</h2>
+
+<!--Box-->
+<div id="forecast_data" class="box">
+    <div class="create__forecast_inner">
+        <div class="asset__name">
+            Asset name:
+        </div>
+        <label>
+            <input id="input__asset_name" type="text">
+        </label>
+        <div class="target__date">
+            Target date (dd, mmm, yyyy format):
+        </div>
+        <label>
+            <input id="input__target_date" type="text">
+        </label>
+        <div class="method"> Method Type:
+            <label for="method_type"></label>
+            <select name="method" id="method_type" onChange="changeMethod()">
+                <option value="TWO_MARKS_FORECAST" selected>Two marks method</option>
+                <option value="THREE_MARKS_FORECAST">Three marks method</option>
+                <option value="THREE_MARKS_WITH_CHANCES_FORECAST">Three marks with chances method</option>
+            </select>
+            <div id="forecast_method_data">
+                <div class="pessimistic__mark">
+                    Pessimistic mark:
+                </div>
+                <label>
+                    <input id="input__pessimistic_mark" type="number">
+                </label>
+                <div class="optimistic__mark">
+                    Optimistic mark:
+                </div>
+                <label>
+                    <input id="input__optimistic_mark" type="number">
+                </label>
+            </div>
+        </div>
+        <button class="create__forecast">
+            Create Forecast
+        </button>
+        </div>
+    </div>
+
+<!--Menu-->
+<div class="menu">
+    <div class="container">
+        <div class="menu__inner">
+            <a class="btn  btn--red" href="assets.html">Assets</a>
+            <a class="btn  btn--red" href="profile.html">Profile</a>
+            <a class="btn  btn--red" href="myforecast.html">My Forecasts</a>
+            <a class="btn  btn--red" href="forecastsLine.html">Forecasts Line</a>
+            <a class="btn  btn--red" href="recommendations.html">Recommend</a>
+            <a class="btn  btn--red" href="findForecast.html">Find Forecasts</a>
+            <a class="btn  btn--red" href="delphisearch.html">Find Delphi Forecasts</a>
+            <a class="btn  btn--red" href="expertsSearch.html">Find Experts</a>
+        </div>
+    </div>
+</div>
+
+<!--Footer-->
+<footer class="footer">
+    <div class="copyright">
+        <div class="container">
+            <div class="copyright__text">
+                <div>Copyright © 2022 ExpertMark. All Rights Reserved</div>
+                <div>Made with <span style="color:#e84545;">&#10084</span> <span>by Mihail Nenahov</span></div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

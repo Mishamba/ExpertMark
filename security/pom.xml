@@ -18,6 +18,13 @@
     </properties>
 
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/io.vertx/vertx-rx-java -->
+        <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-rx-java</artifactId>
+            <version>4.3.1</version>
+        </dependency>
+
         <dependency>
             <groupId>com.expert.mark</groupId>
             <artifactId>user</artifactId>

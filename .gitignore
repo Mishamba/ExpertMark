@@ -1,6 +1,12 @@
-.idea
-node_modules
-.git
+/.idea
+ExpertMark.iml
 */target
-*/.iml
-.iml
+*/*.iml
+/node_modules
+.DS_Store
+*/.DS_Store
+package-lock.json
+views/node_modules
+views/package-lock.json
+views/script/bundle
+*.iml

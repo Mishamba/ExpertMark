@@ -1,0 +1,264 @@
+body {
+    margin: 0;
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+    color: #6c7279;
+    -webkit-font-smoothing: antialiased;
+    background-color: #000;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+.container {
+    width: 100%;
+    max-width: 1920px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+h2 {
+    position: relative;
+    top: 160px;
+    left: 1040px;
+}
+
+.header {
+    width: 100%;
+    height: 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.header__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 35px 0;
+    border-bottom: 1px solid #515369;
+}
+
+a {
+    margin-left: 50px;
+    color: #ffffff;
+    text-decoration: none;
+    opacity: .75;
+    transition: opacity .1s linear;
+}
+
+.nav {
+    display: flex;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+
+}
+
+.nav__link {
+    margin-right: 50px;
+    color: #ffffff;
+    text-decoration: none;
+    opacity: .75;
+    transition: opacity .1s linear;
+}
+
+.nav__link:first-child {
+    margin-left: 0;
+
+}
+
+.nav__link:hover {
+    opacity: 1;
+}
+
+.menu__inner {
+    margin: 200px 300px;
+    height: 100%; /* Full-height: remove this if you want "auto" height */
+    width: 160px; /* Set the width of the sidebar */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 20px;
+}
+
+.btn {
+    margin: 10px 20px;
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+    font-family: 'Raleway', sans-serif;
+    font-size: 13px;
+    color: #ffffff;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-align: center;
+    transition: background .1s linear;
+    border-radius: 5px;
+}
+
+
+.btn--red {
+    background-color: #e84545;
+}
+
+.btn--red:hover {
+    background-color: #dd3434;
+}
+
+
+.box {
+    width: 1200px;
+    height: 15000px;
+    margin: 142px 500px 0 500px;
+    background-color: #ffffff;
+}
+
+.delphi__inner {
+    color: #a6a2a2;
+    padding: 0 40px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.delphi__title {
+    line-height: 5;
+    text-align: left;
+    font-size: 20px;
+    color: #2d3033;
+    font-weight: 700;
+    z-index: 0;
+}
+
+.delphi__img {
+    float: right;
+    position: relative;
+    z-index: 2;
+}
+
+.delphi__asset {
+    font-size: 16px;
+    color: #000000;
+}
+
+.delphi__description {
+    font-size: 16px;
+    color: #000000;
+}
+
+.delphi__date {
+    font-size: 16px;
+    color: #000000;
+}
+
+.delphi__experts {
+    font-size: 16px;
+    color: #000000;
+}
+
+.discussion {
+    margin: 100px 0 10px 0;
+    font-size: 18px;
+    color: #000000;
+}
+
+.delphi__discussion {
+    float: left;
+    background-color: #808080;
+    width: 400px;
+    border: 2px #000000 solid;
+    border-radius: 3px;
+}
+
+.message {
+    margin-top: 10px;
+    margin-left: 20px;
+    color: #000000;
+}
+
+#message_body_editor {
+    margin-left: 15px;
+    width: 300px;
+    height: 40px;
+}
+
+#message_send_button {
+    background-color: #a83636;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 60px;
+    height: 40px;
+}
+
+.quiz__steps {
+    font-size: 20px;
+    color: #000000;
+    position: relative;
+    left: 120px;
+    bottom: 10px;
+}
+
+.quizzes {
+    display: flex;
+    flex-wrap: wrap;
+    border: 2px #000000 solid;
+    border-radius: 3px;
+    background-color: #8982cc;
+    float: right;
+    margin-right: 300px;
+}
+
+
+
+.quiz__step_info {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    margin-left: 10px;
+    font-size: 18px;
+    color: #000000;
+}
+
+select {
+    margin-left: 10px;
+    width: 250px;
+    height: 30px;
+}
+
+#forecast_method_data {
+    margin-top: 30px;
+    margin-left: 10px;
+    line-height: 1.5;
+    font-size: 16px;
+    color: #000000;
+}
+
+.marks {
+    margin-top: 20px;
+    margin-left: 10px;
+    line-height: 1.5;
+    font-size: 15px;
+    color: #000000;
+}
+
+.copyright {
+    padding: 20px 0;
+    background-color: #000000;
+}
+
+.copyright__text {
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #a6a2a2;
+}
+
+.copyright__text span {
+    color: #ffffff;
+}

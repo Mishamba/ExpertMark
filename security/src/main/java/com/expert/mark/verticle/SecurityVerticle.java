@@ -5,12 +5,17 @@ import com.expert.mark.repository.UserRepository;
 import com.expert.mark.repository.impl.UserRepositoryImpl;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Vertx;
+import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.auth.KeyStoreOptions;
 import io.vertx.ext.auth.jwt.JWTAuth;
 import io.vertx.ext.auth.jwt.JWTAuthOptions;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.BodyHandler;
+import io.vertx.ext.web.handler.CorsHandler;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class SecurityVerticle extends AbstractVerticle {
     private final JWTAuth jwtAuth = JWTAuth.create(Vertx.vertx(), this.getConfig());
@@ -19,6 +24,25 @@ public class SecurityVerticle extends AbstractVerticle {
     @Override
     public void start() {
         Router router = Router.router(vertx);
+        Set<String> allowHeaders = new HashSet<>();
+        allowHeaders.add("x-requested-with");
+        allowHeaders.add("Access-Control-Allow-Origin");
+        allowHeaders.add("origin");
+        allowHeaders.add("Content-Type");
+        allowHeaders.add("accept");
+        Set<HttpMethod> allowMethods = new HashSet<>();
+        allowMethods.add(HttpMethod.GET);
+        allowMethods.add(HttpMethod.PUT);
+        allowMethods.add(HttpMethod.OPTIONS);
+        allowMethods.add(HttpMethod.POST);
+        allowMethods.add(HttpMethod.DELETE);
+        allowMethods.add(HttpMethod.PATCH);
+
+        router.route().handler(CorsHandler.create("*")
+                .allowedHeaders(allowHeaders)
+                .allowedMethods(allowMethods));
+
+        // TODO add role and username to send
         router.route().handler(BodyHandler.create());
         router.post("/authorize").handler(ctx -> {
             String jwt = authorize(ctx.getBodyAsJson());
