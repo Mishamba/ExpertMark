@@ -31,8 +31,7 @@ $("#sign_in_button").click(function() {
         }
     })*/
     delay(438).then(() => {
-            document.cookie = "username=" + data['username']
-            document.cookie = "role=" + data['role']
+            document.cookie = "username=" + username
             $(location).attr("href", "http://localhost:63342/ExpertMark/views/pages/profile.html?username=" + username)
         })
 })
