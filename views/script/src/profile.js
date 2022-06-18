@@ -35,14 +35,14 @@ $(document).ready(function() {
 
     delay(836).then(() => {
         if (ausername !== username) {
-            if (username === "Dziana") {
-                $('.profile__img').attr('src',function(index,attr){
-                    return attr.replace('mihail','diana');
+            if (username === "Diana") {
+                $('.profile__img').attr('src', function (index, attr) {
+                    return attr.replace('trash', 'diana');
                 });
-                $(".profile__name").text("@Dziana")
+                $(".profile__name").text("@Diana")
                 $(".profile__description").text("Etherium expert. Bitcoin going down")
                 $("#followEditButton").text("Follow")
-                $("#followEditButton").click(function() {
+                $("#followEditButton").click(function () {
                     delay(200).then(() => {
                         if ($("#followEditButton").text() !== "Unfollow") {
                             $("#followEditButton").text("Unfollow")
@@ -54,6 +54,15 @@ $(document).ready(function() {
                 $(".profile__followings").html(" Followings: <li>Alice</li><li>Bruce</li>")
                 $(".accuracy").html(" Accuracy: <span>75.8</span>")
             }
+        } else {
+            $('.profile__img').attr('src', function (index, attr) {
+                return attr.replace('trash', 'diana');
+            });
+            $(".profile__name").text("@Mishamba")
+            $(".profile__description").text("Hello. I'm crypto expert and know everything about it.")
+            $("#followEditButton").text("Edit")
+            $(".profile__followings").html(" Followings: <li>Billy</li><li>Van</li><li>Ban</li>")
+            $(".accuracy").html(" Accuracy: <span>65.2</span>")
         }
     })
 
