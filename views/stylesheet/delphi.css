@@ -7,6 +7,15 @@ body {
     background-color: #000;
 }
 
+.contt {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    /*background-color: #2d3033;*/
+    /*height: 500px;*/
+    /*width: 50%;*/
+}
+
 *,
 *:before,
 *:after {
@@ -169,11 +178,19 @@ a {
     color: #000000;
 }
 
+.message__editor {
+    background-color: #808080;
+    width: 350px;
+    border: 2px #000000 solid;
+}
+
 .delphi__discussion {
+    min-height: 500px;
     float: left;
     background-color: #808080;
-    width: 400px;
+    width: 350px;
     border: 2px #000000 solid;
+    border-bottom: none;
     border-radius: 3px;
 }
 
@@ -184,8 +201,7 @@ a {
 }
 
 #message_body_editor {
-    margin-left: 15px;
-    width: 300px;
+    width: 282px;
     height: 40px;
 }
 
