@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="../stylesheet/myforecast.css">
+  <title>ExpertMark</title>
+</head>
+<body>
+
+  <!--Header-->
+  <header class="header">
+    <div class="container">
+      <div class="header__inner">
+        <div class="header_logo">
+          <h1>ExpertMark</h1>
+        </div>
+
+        <nav class="nav">
+          <a href="signIn.html" class="nav__link">Sign In</a>
+          <a href="signIn.html" class="nav__link">Sign Out</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!--Menu-->
+  <div class="menu">
+    <div class="container">
+      <div class="menu__inner">
+        <a class="btn  btn--red" href="assets.html">Assets</a>
+        <a class="btn  btn--red" href="profile.html">Profile</a>
+        <a class="btn  btn--red" href="myforecast.html">My Forecasts</a>
+        <a class="btn  btn--red" href="forecastsLine.html">Forecasts Line</a>
+        <a class="btn  btn--red" href="recommendations.html">Recommend</a>
+        <a class="btn  btn--red" href="findForecast.html">Find Forecasts</a>
+        <a class="btn  btn--red" href="delphisearch.html">Find Delphi Forecasts</a>
+        <a class="btn  btn--red" href="expertsSearch.html">Find Experts</a>
+      </div>
+    </div>
+  </div>
+
+  <h2>My Forecasts</h2>
+
+  <form action="createForecast.html" class="createForecast">
+    <button>Create Forecast</button>
+  </form>
+
+  <!--Box-->
+  <div class="box">
+    <div class="forecast">
+      <div class="forecast__inner">
+        <div class="right">
+          <div class="method__type">Method Type: Two Marks Forecast</div>
+          <div class="method__data">Method Data: Pessimistic Mark: 27000, Optimistic Mark: 29000</div>
+          <div class="creating__data">Creating Date: 15.05.2022</div>
+          <div class="target__data">Target Date: 19.05.2022</div>
+          <div class="real__price">Real price: 28000</div>
+        </div>
+        <div class="left">
+          <div class="username">Username: Mishamba</div>
+          <div class="asset__name">Asset Name: Bitcoin</div>
+          <div class="accuracy">Accuracy: 85%</div>
+        </div>
+        <img src="../img/btc.webp" alt="" class="asset__img">
+      </div>
+    </div>
+  </div>
+</body>
+</html>
