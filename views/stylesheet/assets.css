@@ -74,6 +74,7 @@ h2 {
     position: relative;
     top: 160px;
     left: 1040px;
+    max-width: min-content;
 }
 
 .box {

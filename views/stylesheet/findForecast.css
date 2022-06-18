@@ -138,6 +138,7 @@ h2 {
     position: relative;
     top: 160px;
     left: 960px;
+    max-width: min-content;
 }
 
 button {
