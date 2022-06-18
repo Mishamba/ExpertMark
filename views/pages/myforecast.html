@@ -48,23 +48,79 @@
   <!--Box-->
   <div class="box">
     <div class="forecast">
-      <!--  TODO Эти карточки должны совпадать с карточками после поиска прогноза по эксперту (нажатие кнопки search и ввода Mishamba в инпут и в селекте выбор expert) -->
       <div class="forecast__inner">
         <div class="right">
           <div class="method__type">Method Type: Two Marks Forecast</div>
-          <div class="method__data">Method Data: Pessimistic Mark: 27000, Optimistic Mark: 29000</div>
+          <div class="method__data">Method Data: Pessimistic Mark: 50, Optimistic Mark: 70</div>
           <div class="creating__data">Creating Date: 15.05.2022</div>
-          <div class="target__data">Target Date: 19.05.2022</div>
-          <div class="real__price">Real price: 28000</div>
+          <div class="target__data">Target Date: 25.06.2022</div>
         </div>
         <div class="left">
           <div class="username">Username: Mishamba</div>
-          <div class="asset__name">Asset Name: Bitcoin</div>
-          <div class="accuracy">Accuracy: 85%</div>
+          <div class="asset__name">Asset Name: Algorand</div>
+          <img src="../img/algorand.webp" alt="" class="asset__img">
+          <div class="accuracy">Accuracy: didn't met target date</div>
         </div>
-        <img src="../img/btc.webp" alt="" class="asset__img">
       </div>
-      <!--  TODO Эти карточки должны совпадать с карточками после поиска прогноза по эксперту (нажатие кнопки search и ввода Mishamba в инпут и в селекте выбор expert) -->
+      <div class="forecast__inner">
+        <div class="right">
+          <div class="method__type">Method Type: Three Marks Forecast</div>
+          <div class="method__data">Method Data: Pessimistic Mark: 10, Realistic Mark: 11, Optimistic Mark: 13</div>
+          <div class="creating__data">Creating Date: 10.04.2022</div>
+          <div class="target__data">Target Date: 23.08.2025</div>
+        </div>
+        <div class="left">
+          <div class="username">Username: Mishamba</div>
+          <div class="asset__name">Asset Name: Shiba Inu</div>
+          <img src="../img/shiba-inu.webp" alt="" class="asset__img">
+          <div class="accuracy">Accuracy: didn't met target date</div>
+        </div>
+      </div>
+      <div class="forecast__inner">
+        <div class="right">
+          <div class="method__type">Method Type: Three Marks Forecast</div>
+          <div class="method__data">Method Data: Pessimistic Mark: 1, Realistic Mark: 3, Optimistic Mark: 4</div>
+          <div class="creating__data">Creating Date: 08.04.2022</div>
+          <div class="target__data">Target Date: 13.06.2022</div>
+          <div class="target__data">Real price: 3</div>
+        </div>
+        <div class="left">
+          <div class="username">Username: Mishamba</div>
+          <div class="asset__name">Asset Name: Cosmos</div>
+          <img src="../img/cosmos.webp" alt="" class="asset__img">
+          <div class="accuracy">Accuracy: 68,35</div>
+        </div>
+      </div>
+      <div class="forecast__inner">
+        <div class="right">
+          <div class="method__type">Method Type: Three Marks Forecast</div>
+          <div class="method__data">Method Data: Pessimistic Mark: 2000, Realistic Mark: 2300, Optimistic Mark: 2600</div>
+          <div class="creating__data">Creating Date: 10.05.2022</div>
+          <div class="target__data">Target Date: 15.06.2022</div>
+          <div class="target__data">Real price: 2500</div>
+        </div>
+        <div class="left">
+          <div class="username">Username: Mishamba</div>
+          <div class="asset__name">Asset Name: Cosmos</div>
+          <img src="../img/eth.webp" alt="" class="asset__img">
+          <div class="accuracy">Accuracy: 92%</div>
+        </div>
+      </div>
+      <div class="forecast__inner">
+        <div class="right">
+          <div class="method__type">Method Type: Three Marks Forecast</div>
+          <div class="method__data">Method Data: Pessimistic Mark: 2, Realistic Mark: 5, Optimistic Mark: 10</div>
+          <div class="creating__data">Creating Date: 15.05.2022</div>
+          <div class="target__data">Target Date: 20.06.2022</div>
+          <div class="target__data">Real price: 68.75</div>
+        </div>
+        <div class="left">
+          <div class="username">Username: Mishamba</div>
+          <div class="asset__name">Asset Name: Solana</div>
+          <img src="../img/solana.webp" alt="" class="asset__img">
+          <div class="accuracy">Accuracy: 92%</div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -74,35 +130,92 @@
     isForecastCreated ?
             forecastsContainer.innerHTML = `
                     <!-- TODO Тут должны быть все MY FORECASTS и последним будет новый, данные в него вставишь те, которые ты ввёл в креэйт форекаст в форме-->
-          <div class="forecast__inner">
+      <div class="forecast__inner">
         <div class="right">
-          <div class="method__type">Method Type: Two Marks Forecast</div>
-          <div class="method__data">Method Data: Pessimistic Mark: 27000, Optimistic Mark: 29000</div>
-          <div class="creating__data">Creating Date: 15.05.2022</div>
-          <div class="target__data">Target Date: 19.05.2022</div>
-          <div class="real__price">Real price: 28000</div>
+          <div class="method__type">Method Type: Three Method Forecast</div>
+          <div class="method__data">Method Data: Pessimistic Mark: 13000, Realistic Mark: 15000, Optimistic Mark: 22000</div>
+          <div class="creating__data">Creating Date: 19.06.2022</div>
+          <div class="target__data">Target Date: 20.09.2022</div>
         </div>
         <div class="left">
           <div class="username">Username: Mishamba</div>
           <div class="asset__name">Asset Name: Bitcoin</div>
-          <div class="accuracy">Accuracy: 85%</div>
+          <div class="accuracy">Accuracy: didn't met target date</div>
         </div>
         <img src="../img/btc.webp" alt="" class="asset__img">
       </div>
-          <div class="forecast__inner">
+      <div class="forecast__inner">
         <div class="right">
-          <div class="method__type">Method Type: NEW</div>
-          <div class="method__data">Method Data: NEW</div>
-          <div class="creating__data">Creating Date: NEW</div>
-          <div class="target__data">Target Date: NEW</div>
-          <div class="real__price">Real price: NEW</div>
+          <div class="method__type">Method Type: Two Marks Forecast</div>
+          <div class="method__data">Method Data: Pessimistic Mark: 50, Optimistic Mark: 70</div>
+          <div class="creating__data">Creating Date: 15.05.2022</div>
+          <div class="target__data">Target Date: 25.06.2022</div>
         </div>
         <div class="left">
-          <div class="username">Username: NEW</div>
-          <div class="asset__name">Asset Name: NEW</div>
-          <div class="accuracy">Accuracy: NEW</div>
+          <div class="username">Username: Mishamba</div>
+          <div class="asset__name">Asset Name: Algorand</div>
+          <img src="../img/algorand.webp" alt="" class="asset__img">
+          <div class="accuracy">Accuracy: didn't met target date</div>
         </div>
-        <img src="../img/btc.webp" alt="" class="asset__img">
+      </div>
+      <div class="forecast__inner">
+        <div class="right">
+          <div class="method__type">Method Type: Three Marks Forecast</div>
+          <div class="method__data">Method Data: Pessimistic Mark: 10, Realistic Mark: 11, Optimistic Mark: 13</div>
+          <div class="creating__data">Creating Date: 10.04.2022</div>
+          <div class="target__data">Target Date: 23.08.2025</div>
+        </div>
+        <div class="left">
+          <div class="username">Username: Mishamba</div>
+          <div class="asset__name">Asset Name: Shiba Inu</div>
+          <img src="../img/shiba-inu.webp" alt="" class="asset__img">
+          <div class="accuracy">Accuracy: didn't met target date</div>
+        </div>
+      </div>
+      <div class="forecast__inner">
+        <div class="right">
+          <div class="method__type">Method Type: Three Marks Forecast</div>
+          <div class="method__data">Method Data: Pessimistic Mark: 1, Realistic Mark: 3, Optimistic Mark: 4</div>
+          <div class="creating__data">Creating Date: 08.04.2022</div>
+          <div class="target__data">Target Date: 13.06.2022</div>
+          <div class="target__data">Real price: 3</div>
+        </div>
+        <div class="left">
+          <div class="username">Username: Mishamba</div>
+          <div class="asset__name">Asset Name: Cosmos</div>
+          <img src="../img/cosmos.webp" alt="" class="asset__img">
+          <div class="accuracy">Accuracy: 68,35</div>
+        </div>
+      </div>
+      <div class="forecast__inner">
+        <div class="right">
+          <div class="method__type">Method Type: Three Marks Forecast</div>
+          <div class="method__data">Method Data: Pessimistic Mark: 2000, Realistic Mark: 2300, Optimistic Mark: 2600</div>
+          <div class="creating__data">Creating Date: 10.05.2022</div>
+          <div class="target__data">Target Date: 15.06.2022</div>
+          <div class="target__data">Real price: 2500</div>
+        </div>
+        <div class="left">
+          <div class="username">Username: Mishamba</div>
+          <div class="asset__name">Asset Name: Cosmos</div>
+          <img src="../img/eth.webp" alt="" class="asset__img">
+          <div class="accuracy">Accuracy: 92%</div>
+        </div>
+      </div>
+      <div class="forecast__inner">
+        <div class="right">
+          <div class="method__type">Method Type: Three Marks Forecast</div>
+          <div class="method__data">Method Data: Pessimistic Mark: 2, Realistic Mark: 5, Optimistic Mark: 10</div>
+          <div class="creating__data">Creating Date: 15.05.2022</div>
+          <div class="target__data">Target Date: 20.06.2022</div>
+          <div class="target__data">Real price: 68.75</div>
+        </div>
+        <div class="left">
+          <div class="username">Username: Mishamba</div>
+          <div class="asset__name">Asset Name: Solana</div>
+          <img src="../img/solana.webp" alt="" class="asset__img">
+          <div class="accuracy">Accuracy: 92%</div>
+        </div>
       </div>
             `
     :

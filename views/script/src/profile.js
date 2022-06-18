@@ -37,7 +37,7 @@ $(document).ready(function() {
         if (ausername !== username) {
             if (username === "Diana") {
                 $('.profile__img').attr('src', function (index, attr) {
-                    return attr.replace('trash', 'diana');
+                    return attr.replace('trash', 'img');
                 });
                 $(".profile__name").text("@Diana")
                 $(".profile__description").text("Etherium expert. Bitcoin going down")
@@ -56,7 +56,7 @@ $(document).ready(function() {
             }
         } else {
             $('.profile__img').attr('src', function (index, attr) {
-                return attr.replace('trash', 'diana');
+                return attr.replace('trash', 'mishamba');
             });
             $(".profile__name").text("@Mishamba")
             $(".profile__description").text("Hello. I'm crypto expert and know everything about it.")
