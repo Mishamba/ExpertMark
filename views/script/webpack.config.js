@@ -1,13 +1,20 @@
 const path = require("path")
 
-module.exports = {
+/*module.exports = {
+    entry: './src/forecastRecommendations.js',
+    output: {
+        path: path.resolve(".", 'bundle'),
+        filename: 'forecastRecommendations.js',
+    },
+};*/
+/*module.exports = {
     entry: './src/signIn.js',
     output: {
         path: path.resolve(".", 'bundle'),
         filename: 'singIn/signInBundle.js',
     },
-};
-/*module.exports = {
+};*/
+module.exports = {
     entry: './src/profile.js',
     module: {
         rules: [

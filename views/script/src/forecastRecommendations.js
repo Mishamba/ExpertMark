@@ -1,6 +1,6 @@
 const $ = require("jquery");
 $(document).ready(function() {
-    $.ajax({
+    /*$.ajax({
         url: "http://localhost:8083/forecasts",
         type: "get",
         headers: {
@@ -33,5 +33,8 @@ $(document).ready(function() {
             //if this wouldn't work use this
             // https://stackoverflow.com/questions/35263196/jquery-templates-pass-html-parameter-into-a-function
         })
+    })*/
+    $("#diana").click(function() {
+        $(location).attr("href", "http://localhost:63342/ExpertMark/views/pages/profile.html?username=Diana")
     })
 })

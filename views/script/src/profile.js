@@ -34,66 +34,35 @@ $(document).ready(function() {
     })*/
 
     delay(836).then(() => {
-        if (username === 'mishamba') {
-            $("body").appendChild(
-            "<!--Header-->" +
-            "<header class='header'>" +
-                "<div class='container'>" +
-                "<div class='header__inner'>" +
-                "<div class='header_logo'>" +
-                "<h1>ExpertMark</h1>" +
-        "</div>" +
-
-            "<nav class='nav'>" +
-                "<a href='signIn.html' class='nav__link'>Sign In</a>" +
-                "<a href='signIn.html' class='nav__link'>Sign Out</a>" +
-            "</nav>" +
-        "</div>" +
-        "</div>" +
-        "</header>" +
-
-            "<!--Menu-->" +
-            "<div class='menu'>" +
-                "<div class='container'>" +
-                    "<div class='menu__inner'>" +
-                        "<a class='btn  btn--red' href="assets.html">Assets</a>" +
-                        <a class="btn  btn--red" href="profile.html">Profile</a>
-                        <a class="btn  btn--red" href="myforecast.html">My Forecasts</a>
-                        <a class="btn  btn--red" href="forecastsLine.html">Forecasts Line</a>
-                        <a class="btn  btn--red" href="recommendations.html">Recommend</a>
-                        <a class="btn  btn--red" href="findForecast.html">Find Forecasts</a>
-                        <a class="btn  btn--red" href="delphisearch.html">Find Delphi Forecasts</a>
-                        <a class="btn  btn--red" href="expertsSearch.html">Find Experts</a>
-                    </div>
-                </div>
-            </div>
-
-            <h2>Profile</h2>
-
-            <div class="profile">
-                <div class="profile__inner">
-                    <img src="../img/mihail.jpeg" alt="" class="profile__img">
-                        <div class="profile__name">@Mishamba</div>
-                        <div class="profile__description">Hello. I'm a crypto expert.</div>
-                        <button>Follow</button>
-                        <ul class="profile__followings"> Followings:
-                            <li>Diana</li>
-                            <li>Ilya</li>
-                            <li>Mark</li>
-                            <li>Andrew</li>
-                            <li>Billy</li>
-                            <li>Van</li>
-                        </ul>
-                "</div>" +
-                "<div class="expert__statistic">" +
-                    "<div class="title">Expert Statistic:</div>" +
-                    "<div class="character">Character: <span>NEWBIE</span></div>" +
-                    "<div class="accuracy">Accuracy: <span>69.5</span></div>" +
-                "</div>" +
-            "</div>")
-        }
-        if (ausername === username) {
-
+        if (ausername !== username) {
+            if (username === "Diana") {
+                $('.profile__img').attr('src', function (index, attr) {
+                    return attr.replace('trash', 'diana');
+                });
+                $(".profile__name").text("@Diana")
+                $(".profile__description").text("Etherium expert. Bitcoin going down")
+                $("#followEditButton").text("Follow")
+                $("#followEditButton").click(function () {
+                    delay(200).then(() => {
+                        if ($("#followEditButton").text() !== "Unfollow") {
+                            $("#followEditButton").text("Unfollow")
+                        } else {
+                            $("#followEditButton").text("Follow")
+                        }
+                    })
+                })
+                $(".profile__followings").html(" Followings: <li>Alice</li><li>Bruce</li>")
+                $(".accuracy").html(" Accuracy: <span>75.8</span>")
+            }
+        } else {
+            $('.profile__img').attr('src', function (index, attr) {
+                return attr.replace('trash', 'diana');
+            });
+            $(".profile__name").text("@Mishamba")
+            $(".profile__description").text("Hello. I'm crypto expert and know everything about it.")
+            $("#followEditButton").text("Edit")
+            $(".profile__followings").html(" Followings: <li>Billy</li><li>Van</li><li>Ban</li>")
+            $(".accuracy").html(" Accuracy: <span>65.2</span>")
         }
     })
 
