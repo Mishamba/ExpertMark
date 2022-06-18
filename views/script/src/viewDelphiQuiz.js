@@ -57,14 +57,18 @@ $(document).ready(function() {
         processData: true,
         dataType: "json",
         success: function(data) {
-            $(".delphi__title").text("Title: " + data["title"])
-            $(".delphi__asset").text("Asset name: " + data["assetName"])
-            $(".delphi__description").text("Description: " + data["description"])
-            $(".delphi__date").text("Create Date: " + data["createDate"])
-            $(".delphi__experts").text("Experts: " + data["expertUsernames"])
+            $(".box").appendChild($.get("./template/delphi_info_template.html", function(template) {
+                $.tmpl(template.html(), {
+                    "title" : data["title"],
+                    "asset" : data["assetName"],
+                    "description" : data["description"],
+                    "create_date" : data["createDate"],
+                    "experts" : data["expertUsernames"]
+                })
+            }, "html"))
 
             data["discussion"].forEach(message => {
-                $(".delphi__discussion").append($.get("./template/delphiQuizMessage_template.html", function(template) {
+                $(".delphi__discussion").appendChild($.get("./template/delphiQuizMessage_template.html", function(template) {
                     $.tmpl(template.html(), message)
                 }, "html"))
                 //if this wouldn't work use this
@@ -72,16 +76,6 @@ $(document).ready(function() {
             })
 
             data["quizSteps"].forEach(quizStep => {
-                let marks = $("<div class='marks'></div>")
-
-                quizStep["mark"].forEach(mark => {
-                    marks.appendChild($.get("./template/methodData_template.html", function(template) {
-                        $.tmpl(template.html(), mark)
-                    }, "html"))
-                    //if this wouldn't work use this
-                    // https://stackoverflow.com/questions/35263196/jquery-templates-pass-html-parameter-into-a-function
-                })
-
                 $("#quizzes").append(
                     $.get("./template/delphiQuizStep_template.html", function(template) {
                         $.tmpl(template.html(), quizStep)
@@ -89,6 +83,15 @@ $(document).ready(function() {
                     find(".marks").appendChild(marks))
                 //if this wouldn't work use this
                 // https://stackoverflow.com/questions/35263196/jquery-templates-pass-html-parameter-into-a-function
+
+                quizStep["mark"].forEach(mark => {
+                    $(".quiz__steps").append($.get("./template/methodData_template.html", function(template) {
+                        $.tmpl(template.html(), mark)
+                    }, "html"))
+                    //if this wouldn't work use this
+                    // https://stackoverflow.com/questions/35263196/jquery-templates-pass-html-parameter-into-a-function
+                })
+
             })
 
             let username = getCookie("username")

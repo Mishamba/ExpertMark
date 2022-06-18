@@ -2,23 +2,23 @@ const $ = require("jquery");
 
 function createMethodDataEditor() {
     $.get("./template/methodDataEditor_template.html", function(template) {
-        $("delphi__marks").appendChild($(template.html()))
+        $(".marks").appendChild($(template.html()))
     }, "html")
     //if this wouldn't work use this
     // https://stackoverflow.com/questions/35263196/jquery-templates-pass-html-parameter-into-a-function
 
-    let urlVars = getUrlVars()
-    let jwt = getJWTFromCookie()
-
     $("#method_type").change(function() {
-        let selectedMethodType = ("#method_type").find(":selected").text()
+        let selectedMethodType = $("#method_type").find(":selected").text()
 
         printNewFieldsOnSelectorChange(selectedMethodType)
     })
 
     $(".create__forecast").click(function() {
+        let urlVars = getUrlVars()
         let methodType = $("#method_type").find(":selected").text()
         let methodData = getMethodData(methodType)
+
+        let jwt = getJWTFromCookie()
 
         $.ajax({
             url: "http://localhost:8084/delphiQuiz/" + urlVars["delphiQuizId"] + "/post/mark",

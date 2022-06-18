@@ -7,7 +7,7 @@ module.exports = {
         filename: 'singIn/signInBundle.js',
     },
 };
-module.exports = {
+/*module.exports = {
     entry: './src/profile.js',
     module: {
         rules: [

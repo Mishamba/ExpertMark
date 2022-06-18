@@ -1,0 +1,107 @@
+    <div class="forecast">
+      <div class="forecast__inner">
+        <div class="right">
+          <div class="method__type">Method Type: Three Marks Forecast</div>
+          <div class="method__data">Method Data: Pessimistic Mark: 10, Realistic Mark: 13, Optimistic Mark: 15</div>
+          <div class="creating__data">Creating Date: 15.05.2003</div>
+          <div class="target__data">Target Date: 19.05.2005</div>
+          <div class="real__price">Real price: 15</div>
+        </div>
+        <div class="left">
+          <div class="username">Username: Mishamba</div>
+          <div class="asset__name">Asset Name: Cosmos</div>
+          <div class="accuracy">Accuracy: 85%</div>
+        </div>
+        <img src="../img/cosmos.webp" alt="" class="asset__img">
+      </div>
+      <div class="forecast__inner">
+        <div class="right">
+          <div class="method__type">Method Type: Two Marks Forecast</div>
+          <div class="method__data">Method Data: Pessimistic Mark: 27000, Optimistic Mark: 29000</div>
+          <div class="creating__data">Creating Date: 15.05.2020</div>
+          <div class="target__data">Target Date: 19.05.2021</div>
+          <div class="real__price">Real price: 34.375</div>
+        </div>
+        <div class="left">
+          <div class="username">Username: Mishamba</div>
+          <div class="asset__name">Asset Name: Bitcoin</div>
+          <div class="accuracy">Accuracy: 80%</div>
+        </div>
+        <img src="../img/btc.webp" alt="" class="asset__img">
+      </div>
+      <div class="forecast__inner">
+        <div class="right">
+          <div class="method__type">Method Type: Two Marks Forecast</div>
+          <div class="method__data">Method Data: Pessimistic Mark: 3000, Optimistic Mark: 3500</div>
+          <div class="creating__data">Creating Date: 15.05.2022</div>
+          <div class="target__data">Target Date: 19.05.2022</div>
+          <div class="real__price">Real price: 3008</div>
+        </div>
+        <div class="left">
+          <div class="username">Username: Mishamba</div>
+          <div class="asset__name">Asset Name: Bitcoin</div>
+          <div class="accuracy">Accuracy: 94%</div>
+        </div>
+        <img src="../img/btc.webp" alt="" class="asset__img">
+      </div>
+      <div class="forecast__inner">
+        <div class="right">
+          <div class="method__type">Method Type: Two Marks Forecast</div>
+          <div class="method__data">Method Data: Pessimistic Mark: 120, Optimistic Mark: 150</div>
+          <div class="creating__data">Creating Date: 15.02.2022</div>
+          <div class="target__data">Target Date: 20.05.2022</div>
+          <div class="real__price">Real price: 307</div>
+        </div>
+        <div class="left">
+          <div class="username">Username: Mishamba</div>
+          <div class="asset__name">Asset Name: Dogecoin</div>
+          <div class="accuracy">Accuracy: 43%</div>
+        </div>
+        <img src="../img/dogecoin.webp" alt="" class="asset__img">
+      </div>
+      <div class="forecast__inner">
+        <div class="right">
+          <div class="method__type">Method Type: Two Marks Forecast</div>
+          <div class="method__data">Method Data: Pessimistic Mark: 27000, Optimistic Mark: 29000</div>
+          <div class="creating__data">Creating Date: 15.05.2022</div>
+          <div class="target__data">Target Date: 19.05.2022</div>
+          <div class="real__price">Real price: 28000</div>
+        </div>
+        <div class="left">
+          <div class="username">Username: Mishamba</div>
+          <div class="asset__name">Asset Name: Etherium</div>
+          <div class="accuracy">Accuracy: 79%</div>
+        </div>
+        <img src="../img/btc.webp" alt="" class="asset__img">
+      </div>
+      <div class="forecast__inner">
+        <div class="right">
+          <div class="method__type">Method Type: Two Marks Forecast</div>
+          <div class="method__data">Method Data: Pessimistic Mark: 10, Optimistic Mark: 15</div>
+          <div class="creating__data">Creating Date: 10.02.2022</div>
+          <div class="target__data">Target Date: 02.03.2022</div>
+          <div class="real__price">Real price: 9.96</div>
+        </div>
+        <div class="left">
+          <div class="username">Username: Mishamba</div>
+          <div class="asset__name">Asset Name: Cosmos</div>
+          <div class="accuracy">Accuracy: 83%</div>
+        </div>
+        <img src="../img/cosmos.webp" alt="" class="asset__img">
+      </div>
+      <div class="forecast__inner">
+        <div class="right">
+          <div class="method__type">Method Type: Two Marks Forecast</div>
+          <div class="method__data">Method Data: Pessimistic Mark: 27500, Optimistic Mark: 30000</div>
+          <div class="creating__data">Creating Date: 15.05.2022</div>
+          <div class="target__data">Target Date: 19.05.2022</div>
+          <div class="real__price">Real price: 17385</div>
+        </div>
+        <div class="left">
+          <div class="username">Username: Mishamba</div>
+          <div class="asset__name">Asset Name: Bitcoin</div>
+          <div class="accuracy">Accuracy: 61%</div>
+        </div>
+        <img src="../img/btc.webp" alt="" class="asset__img">
+      </div>
+    </div>

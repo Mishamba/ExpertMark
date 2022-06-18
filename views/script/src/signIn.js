@@ -7,6 +7,7 @@ $("#sign_in_button").click(function() {
     let credentials = {"username": username, "password": password}
 
     console.log(credentials)
+    /*
 
     $.ajax({
         url: "http://localhost:8085/authorize",
@@ -28,5 +29,14 @@ $("#sign_in_button").click(function() {
             document.cookie = "role=" + data['role']
             $(location).attr("href", "http://localhost:63342/ExpertMark/views/pages/profile.html?username=" + username)
         }
-    })
+    })*/
+    delay(438).then(() => {
+            document.cookie = "username=" + data['username']
+            document.cookie = "role=" + data['role']
+            $(location).attr("href", "http://localhost:63342/ExpertMark/views/pages/profile.html?username=" + username)
+        })
 })
+
+function delay(time) {
+    return new Promise(resolve => setTimeout(resolve, time));
+}

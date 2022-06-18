@@ -1,0 +1,58 @@
+        <div class="forecasts">
+            <div class="forecast__inner">
+                <div class="left">
+                    <div class="username">Username: Mishamba</div>
+                    <div class="accuracy">Accuracy: 85%</div>
+                    <div class="accuracy">Description: I'm professional expert</div>
+                </div>
+            </div>
+            <div class="forecast__inner">
+                <div class="left">
+                    <div class="username">Username: Danila</div>
+                    <div class="accuracy">Accuracy: 85%</div>
+                    <div class="accuracy">Description: I'm professional expert</div>
+                </div>
+            </div>
+            <div class="forecast__inner">
+                <div class="left">
+                    <div class="username">Username: Dziana</div>
+                    <div class="accuracy">Accuracy: 85%</div>
+                    <div class="accuracy">Description: I'm good expert</div>
+                </div>
+            </div>
+            <div class="forecast__inner">
+                <div class="left">
+                    <div class="username">Username: Zoran</div>
+                    <div class="accuracy">Accuracy: 85%</div>
+                    <div class="accuracy">Description: I'm good expert</div>
+                </div>
+            </div>
+            <div class="forecast__inner">
+                <div class="left">
+                    <div class="username">Username: Grisha</div>
+                    <div class="accuracy">Accuracy: 85%</div>
+                    <div class="accuracy">Description: I'm good expert</div>
+                </div>
+            </div>
+            <div class="forecast__inner">
+                <div class="left">
+                    <div class="username">Username: GreatestExpert</div>
+                    <div class="accuracy">Accuracy: 85%</div>
+                    <div class="accuracy">Description: I'm good expert</div>
+                </div>
+            </div>
+            <div class="forecast__inner">
+                <div class="left">
+                    <div class="username">Username: Mishamba</div>
+                    <div class="accuracy">Accuracy: 85%</div>
+                    <div class="accuracy">Description: I'm good expert</div>
+                </div>
+            </div>
+            <div class="forecast__inner">
+                <div class="left">
+                    <div class="username">Username: Mark</div>
+                    <div class="accuracy">Accuracy: 85%</div>
+                    <div class="accuracy">Description: I'm good expert</div>
+                </div>
+            </div>
+        </div>
