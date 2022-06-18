@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../stylesheet/findForecast.css">
+    <link rel="stylesheet" href="../stylesheet/recommendations.css">
     <title>ExpertMark</title>
 </head>
 <body>
@@ -43,7 +44,7 @@
 
 <div class="search">
     <label>
-        <input placeholder="Find forecast..." type="text">
+        <input id="input" placeholder="Find forecast..." type="text">
     </label>
     <label>
         <select id="search_by">
@@ -171,6 +172,37 @@
         </div>
     </div>
 </div>
+
+<script>
+    // findForecast.js
+
+    document.querySelector('#input').value = 'Bitcoin';
+
+    document.getElementById('search_button').addEventListener('click', () => {
+        document.querySelector('.box').innerHTML = `
+        <div class="expert">
+                   <!--  TODO   Между надо вставить все прогнозы эксперта Mishamba     -->
+   <div class="forecast__inner">
+            <div class="right">
+                <div class="method__type">Method Type: Two Marks Forecast</div>
+                <div class="method__data">Method Data: Pessimistic Mark: 12000, Optimistic Mark: 23000</div>
+                <div class="creating__data">Creating Date: 15.05.2022</div>
+                <div class="target__data">Target Date: 19.05.2022</div>
+            </div>
+            <div class="left">
+                <div class="username">Username: Mishamba</div>
+                <div class="asset__name">Asset Name: Algorand</div>
+                <img src="../img/algorand.webp" alt="" class="asset__img">
+                <div class="accuracy">Accuracy: 85%</div>
+            </div>
+        </div>
+                       <!--  TODO  Между надо вставить все прогнозы эксперта Mishamba     -->
+        </div>
+        `;
+        document.querySelector('#input').value = 'Mishamba';
+    });
+
+</script>
 
 </body>
 </html>

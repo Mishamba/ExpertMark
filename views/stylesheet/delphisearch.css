@@ -148,8 +148,6 @@ button {
 
 
 .forecast {
-    display: flex;
-    flex-wrap: wrap;
     margin: 140px 0;
 }
 
