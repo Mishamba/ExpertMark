@@ -4,9 +4,6 @@ $("#sign_in_button").click(function() {
     let username = $("#username").val();
     let password = $("#password").val();
 
-    let credentials = {"username": username, "password": password}
-
-    console.log(credentials)
     /*
 
     $.ajax({
@@ -32,7 +29,11 @@ $("#sign_in_button").click(function() {
     })*/
     delay(438).then(() => {
             document.cookie = "username=" + username
-            $(location).attr("href", "http://localhost:63342/ExpertMark/views/pages/profile.html?username=" + username)
+            if (username !== "admin") {
+                $(location).attr("href", "http://localhost:63342/ExpertMark/views/pages/profile.html?username=" + username)
+            } else {
+                $(location).attr("href", "http://localhost:63342/ExpertMark/views/pages/adminPage.html")
+            }
         })
 })
 

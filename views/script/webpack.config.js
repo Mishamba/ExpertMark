@@ -7,14 +7,14 @@ const path = require("path")
         filename: 'forecastRecommendations.js',
     },
 };*/
-/*module.exports = {
+module.exports = {
     entry: './src/signIn.js',
     output: {
         path: path.resolve(".", 'bundle'),
         filename: 'singIn/signInBundle.js',
     },
-};*/
-module.exports = {
+};
+/*module.exports = {
     entry: './src/profile.js',
     module: {
         rules: [
