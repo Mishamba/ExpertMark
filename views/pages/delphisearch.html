@@ -39,16 +39,17 @@
     </div>
 </div>
 
-<h2>Delphi Forecast Search</h2>
-
-<label class="search">
-    <input placeholder="Find Delphi Forecast..." type="text">
-</label>
-    <button>Search</button>
+<h2>Delphi Forecasts</h2>
 
 <!--Box-->
 <div class="box">
     <div class="forecast">
+    </div>
+</div>
+
+<script>
+delay(115).then(() =>
+document.querySelector(".forecast").innerHTML = `
         <div>
             <a href="delphi.html" class="link">
                 <div class="forecast__inner">
@@ -81,10 +82,12 @@
                 </div>
             </a>
         </div>
+        `)
 
-    </div>
-</div>
+function delay(time) {
+    return new Promise(resolve => setTimeout(resolve, time));
+}
 
-
+</script>
 </body>
 </html>

@@ -49,6 +49,12 @@
     <!--Box-->
     <div class="box">
         <div class="forecasts">
+        </div>
+    </div>
+    <script>
+        // findForecast.js
+        delay(2338).then(() =>
+            document.querySelector(".forecasts").innerHTML = `
             <div class="forecast__inner">
                 <div class="right">
                     <div class="method__type">Method Type: Two Marks Forecast</div>
@@ -161,8 +167,11 @@
                     <div class="accuracy">Accuracy: didn't met target date</div>
                 </div>
             </div>
-        </div>
-    </div>
+    `)
+        function delay(time) {
+            return new Promise(resolve => setTimeout(resolve, time));
+        }
 
+    </script>
 </body>
 </html>
