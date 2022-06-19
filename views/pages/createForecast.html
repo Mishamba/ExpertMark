@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <title>CreateForecast</title>
     <link rel="stylesheet" href="../stylesheet/createForecast.css">
-    <script src="../script/src/util/security.js"></script>
-    <script src="../script/src/createForecast.js"></script>
 </head>
 <body>
 <header class="header">
@@ -97,7 +95,93 @@
 </footer>
 
 <script>
-    document.querySelector('.create__forecast').addEventListener('click', () => {
+    const form = document.getElementById('forecast_method_data');
+    let method = 'TWO_MARKS_FORECAST';
+    const marksContainer = document.querySelector('.marks');
+
+    document.getElementById('method_type').addEventListener('change', (e) => {
+    method = e.target.value;
+    if(method == 'TWO_MARKS_FORECAST') {
+    form.innerHTML = `
+                            <div class="editor__header">
+                        Pessimistic mark
+                    </div>
+                    <label>
+                        <input id="input__pessimistic_mark" type="number">
+                    </label>
+                    <div class="editor__header">
+                        Optimistic mark
+                    </div>
+                    <label>
+                        <input id="input__optimistic_mark" type="number">
+                    </label>
+                    <br><br>
+    `
+    } else if(method == 'THREE_MARKS_FORECAST') {
+        form.innerHTML = `
+        <div class="editor__header">
+            Pessimistic mark
+        </div>
+        <label>
+            <input id="input__pessimistic_mark" type="number">
+        </label>
+        <div class="editor__header">
+            Optimistic mark
+        </div>
+        <label>
+            <input id="input__optimistic_mark" type="number">
+        </label>
+        <div class="editor__header">
+            Realistic mark
+        </div>
+       <label>
+            <input id="input__optimistic_mark" type="number">
+        </label>
+        <br><br>
+        `
+    } else {
+        form.innerHTML = `
+                        <div class="editor__header">
+                            Pessimistic mark
+                        </div>
+                        <label>
+                            <input id="input__pessimistic_mark" type="number">
+                        </label>
+                        <div class="editor__header">
+                            Pessimistic mark chance
+                        </div>
+                        <label>
+                            <input id="input__pessimistic_mark" type="number">
+                        </label>
+                        <div class="editor__header">
+                            Optimistic mark
+                        </div>
+                        <label>
+                            <input id="input__optimistic_mark" type="number">
+                        </label>
+                        <div class="editor__header">
+                            Optimistic mark chance
+                        </div>
+                        <label>
+                            <input id="input__optimistic_mark" type="number">
+                        </label>
+                           <div class="editor__header">
+                                Realistic mark
+                           </div>
+                           <label>
+                                <input id="input__optimistic_mark" type="number">
+                           </label>
+                          <div class="editor__header">
+                                Realistic mark chance
+                           </div>
+                           <label>
+                                <input id="input__optimistic_mark" type="number">
+                           </label>
+                        <br><br>
+        `
+    }
+    });
+        document.querySelector('.create__forecast').addEventListener('click', () => {
        localStorage.setItem('Is forecast created', true);
     });
 </script>
