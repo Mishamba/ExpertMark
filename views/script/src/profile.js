@@ -62,7 +62,7 @@ $(document).ready(function() {
             $(".profile__description").text("Hello. I'm crypto expert and know everything about it.")
             $("#followEditButton").text("Edit")
             $(".profile__followings").html(" Followings: <li>Billy</li><li>Van</li><li>Ban</li>")
-            $(".accuracy").html(" Accuracy: <span>65.2</span>")
+            $(".accuracy").html(" Accuracy: <span>76.35666</span>")
         }
     })
 

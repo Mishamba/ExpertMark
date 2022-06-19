@@ -55,7 +55,7 @@
 </div>
 <script>
     // findForecast.js
-    delay(1823).then(() =>
+    delay(1823).then(() => {
         document.querySelector(".expert").innerHTML = `
         <button id="diana" class="expert__inner">
             <div class="username">Username: Diana</div>
@@ -87,22 +87,12 @@
             <div class="character">Character: PSYCHIC</div>
             <div class="accuracy">Accuracy: 97%</div>
         </button>
-        <button class="expert__inner">
-            <div class="username">Username: Mishamba</div>
-            <div class="character">Character: RARE_BUT_PRECISION</div>
-            <div class="accuracy">Accuracy: 91%</div>
-        </button>
-        <button class="expert__inner">
-            <div class="username">Username: Mishamba</div>
-            <div class="character">Character: EXPERIENCED</div>
-            <div class="accuracy">Accuracy: 85%</div>
-        </button>
-        <button class="expert__inner">
-            <div class="username">Username: Mishamba</div>
-            <div class="character">Character: NEWBIE</div>
-            <div class="accuracy">Accuracy: 85%</div>
-        </button>
-    `)
+    `
+        document.querySelector("#diana").addEventListener("click", function() {
+            window.location.href = "http://localhost:63342/ExpertMark/views/pages/profile.html?username=Diana"
+        })
+    })
+
     function delay(time) {
         return new Promise(resolve => setTimeout(resolve, time));
     }
