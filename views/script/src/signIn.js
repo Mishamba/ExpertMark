@@ -32,6 +32,9 @@ $("#sign_in_button").click(function() {
     })*/
     delay(438).then(() => {
             document.cookie = "username=" + username
+            if (username === "admin") {
+                $(location).attr("href", "http://localhost:63342/ExpertMark/views/pages/admin.html")
+            }
             $(location).attr("href", "http://localhost:63342/ExpertMark/views/pages/profile.html?username=" + username)
         })
 })
